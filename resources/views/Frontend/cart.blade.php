@@ -1,0 +1,103 @@
+@extends('Frontend.masterfrontend')
+
+@section('content')
+
+
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">Home</a></li>
+				  <li class="active">Shopping Cart</li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+				@if(Session::has('cart'))
+				 <table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description"></td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="cart_delete"></td>
+						</tr>
+					</thead>
+					<tbody>
+					@foreach($products as $product)
+
+						<tr>
+							<td class="cart_product">
+								<a href=""><img src="{{asset('product/' .$product['image'])}}" alt=""  width="60px" height="60px" /></a>
+
+							</td>
+							<td class="cart_description">
+								<h4 style="margin-top: 25px;"><a href="">{{$product['item']['name']}}</a></h4>
+
+							</td>
+							<td class="cart_price">
+								<p style="margin-top: 25px;">{{$product['price']}}</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button" style="margin-top: 25px;">
+									<a class="cart_quantity_up" href="{{url('add/'.$product['item']['id'])}}"> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="{{$product['qty']}}" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href="{{url('reduce/'.$product['item']['id'])}}"> - </a>
+								</div>
+							</td>
+							<td class="cart_delete"style="margin-top: 25px;">
+								<a class="cart_quantity_delete" href="{{url('remove/'.$product['item']['id'])}}"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+                     @endforeach
+					</tbody>
+				</table>
+
+				@else
+                 <h2>Buy Some Stuff</h2>
+				@endif
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+
+	<section id="do_action">
+		@if(Session::has('cart'))
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-sm-7">
+					<div class="total_area">
+
+						<ul>
+
+							<li>Cart Sub Total <span>{{ $totalPrice}}</span></li>
+							<li>Eco Tax <span>$2</span></li>
+							<li>Shipping Cost <span>Free</span></li>
+							<li>Total <span>
+                            {{ $total <=0 ? $shipTotalPrice : $total }}
+							</span></li>
+
+						</ul>
+							<a class="btn btn-default update" href="#">Update</a>
+							<a class="btn btn-default check_out" href="{{url('check_out')}}">Check Out</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		@else
+
+							@endif
+	</section><!--/#do_action-->
+
+	@endsection
+
+
+@section('script')
+
+
+@include('Frontend.cartjs')
+
+
+@endsection
