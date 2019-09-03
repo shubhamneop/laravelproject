@@ -44,18 +44,20 @@
                     <li><a href="{{url('/admin/configurations')}}"><i class="fa fa-circle-o"></i> Manage Mail</a></li>
                         @endcan
                        @can('banner-list')
-                     <li><a href="{{url('/admin/banners')}}"><i class="fa fa-circle-o"></i>Manage Banner</a></li> 
-                        @endcan 
+                     <li><a href="{{url('/admin/banners')}}"><i class="fa fa-circle-o"></i>Manage Banner</a></li>
+                        @endcan
                        @can('category-list')
-                     <li><a href="{{url('/admin/categories')}}"><i class="fa fa-circle-o"></i>Manage Category</a></li> 
-                        @endcan  
+                     <li><a href="{{url('/admin/categories')}}"><i class="fa fa-circle-o"></i>Manage Category</a></li>
+                        @endcan
                         @can('product-list')
-                        <li><a href="{{url('/admin/product')}}"><i class="fa fa-circle-o"></i>Manage Product</a></li> 
+                        <li><a href="{{url('/admin/product')}}"><i class="fa fa-circle-o"></i>Manage Product</a></li>
                         @endcan
                         @can('coupon-list')
-                           <li><a href="{{url('/admin/coupons')}}"><i class="fa fa-circle-o"></i>Manage Coupons</a></li> 
+                           <li><a href="{{url('/admin/coupons')}}"><i class="fa fa-circle-o"></i>Manage Coupons</a></li>
                            @endcan
-                        
+                        @can('contact-list')
+                          <li><a href="{{url('/admin/contactus')}}"><i class="fa fa-circle-o"></i>Manage Message</a></li>
+                       @endcan
                 </ul>
             </li>
 

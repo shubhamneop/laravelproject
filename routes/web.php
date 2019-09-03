@@ -64,6 +64,8 @@ Route::resource('admin/product','productController');
 
 Route::resource('admin/coupons', 'Admin\\couponsController');
 
+Route::resource('admin/contactus', 'FrontEnd\\ContactusController');
+
 
 
 
@@ -83,8 +85,8 @@ Route::get('myform/ajax/{id}','productController@myformAjax');
          $category = DB::table('cats')
                           ->where('p_id',29)
                           ->get();
-              dd($category);             
-   
+              dd($category);
+
 
     });
 
@@ -97,5 +99,4 @@ Route::get('myform/ajax/{id}','productController@myformAjax');
 
     return Response::json($subcategory);
 
- });   
-  
+ });

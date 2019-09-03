@@ -71,13 +71,10 @@
    							<td>
                   @foreach($wish->product->image as $image)
                   @endforeach
-                   <a href=""><img src="{{asset('product/' .$image->image_path)}}" alt="" width="70px" height="70px" /></a>
+                   <a href="{{url('productdetails/'.$wish->product->id)}}"><img src="{{asset('product/' .$image->image_path)}}" alt="" width="70px" height="70px" /></a>
 
    							</td>
-   							<td>
 
-
-   							</td>
    							<td>
                   <p>  <a href="{{url('productdetails/'.$wish->product->id)}}">{{$wish->product->name}}</a>
                      {{$wish->product->description}} {{$wish->product->attribute->color}}</p>

@@ -66,11 +66,12 @@
                                   <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty: ''}}</span>
 								</a></li>
 								@else
-								<li class="dropdown"><a href="#"><i class="fa fa-user  dropdown-toggle" data-toggle="dropdown"></i> Account</a>
+								<li class="dropdown"><a href="{{url('profile')}}"><i class="fa fa-user  dropdown-toggle" data-toggle="dropdown"></i> Account</a>
 								  <ul role="menu" class="sub-menu" style="background:white;width: 108px; color:black;">
 									<li><a href="{{url('addresses')}}" style="color: black;"><i class="fa fa-star"></i>Address</a></li>
-									<li><a href="#" style="color: black;"><i class="fa fa-shopping-basket"></i>Order</a></li>
-
+									<li><a href="{{url('order')}}" style="color: black;"><i class="fa fa-shopping-basket"></i>Order</a></li>
+                  <li><a href="{{url('trackorder')}}" style="color: black;"><i class="fa fa-truck"></i>Track order</a></li>
+									  <li><a href="{{url('changepassword')}}" style="color: black;"><i class="fa fa-lock"></i>change Password</a></li>
 								</ul>
 							</li>
 

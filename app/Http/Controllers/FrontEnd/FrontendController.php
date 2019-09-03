@@ -10,6 +10,8 @@ use App\productcategory;
 use App\productimage;
 use App\cat;
 use App\User;
+use App\User_order;
+use App\Order_detail;
 use App\Used_coupon;
 use App\coupon;
 use DB;
@@ -100,7 +102,12 @@ class FrontendController extends Controller
         if(Auth::guest()) {
          return redirect('login')->with('message', 'Please Login !');
              }
-             $data = User::with('orderDetails')->get();
+            //  $data = User::with('orderDetails')->get();
+						// foreach ($data as $key => $value) {
+					  //  	foreach ($value->orderDetails as $key => $value) {
+					  //  		echo "$value->status";
+						// 	}
+						// }
         $orders = Auth::User()->orderDetails;
         $orders->transform(function($order,$key){
          $order->cart = unserialize($order->cart);
@@ -109,37 +116,42 @@ class FrontendController extends Controller
 
        return view('Frontend.order',compact('orders','data'));
     }
+     public function trackorder(Request $request){
+          $this->validate($request,[
+						'email'=>'required|email',
+						'orderid'=>'required|numeric',
+					]);
+					$email = $request->input('email');
+					$orderid = $request->input('orderid');
+					$user = User::whereemail($email)->first();
+	               $id = $user->id;
+         	$userdata = User_order::where('user_id',$id)->where('order_id',$orderid)->first();
+          if ($userdata==null) {
+           return view('Frontend.track',['data' => $userdata])->with('success','Please enter valid details');
+          }
+					$oid =$userdata->order_id;
 
+					$orders = Order_detail::whereid($oid)->first();
+             $order = unserialize($orders->cart);
+
+
+				  return view('Frontend.track',['data' => $orders,'order'=>$order]);
+		 }
 		public function test(){
-			$id = Auth::User()->id;
-	  $data =  Used_coupon::with('coupon')->where('user_id',$id)->get();
-        foreach ($data as $key => $value) {
-            $ids[] = $value->coupon_id;
+      // $orders = Auth::User()->orderDetails;
+		//	  $orders = User::with('orders')->get();
+		   $email = "shubham.ingole@neosofttech.com";
+	   	$user = User::whereemail($email)->first();
+              $id = $user->id;
+							$oid = 8;
+				$data = User_order::where('user_id',$id)->where('order_id',$oid)->first();
 
-            }
-			 	$users =   coupon::whereNotIn('id',$ids)
-			                    ->get();
-			foreach ($users as  $value) {
-					echo "$value->code";
-			}
+			     $oid =$data->order_id;
+           //$oid=2;
+					 $order = Order_detail::whereid($oid)->first();
+					// dd($order->status);
+				   return view('Frontend.track',['data' => $order]);
 
-				// $coupon = coupon::whereIn('id','!=',$ids)->get();
-				// echo "$coupon";echo "<br>";
-
-	  // $data = coupon::with('usedcoupon')->get();
-    // dd($data);
-		// foreach ($data as $value) {
-		//     dd($value);
-		// }
-		// 	 //
-		// 	 // foreach ($data as $p) {
-		// 		//      dd($p);
-   //     //        }
-		// 	 //  foreach($data as $value){
-		// 		// 	$coupon = coupon::where('id','!=',$value->coupon_id)->get();
-		// 		// 	dd($coupon);
-	 //
-		// 	 }
 
 
 		}

@@ -57,6 +57,11 @@ Route::get('address/{id}','AddressesController@getAddress');
 
 Route::get('profile','ProfileController@index');
 Route::post('profileupdate','ProfileController@update');
+Route::post('imageupload','ProfileController@updateimage');
+Route::get('changepassword',function(){
+  return view('Frontend.Profile.changepassword');
+});
+Route::post('changepassword','ProfileController@changePassword');
 
 Route::post('paypal', 'PaymentController@payWithpaypal');
 // route for check status of the payment
@@ -69,6 +74,19 @@ Route::get('status', 'PaymentController@getPaymentStatus');
  });
 
  Route::post('saveorder','CartController@saveorder');
+
+Route::get('trackorder',function(){$data = null;return view('Frontend.track',compact('data'));});
+Route::post('trackorder','FrontendController@trackorder');
+
+Route::post('contactus','ContactusController@store');
+
+
+Route::get('test','FrontendController@test');
+
+Route::get('success','CartController@update');
+
+
+
 Route::get('sample',function(){
       // $data = App\Order_detail::latest()->first();
      //  dd($data->id);
@@ -83,8 +101,3 @@ Route::get('sample',function(){
 
 
 });
-
-
-Route::get('test','FrontendController@test');
-
-Route::get('success','CartController@update');

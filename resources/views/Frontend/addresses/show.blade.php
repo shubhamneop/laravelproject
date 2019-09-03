@@ -2,11 +2,10 @@
 
 @section('content')
                 <div class="card">
-                    <div class="card-header">Address {{ $address->id }}</div>
-                    <div class="card-body">
+
 
                         <a href="{{ url('/addresses') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                       
+
                         <br/>
                         <br/>
 
@@ -29,8 +28,6 @@
                         </div>
 
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 @endsection
