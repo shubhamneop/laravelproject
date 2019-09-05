@@ -13,6 +13,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.5",
         "paypal/rest-api-sdk-php": "^1.14",
+        "spatie/laravel-newsletter": "^4.2",
         "spatie/laravel-permission": "^2.37"
     },
     "require-dev": {

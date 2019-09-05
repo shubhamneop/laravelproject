@@ -151,7 +151,7 @@ return [
         /*
          * Package Service Providers...
          */
- Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+           Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -162,7 +162,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-       
+
 
     ],
 

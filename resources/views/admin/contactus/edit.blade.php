@@ -3,7 +3,7 @@
 @section('content')
  <div class="content-wrapper">
      <section class="content-header">
-        <h2> Respond Message #{{ $contact->id }} </h3>
+        <h2> Respon Message #{{ $contact->id }} </h3>
      </section>
      <section class="content">
 

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\FrontEnd;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contactus;
+use App\configuration;
+use App\Mail\NotificationToAdmin;
+use Illuminate\Support\Facades\Mail;
 
 class ContactusController extends Controller
 {
@@ -16,7 +19,7 @@ class ContactusController extends Controller
     public function index(Request $request)
     {
       $keyword = $request->get('search');
-      $perPage = 5;
+      $perPage = 4;
 
                if (!empty($keyword)) {
           $contacts = Contactus::where('name', 'LIKE', "%$keyword%")
@@ -28,7 +31,7 @@ class ContactusController extends Controller
       }
 
 
-      return view('admin.contactus.index',compact('contacts'))->with('i', ($request->input('page', 1) - 1) * 5);;
+      return view('admin.contactus.index',compact('contacts'))->with('i', ($request->input('page', 1) - 1) * 4);;
     }
 
     /**
@@ -58,7 +61,9 @@ class ContactusController extends Controller
       ]);
        $input = $request->all();
       $contact = Contactus::create($input);
-         return $contact;
+      $mail = configuration::find(1);
+        Mail::to($mail->value)->send(new NotificationToAdmin($contact));
+         return redirect()->back();
     }
 
     /**

@@ -14,6 +14,8 @@ use App\User_order;
 use App\Order_detail;
 use App\Used_coupon;
 use App\coupon;
+use App\Mail\Welcome;
+use Illuminate\Support\Facades\Mail;
 use DB;
 use Auth;
 class FrontendController extends Controller
@@ -40,7 +42,7 @@ class FrontendController extends Controller
      ->select('products.id','products.name','products.description','productimages.image_path','cats.category_name','products.price','productattributesassocs.color','productattributesassocs.quantity')
 
 	->get();
-
+	
 
     	return view('Frontend.index',compact('products','category'));
     }

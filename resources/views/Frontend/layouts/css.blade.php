@@ -27,3 +27,4 @@
     <link href="bootstrap-social.css" rel="stylesheet" >
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="http://parsleyjs.org/dist/parsley.min.js" type="text/javascript"></script>
+<link href="https://parsleyjs.org/src/parsley.css" rel="stylesheet">

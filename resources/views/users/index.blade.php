@@ -17,7 +17,7 @@
          </div>
             @if($message = Session::get('success'))
                   <div class="alert alert-success">
-                  <button type="button" class="close" data-dismiss="alert">×</button>	
+                  <button type="button" class="close" data-dismiss="alert">×</button>
                       <p>{{$message}}</p>
                 </div>
              @endif
@@ -27,7 +27,7 @@
 
 
              <div class="row" style="float:right;">
-                     <div class="pull-right col-xs-12"> 
+                     <div class="pull-right col-xs-12">
                         <form method="GET" action="{{ url('users') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">

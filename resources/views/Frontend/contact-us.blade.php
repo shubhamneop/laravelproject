@@ -18,7 +18,7 @@
 				    	<form id="main-contact-form" action="{{url('contactus')}}" class="contact-form row" name="contact-form" method="post" data-parsley-validate>
 								{{csrf_field()}}
 				            <div class="form-group col-md-6">
-				                <input type="text" name="name" class="form-control" required="required" placeholder="Name" data-parsley-required data-parsley-pattern="/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i">
+				                <input type="text" name="name" class="form-control"  required="required"  placeholder="Name" data-parsley-pattern="/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i" data-parsley-trigger="change">
 												  <span style="color: red">{{ $errors->first('name') }}</span>
 				            </div>
 										<div class="form-group col-md-6">
@@ -83,11 +83,11 @@
 
 	@section('script')
 
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	$(function () {
 			$('#main-contact-form').parsley();
 	});
-	</script>
+	</script> -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>

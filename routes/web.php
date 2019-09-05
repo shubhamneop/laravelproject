@@ -81,6 +81,8 @@ Auth::routes();
 
 
 Route::get('myform/ajax/{id}','productController@myformAjax');
+
+
     Route::get('categories',function(){
          $category = DB::table('cats')
                           ->where('p_id',29)
@@ -100,3 +102,9 @@ Route::get('myform/ajax/{id}','productController@myformAjax');
     return Response::json($subcategory);
 
  });
+
+ Route::get('manageMailChimp', 'MailChimpController@manageMailChimp');
+
+Route::post('subscribe',['as'=>'subscribe','uses'=>'MailChimpController@subscribe']);
+
+Route::post('sendCompaign',['as'=>'sendCompaign','uses'=>'MailChimpController@sendCompaign']);

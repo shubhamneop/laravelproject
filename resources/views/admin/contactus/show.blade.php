@@ -30,7 +30,7 @@
                                     <th> E-Mail </th><td> {{ $contact->email }} </td></tr>
                                     <tr><th> Subject </th><td> {{ $contact->subject }} </td></tr>
                                     <tr><th>Message</th><td> {{$contact->message}}</td></tr>
-                                      <tr><th>Message</th><td> {{$contact->note}}</td></tr>  
+                                      <tr><th>Note</th><td> {{$contact->note}}</td></tr>  
                                 </tbody>
                             </table>
                         </div>

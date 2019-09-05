@@ -84,7 +84,7 @@ Route::post('contactus','ContactusController@store');
 Route::get('test','FrontendController@test');
 
 Route::get('success','CartController@update');
-
+Route::post('newsletter','NewsletterController@store');
 
 
 Route::get('sample',function(){
@@ -98,6 +98,9 @@ Route::get('sample',function(){
 
     dd($data);
 
+});
 
-
+Route::get('mail',function(){
+    $mail = App\configuration::find(1);
+    dd($mail->value);
 });

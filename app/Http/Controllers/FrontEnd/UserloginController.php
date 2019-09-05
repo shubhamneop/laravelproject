@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Spatie\Permission\Models\Role;
 use Laravel\Socialite\Facades\Socialite;
+use App\Mail\Welcome;
+use App\Mail\WelcomeAdmin;
+use Illuminate\Support\Facades\Mail;
+use App\configuration;
 use App\User;
 use DB;
 use Hash;
@@ -102,8 +106,15 @@ class UserloginController extends Controller
           $user = User::create($input);
           $user->assignRole('customer');
 
-
-       return view('Frontend.login');
+          if($user){
+              Auth::login($user);
+              Mail::to($user->email)->send(new Welcome($user));
+              $mail = configuration::find(1);
+                Mail::to($mail->value)->send(new WelcomeAdmin($user));
+                 return Redirect::to('/');
+           }else{
+          return view('Frontend.login');
+          }
 
 
 

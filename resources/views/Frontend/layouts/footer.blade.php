@@ -23,7 +23,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -38,7 +38,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -53,7 +53,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -78,7 +78,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
@@ -132,19 +132,35 @@
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
 						<div class="single-widget">
-							<h2>About Shopper</h2>
-							<form action="#" class="searchform">
-								<input type="text" placeholder="Your email address" />
+
+							@if($message = Session::get('success'))
+
+								<div class="alert alert-success">
+								<button type="button" class="close" data-dismiss="alert">×</button>
+											<p>{{$message}}</p>
+							 </div>
+						 @endif
+										@if($message = Session::get('error'))
+
+						          <div class="alert alert-danger">
+						          <button type="button" class="close" data-dismiss="alert">×</button>
+						                <p>{{$message}}</p>
+						         </div>
+						       @endif
+							<h2> Subscribe To Newsletter</h2>
+							<form class="searchform" action="{{url('newsletter')}}" method="post">
+                        {{ csrf_field() }}
+								<input type="text" name="email" placeholder="Your email address" />
 								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
 								<p>Get the most recent updates from <br />our site and be updated your self...</p>
 							</form>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
@@ -153,7 +169,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</footer><!--/Footer-->
 	<script src="{{asset('frontend/js/jquery.js')}}"></script>
 	<script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>

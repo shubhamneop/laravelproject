@@ -218,16 +218,20 @@ class CartController extends Controller
      $cart = new Cart($oldCart);
 
      $data =  Used_coupon::with('coupon')->where('user_id',$id)->get();
+
+
          foreach ($data as $key => $value) {
              $ids[] = $value->coupon_id;
 
              }
+
+
           // if ($ids== null) {
           //  $coupons = coupon::all();
           // }else {
           //     $coupons =   coupon::whereNotIn('id',$ids)->get();
           // }
-           $ids=[0];
+        // $ids=[0];
           $coupons =   coupon::whereNotIn('id',$ids)->get();
       // $coupons = coupon::all();
 

@@ -34,16 +34,16 @@ class productController extends Controller
 
 
            $keyword = $request->get('search');
-        $perPage = 5;
+        $perPage = 4;
 
         if (!empty($keyword)) {
             $products = product::where('name', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-         $products = product::orderBy('id')->paginate(5);
+         $products = product::orderBy('id')->paginate(4);
 
  	        }
-    	return view('admin.product.index',compact('products'))->with('i', ($request->input('page', 1) - 1) * 5);
+    	return view('admin.product.index',compact('products'))->with('i', ($request->input('page', 1) - 1) * 4);
 
    }
 
@@ -293,10 +293,10 @@ class productController extends Controller
 
       public function myformAjax($id)
     {
-        $cities = DB::table("cats")
+        $subcategory = DB::table("cats")
                     ->where("p_id",$id)
                     ->get();
-        return json_encode($cities);
+        return json_encode($subcategory);
     }
 
 
