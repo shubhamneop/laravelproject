@@ -10,19 +10,20 @@
              <div class="pull-right">
                <a href="{{ url('/admin/configurations') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
             </div>
-                     
 
-                        <form method="POST" action="{{ url('/admin/configurations/' . $configuration->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">
+
+                        <form id="configuration-form" method="POST" action="{{ url('/admin/configurations/' . $configuration->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data" data-parsley-validate>
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
                             <div class="row">
                             @include ('admin.configurations.form', ['formMode' => 'edit'])
-                            <div>
+                          </div>
                         </form>
 
-                    </div>
-                </div>
-            </div>
         </section>
     </div>
+@endsection
+@section('script')
+
+
 @endsection

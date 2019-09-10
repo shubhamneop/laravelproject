@@ -21,7 +21,7 @@ Route::get('Error',function(){return view('error.403');})->name('error.403');
 //Route::get('admin',function (){return view('login');})->name('adminlogin');
 Route::get('path',function (){return view('master');});
 // users routes
-Route::get('users','UserController@index')->name('users.index');
+Route::get('admin/users','UserController@index')->name('users.index');
 Route::post('users','UserController@store')->name('users.store');
 Route::get('users/create','UserController@create')->name('users.create')->middleware('permission:user-create');
 //Route::get('users/create2','UserController@create2')->name('users.new2')->middleware('permission:user-create');
@@ -64,9 +64,11 @@ Route::resource('admin/product','productController');
 
 Route::resource('admin/coupons', 'Admin\\couponsController');
 
+Route::resource('admin/order','Admin\\OrderController');
+
 Route::resource('admin/contactus', 'FrontEnd\\ContactusController');
 
-
+Route::resource('admin/pages','FrontEnd\\PageController');
 
 
 

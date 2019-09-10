@@ -17,13 +17,15 @@ class CreateOrderDetailsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->text('cart');
-            $table->text('address');
+            $table->integer('address_id')->unsigned();
+            $table->integer('total');
             $table->string('status');
             $table->String('payment_id');
-           
-           
+
+
             $table->timestamps();
              $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
         });
     }
 

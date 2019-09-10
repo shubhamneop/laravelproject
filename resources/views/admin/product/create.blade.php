@@ -7,21 +7,18 @@
      </section>
      <section class="content">
            <div class="pull-right" id="productData">
-          <a href="{{ url('/admin/product') }}" title="Back"><button class="btn btn-info btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+             <a href="{{ url('/admin/product') }}" title="Back"><button class="btn btn-info btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                    </div>
 
 
 
-                        <form method="POST" action="{{ url('/admin/product') }}" accept-charset="UTF-8"  enctype="multipart/form-data">
+                        <form id="product-form" method="POST" action="{{ url('/admin/product') }}" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ csrf_field() }}
-                              <div class="row">
+                              
                             @include ('admin.product.form', ['formMode' => 'create'])
-                               </div>
+
                         </form>
 
-                    </div>
-                </div>
-            </div>
         </section>
     </div>
 @endsection
@@ -30,6 +27,7 @@
 
 <script type="text/javascript">
    $(document).ready(function() {
+         $('#product-form').parsley();
         $('select[name="category"]').on('change', function() {
             var stateID = $(this).val();
             if(stateID) {

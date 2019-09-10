@@ -4,24 +4,24 @@
  <div class="content-wrapper">
      <section class="content-header">
         <h2> Edit product #{{ $product->id }} </h3>
-     </section> 
+     </section>
      <section class="content">
-               
+
                         <div class="pull-right">
-                   
+
                         <a href="{{ url('/admin/product') }}" class="btn btn-info btn-sm" title="Add New product">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                         </a>
                       </div>
 
-                      
 
-                        <form method="POST" action="{{ url('/admin/product/' . $product->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">
+
+                        <form id="product-form" method="POST" action="{{ url('/admin/product/' . $product->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
-                                <div class="row"> 
+
                             @include ('admin.product.form', ['formMode' => 'edit'])
-                                   </div>
+
                         </form>
 
                     </div>
@@ -34,6 +34,7 @@
 
 <script type="text/javascript">
    $(document).ready(function() {
+        $('#product-form').parsley();
         $('select[name="category"]').on('change', function() {
             var stateID = $(this).val();
             if(stateID) {
@@ -42,7 +43,7 @@
                     type: "GET",
                     dataType: "json",
                     success:function(data) {
-                     
+
                         $('select[name="subcategories"]').empty();
                         $.each(data, function(key, value) {
                             $('select[name="subcategories"]').append('<option value="'+ value.id +'">'+ value.category_name +'</option>');
@@ -55,7 +56,7 @@
                 $('select[name="subcategories"]').empty();
             }
         });
-     
+
      $(".btn-success").click(function(){
          var html = $(".clone").html();
          $(".increment").after(html);

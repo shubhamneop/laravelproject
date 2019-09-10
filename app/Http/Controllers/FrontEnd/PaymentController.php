@@ -5,6 +5,10 @@ namespace App\Http\Controllers\FrontEnd;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\Orderdetails;
+use App\configuration;
 use App\Sample;
 use App\Order_detail;
 use PayPal\Api\Amount;
@@ -13,6 +17,7 @@ use PayPal\Api\Item;
 use Auth;
 use App\Cart;
 use App\User_order;
+
 /** All Paypal Details class **/
 use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
@@ -60,6 +65,27 @@ class PaymentController extends Controller
           if(!Session::has('cart')){
              return view('Frontend.cart',['products'=>null]);
                  }
+
+                 $addressId = $request->input('address');
+
+                  if($addressId==null){
+                    $userid = Auth::User()->id;
+                   $data = new Address;
+
+                   $data->fullname = $request->input('fullname');
+                   $data->address1 = $request->input('address1');
+                   $data->address2 = $request->input('address2');
+                   $data->zipcode = $request->input('zipcode');
+                   $data->country = $request->input('country');
+                   $data->state = $request->input('state');
+                   $data->phoneno = $request->input('phoneno');
+                   $data->mobileno = $request->input('mobileno');
+                   $data->user_id = $userid;
+
+
+                  $data->save();
+                    $addressId = $data->id;
+                  }
             $oldCart = Session::get('cart');
             $cart = new Cart($oldCart);
 
@@ -68,7 +94,8 @@ class PaymentController extends Controller
        $order = new Order_detail();
        $order->user_id = $id;
        $order->cart = serialize($cart);
-       $order->address = serialize($request->all());
+       $order->address_id =  $addressId;
+        $order->total = $request->input('amount');
 
        $order->save();
 
@@ -169,6 +196,14 @@ class PaymentController extends Controller
                                );
 
                      $user->update($dataupdate);
+                     $order = Order_detail::find($OId->id);
+
+                        $orders = unserialize($order->cart);
+
+                      $email = Auth::User()->email;
+                    Mail::to($email)->send(new Orderdetails($orders,$order));
+                    $mail = configuration::find(1);
+                      Mail::to($mail->value)->send(new Orderdetails($orders,$order));
                Session::forget('cart');
             return Redirect::to('payonfo');
         }

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-    <div class="content-wrapper" style="min-height: 926px">
+    <div class="content-wrapper" >
         <section class="content-header">
 
                 <h2>User Management</h2>

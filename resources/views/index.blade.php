@@ -1,10 +1,80 @@
 @extends('master')
 
 @section('content')
+<div class="content-wrapper" style="min-height: 926px">
+
+     <section class="content-header">
+          <h1>
+            Dashboard
+
+          </h1>
+
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>{{$ordercount}}</h3>
+
+                  <p>Order Placed</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+
+              </div>
+            </div>
+            <!-- ./col -->
+
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>{{$usercount}}</h3>
+
+                  <p>User Registrations</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-light-blue-active">
+                <div class="inner">
+                  <h3>{{$msgcount}}</h3>
+
+                  <p>Message</p>
+                </div>
+                <div class="icon">
+                  <i class="ion-ios-chatbubble-outline"style="color: cyan;"></i>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ./col -->
+          </div>
 
 
 
 
 
 
-    @endsection
+
+
+
+
+
+  </section>
+</div>
+
+@endsection

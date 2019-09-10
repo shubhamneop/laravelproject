@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
+use App\Order_detail;
+use App\Contactus;
 
 use Illuminate\Http\Request;
 
@@ -23,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+         $usercount = User::count();
+         $ordercount = Order_detail::count();
+         $msgcount = Contactus::count();
+        return view('index',compact('usercount','ordercount','msgcount'));
     }
 }

@@ -26,11 +26,11 @@ class UserController extends Controller
 
     public function index(Request $request){
 
-        
+
         $keyword = $request->get('search');
         $perPage = 5;
         // $coupons = coupon::orderBy('id')->paginate(10);
-                 if (!empty($keyword)) { 
+                 if (!empty($keyword)) {
             $data = User::where('name', 'LIKE', "%$keyword%")
                 ->orWhere('email', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
@@ -49,7 +49,7 @@ class UserController extends Controller
         $roles = Role::pluck('name', 'name')->all();
      return view('users.new2',compact('roles'));
  }
-     
+
    public function store(Request $request){
 
 
@@ -103,6 +103,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'lastname'=>'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'

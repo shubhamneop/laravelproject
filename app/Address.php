@@ -31,5 +31,9 @@ class Address extends Model
     {
         return $this->belongsTo('App\User');
     }
-    
+
+    public function orderaddress(){
+      return $this->belongsTo('App\Order_detail');
+    }
+
 }

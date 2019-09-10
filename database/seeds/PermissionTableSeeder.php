@@ -13,45 +13,50 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
 
-            'role-list',
-            'role-create',
-            'role-edit',
-            'role-delete',
+          'role-list',
+          'role-create',
+          'role-edit',
+          'role-delete',
 
-            'product-list',
-            'product-create',
-            'product-edit',
-            'product-delete',
+          'product-list',
+          'product-create',
+          'product-edit',
+          'product-delete',
 
-            'user-list',
-            'user-create',
-            'user-edit',
-            'user-delete',
+          'user-list',
+          'user-create',
+          'user-edit',
+          'user-delete',
 
-             'config-list',
-             'config-create',
-             'config-edit',
-             'config-delete',
+           'config-list',
+           'config-create',
+           'config-edit',
+           'config-delete',
 
-             'banner-list',
-             'banner-create',
-             'banner-edit',
-             'banner-delete'
+           'banner-list',
+           'banner-create',
+           'banner-edit',
+           'banner-delete'
 
-             'category-list',
-             'category-create',
-             'category-edit',
-             'category-delete',
+           'category-list',
+           'category-create',
+           'category-edit',
+           'category-delete',
 
-             'coupon-list',
-             'coupon-create',
-             'coupon-edit',
-             'coupon-delete',
+           'coupon-list',
+           'coupon-create',
+           'coupon-edit',
+           'coupon-delete',
 
-             'contact-list',
-             'contact-create',
-             'contact-edit',
-             'contact-delete'
+           'contact-list',
+           'contact-create',
+           'contact-edit',
+           'contact-delete',
+           
+             'order-list',
+             'order-create',
+             'order-edit',
+             'order-delete'
 
         ];
 

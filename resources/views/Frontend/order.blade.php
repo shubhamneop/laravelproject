@@ -29,6 +29,7 @@
            	<strong>Total Price: {{$order->cart->shipTotalPrice}}</strong>
 						 <strong style="float:right;">Status: {{$order->status}}</strong>
            </div>
+
         </div>
 
 		@endforeach

@@ -32,10 +32,10 @@ class Cart
 
 
            $storedItem['qty']++;
-           $storedItem['price']= $item->price * $storedItem['qty'];
+           $storedItem['price']= $item->price;
     	   $this->items[$id] = $storedItem;
     	   $this->totalQty++;
-    	   $this->totalPrice += $item->price;
+    	   $this->totalPrice += $item->price * $storedItem['qty'];
            if($this->totalPrice<500){
             $this->shipTotalPrice = $this->totalPrice+50;
            }else{

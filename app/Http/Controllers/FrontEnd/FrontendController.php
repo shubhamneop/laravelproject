@@ -14,6 +14,7 @@ use App\User_order;
 use App\Order_detail;
 use App\Used_coupon;
 use App\coupon;
+use App\Address;
 use App\Mail\Welcome;
 use Illuminate\Support\Facades\Mail;
 use DB;
@@ -42,7 +43,7 @@ class FrontendController extends Controller
      ->select('products.id','products.name','products.description','productimages.image_path','cats.category_name','products.price','productattributesassocs.color','productattributesassocs.quantity')
 
 	->get();
-	
+
 
     	return view('Frontend.index',compact('products','category'));
     }
@@ -115,6 +116,9 @@ class FrontendController extends Controller
          $order->cart = unserialize($order->cart);
          return $order;
         });
+
+				  
+
 
        return view('Frontend.order',compact('orders','data'));
     }

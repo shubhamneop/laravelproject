@@ -4,22 +4,22 @@
  <div class="content-wrapper">
        <section class="content-header">
           <h2> Banner {{$banner->id}}</h2>
-        </section>  
+        </section>
     <section class="content">
-           <div class="row">       
-               <div class="col-xs-12 margin-tb">   
-                  <div class="pull-right">       
+           <div class="row">
+               <div class="col-xs-12 margin-tb">
+                  <div class="pull-right">
                         <a href="{{ url('/admin/banners') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                       <!--    <a href="{{ url('/admin/banners/' . $banner->id . '/edit') }}" title="Edit banner"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-  
+
                         <form method="POST" action="{{ url('admin/banners' . '/' . $banner->id) }}" accept-charset="UTF-8" style="display:inline">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
-                   
+
                      <button type="submit" class="btn btn-danger btn-sm" title="Delete banner" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-                              </form> --> 
+                              </form> -->
                     </div>
-                 </div>   
+                 </div>
             </div>
 
                         <div class="table-responsive">
@@ -37,10 +37,8 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                </div>
 
-                    </div>
-            </div>
         </section>
     </div>
 @endsection

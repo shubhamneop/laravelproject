@@ -4,14 +4,14 @@
     <div class="content-wrapper "style="min-height: 100%">
         <section class="content-header">
             <h2>Role Management</h2>
-        
+
         </section>
 
         <section class="content">
 
         <div class="row">
             <div class="col-lg-12 margin-tb">
-       
+
               <div class="pull-right">
                <a class="btn btn-primary" href="{{ route('roles.index') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
                  </div>
@@ -30,12 +30,22 @@
             @endif
 
 
-            {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
+            {!! Form::open(array('route' => 'roles.store','method'=>'POST','id'=>'role-form')) !!}
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Name:</strong>
-                        {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                        {!! Form::text('name', null, [
+
+	                'class'     => 'form-control',
+	              'required'    => 'required',
+	              'placeholder'     => 'Role Name',
+	              'data-parsley-required-message' => 'Role name is required',
+	              'data-parsley-trigger'          => 'change focusout',
+	              'data-parsley-pattern'          => '/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i',
+	              'data-parsley-minlength'        => '2',
+	              'data-parsley-maxlength'        => '32',
+	              ]) !!}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -43,7 +53,7 @@
                         <strong>Permission:</strong>
                         <br/>
                         @foreach($permission as $value)
-                            <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
+                            <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name', 'data-parsley-multiple','required'=>'required')) }}
                                 {{ $value->name }}</label>
                             <br/>
                         @endforeach
@@ -63,4 +73,11 @@
 
 
 </div>
+@endsection
+@section('script')
+<script>
+$(document).ready(function(){
+  $('#role-form').parsley();
+});
+</script>
 @endsection

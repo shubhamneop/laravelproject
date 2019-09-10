@@ -100,7 +100,7 @@ class productController extends Controller
                  foreach ($request->image_path as $photo) {
 
 
-                      $profileImageSaveAsName = time() . "-product." .
+                      $profileImageSaveAsName = uniqid() . "-product." .
                            $photo->getClientOriginalExtension();
 
                       $upload_path = 'product/';

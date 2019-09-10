@@ -1,7 +1,7 @@
 @extends('Frontend.masterfrontend')
 
 @section('content')
-<form action="{{url('paypal')}}" name="checkout" id="checkout"  method="post">
+<form action="{{url('paypal')}}" name="checkout" id="checkout"  method="post" data-parsley-validate>
 
  <section id="cart_items">
 	<div class="container form-one" >
@@ -61,14 +61,14 @@
 							<div class="form-one" id="addressData">
 
 									       {{ csrf_field() }}
-									<input type="text" name="fullname" placeholder="Full Name *" required style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
+									<input type="text" name="fullname" placeholder="Full Name *" required data-parsley-pattern="/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i" data-parsley-trigger="change" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
 									<span style="color: red">{{ $errors->first('fullname') }}</span>
 
 									<input type="text" name="address1" placeholder="Address 1 *" required style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
 									<span style="color: red">{{ $errors->first('address1') }}</span>
 
 									<input type="text"name="address2" placeholder="Address 2"  style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-                	<input type="text" name="zipcode" placeholder="Zip / Postal Code *"style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
+                	<input type="text" name="zipcode" placeholder="Zip / Postal Code *" required required data-parsley-type="number" data-parsley-pattern="/^\d{6}$/" data-parsley-trigger="change"style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
 									<span style="color: red">{{ $errors->first('zipcode') }}</span>
 
 									<input type="text" name="country" placeholder=" Country*" required style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
@@ -79,7 +79,7 @@
 
 
 									<input type="text" name="phoneno" placeholder="Phone *"  style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<input type="text" name="mobileno" placeholder="Mobile Phone"  style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
+									<input type="text" name="mobileno" placeholder="Mobile Phone" required data-parsley-type="number" data-parsley-pattern="/^\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$/" data-parsley-trigger="change" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
 									<span style="color: red">{{ $errors->first('mobileno') }}</span>
 
 
@@ -160,7 +160,7 @@
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost</td>
-										<td>@if($totalPrice>500)
+										<td>@if($totalPrice<=500)
                                 50
                           @else
                           Free

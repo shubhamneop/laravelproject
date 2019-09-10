@@ -9,18 +9,18 @@
     <section class="content">
     <div class="row">
             <div class="col-xs-12 margin-tb">
-       
+
               <div class="pull-left">
                  <a href="{{ url('/admin/banners/create') }}" class="btn btn-primary btn-sm" title="Add New configuration">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                        </a>     
+                        </a>
                 </div>
              </div>
      </div>
      @if($message = Session::get('success'))
 
          <div class="alert alert-success">
-         <button type="button" class="close" data-dismiss="alert">×</button>	
+         <button type="button" class="close" data-dismiss="alert">×</button>
                <p>{{$message}}</p>
         </div>
      @endif
@@ -37,7 +37,7 @@
                             </div>
                           </form>
                      </div>
-                </div>     
+                </div>
                         <br/>
                         <br/>
                         <div class="table-responsive">
@@ -69,9 +69,6 @@
                             <div class="pagination-wrapper"> {!! $banners->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
-                    </div>
-                </div>
-            </div>
         </section>
     </div>
 @endsection

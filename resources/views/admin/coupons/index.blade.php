@@ -74,9 +74,9 @@
                             <div class="pagination-wrapper"> {!! $coupons->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
+
+        </section>
     </div>
 @endsection

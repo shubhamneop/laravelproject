@@ -86,6 +86,7 @@ Route::get('test','FrontendController@test');
 Route::get('success','CartController@update');
 Route::post('newsletter','NewsletterController@store');
 
+Route::get('/{page}', 'PageController@showpage');
 
 Route::get('sample',function(){
       // $data = App\Order_detail::latest()->first();

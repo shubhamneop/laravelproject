@@ -4,6 +4,8 @@ namespace App\Http\Controllers\FrontEnd;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\Orderdetails;
+use Illuminate\Support\Facades\Mail;
 use App\Cart;
 use App\product;
 use App\coupon;
@@ -13,6 +15,7 @@ use App\User_order;
 use App\User;
 use App\Sample;
 use App\Used_coupon;
+use App\configuration;
 use Redirect;
 use DB;
 use Auth;
@@ -79,7 +82,7 @@ class CartController extends Controller
                        }
 
                $shipTotalPrice = 0;
-                if($newTotal>500){
+                if($newTotal<=500){
                  $shipTotalPrice = $newTotal;
 
                  }
@@ -231,7 +234,7 @@ class CartController extends Controller
           // }else {
           //     $coupons =   coupon::whereNotIn('id',$ids)->get();
           // }
-        // $ids=[0];
+       // $ids=[0];
           $coupons =   coupon::whereNotIn('id',$ids)->get();
       // $coupons = coupon::all();
 
@@ -273,13 +276,34 @@ class CartController extends Controller
          $shipTotalPrice = $totalPrice+50;
 
        }
+      $addressId = $request->input('address');
+
+       if($addressId==null){
+         $userid = Auth::User()->id;
+        $data = new Address;
+
+        $data->fullname = $request->input('fullname');
+        $data->address1 = $request->input('address1');
+        $data->address2 = $request->input('address2');
+        $data->zipcode = $request->input('zipcode');
+        $data->country = $request->input('country');
+        $data->state = $request->input('state');
+        $data->phoneno = $request->input('phoneno');
+        $data->mobileno = $request->input('mobileno');
+        $data->user_id = $userid;
+
+
+       $data->save();
+         $addressId = $data->id;
+       }
+
        $status ='Processing';
      $id = Auth::User()->id;
        $order = new Order_detail();
        $order->user_id = $id;
        $order->cart = serialize($cart);
-       $order->address = serialize($request->all());
-
+       $order->address_id =  $addressId;
+        $order->total = $request->input('amount');
        $order->status = $status;
 
 
@@ -292,7 +316,14 @@ class CartController extends Controller
 
        $save->save();
 
+       $order = Order_detail::find($order->id);
 
+          $orders = unserialize($order->cart);
+
+        $email = Auth::User()->email;
+      Mail::to($email)->send(new Orderdetails($orders,$order));
+      $mail = configuration::find(1);
+        Mail::to($mail->value)->send(new Orderdetails($orders,$order));
       Session::put('success', 'Order Placed Successfully');
        Session::forget('cart');
       return redirect('payonfo');
