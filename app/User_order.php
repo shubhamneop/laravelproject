@@ -16,5 +16,5 @@ class User_order extends Model
     	return $this->belongsTo('App\Order_detail','id');
     }
 
-    
+
 }

@@ -3,15 +3,13 @@
 @section('content')
  <div class="content-wrapper">
      <section class="content-header">
-        <center><h2>Change status  #{{ $order->id }}</h2></center>
-        <h2><a href="{{ url('/admin/order') }}" class="btn btn-primary" > <i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a></h3>
+      <h2>Change status</h2>
 
-
-
-
+        <div class="pull-right">
+            <a href="{{ url('/admin/order') }}" title="Back"><button class="btn btn-info btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+             </div>
      </section>
      <section class="content">
-
 
 
 
@@ -19,47 +17,35 @@
                              {{method_field('PATCH')}}
                             {{ csrf_field() }}
                                <div class="row">
-                                 @foreach($orders->items as $item)
-                                 <div class="col-xs-4 col-sm-4 col-md-4 form-group">
-                                 <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
-                                     <label for="title" class="control-label">{{ 'Name' }}</label>
-                                     <label class="form-control"  id="name" >{{$item['item']['name']}}</label>
 
-                                 </div>
-                                 </div>
-                                 <div class="col-xs-4 col-sm-4 col-md-4 form-group">
-                                 <div class="form-group {{ $errors->has('code') ? 'has-error' : ''}}">
-                                     <label for="code" class="control-label">{{ 'Quantity' }}</label>
-                                     <label class="form-control" id="qty" >{{$item['qty']}}</label>
+                                 <div class="table-responsive">
+                                     <table class="table">
+                                         <thead>
+                                             <tr>
+                                                <th>#</th><th>Product</th><th>Quantity</th><th>Price</th>
+                                             </tr>
+                                         </thead>
+                                             @foreach($orders->items as $item)
+                                             <tr>
+                                                 <td><img src="{{asset('product/' .$item['image'])}}" alt="" width="60px" height="60px" /></td>
+                                                 <td> {{$item['item']['name']}}</td>
+                                                 <td> {{$item['qty']}}</td>
+                                                 <td>{{$item['price']}}</td>
+                                             </tr>
+                                            @endforeach
 
-                                 </div>
-                                 </div>
-                                 <div class="col-xs-4 col-sm-4 col-md-4 form-group">
-                                 <div class="form-group {{ $errors->has('code') ? 'has-error' : ''}}">
-                                     <label for="code" class="control-label">{{ 'Price' }}</label>
-                                     <label class="form-control"   id="price" >{{$item['price']}}</label>
+                                        </table>
 
-                                 </div>
-                                 </div>
-
-                                 @endforeach
                                  <div class="col-xs-12 col-sm-12 col-md-12 form-group">
                                  <div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
                                      <label for="type" class="control-label">{{ 'Status' }}</label>
                                      <select class="form-control" name="status" data-parsley-required>
-
-
-
-                                  <option value="{{$order->status}}"selected>
-                                    {{$order->status}}
-                                  </option>
-                                     <option value="dispatched">dispatched</option>
-                                       <option value="shipped">shipped</option>
-                                      <option value="delivered">delivered</option>
-                                      <option value="cancelled">cancelled</option>
+                                        @foreach($enumoption as $option)
+                                          <option value="{{$option}}"@if($order->status==$option) selected="selected" @endif >{{$option}}</option>
+                                        @endforeach
                                      </select>
 
-                                     {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
+                                     {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
                                  </div>
                                  <input type="submit" class="btn btn-primary" value="Submit">
                                  </div>

@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function wishlist(){
        return $this->hasMany('App\wishlist');
     }
+    public function usercoupon(){
+      return $this->hasMany('App\Used_coupon','user_id');
+    }
+
 }

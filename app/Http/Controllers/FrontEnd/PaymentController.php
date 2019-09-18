@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
-
 use App\Mail\Orderdetails;
 use App\configuration;
 use App\Sample;
 use App\Order_detail;
+use App\Address;
+use App\Used_coupon;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
@@ -86,27 +87,38 @@ class PaymentController extends Controller
                   $data->save();
                     $addressId = $data->id;
                   }
-            $oldCart = Session::get('cart');
-            $cart = new Cart($oldCart);
+                   $oldCart = Session::get('cart');
+                   $cart = new Cart($oldCart);
+                   $totalPrice = $cart->totalPrice;
+                   $newTotal = $cart->shipTotalPrice;
 
-
-         $id = Auth::User()->id;
+       $coupon = Used_coupon::with('coupon','user')->orderBy('id','DESC')->first();
+       $latestOrder = Order_detail::orderBy('created_at','DESC')->first();
+       $id = Auth::User()->id;
        $order = new Order_detail();
        $order->user_id = $id;
+       if($latestOrder==null){
+         $order->order_no = 'OD'.'1'.'_'.time();
+       }else{
+          $order->order_no = 'OD'.($latestOrder->id + 1).'_'.time() ;
+       }
        $order->cart = serialize($cart);
        $order->address_id =  $addressId;
-        $order->total = $request->input('amount');
+       $order->total = $request->input('amount');
+       $order->payment_mode = $request->input('PaymentMode');
+       if($totalPrice>$newTotal){
+          $order->coupon_id= $coupon->id;
+        }
 
        $order->save();
 
-       $save = new User_order();
+       $userorder = new User_order();
 
-       $save->user_id = $id;
-       $save->order_id = $order->id;
+       $userorder->user_id = $id;
+       $userorder->order_id = $order->id;
+       $userorder->order_nos = $order->order_no;
 
-       $save->save();
-
-
+       $userorder->save();
 
 
 

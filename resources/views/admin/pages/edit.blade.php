@@ -17,7 +17,7 @@
            </div>
      </div>
       <div class="row">
-        <form id='page-form' method="POST" action="{{url('/admin/pages')}}" accept-charset="UTF-8" enctype="multipart/form-data">
+        <form id='page-form' method="POST" action="{{url('/admin/pages/' . $page->id)}}" accept-charset="UTF-8" enctype="multipart/form-data">
            {{method_field('PATCH')}}
           {{csrf_field()}}
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
@@ -62,7 +62,7 @@
                 <div class="box-body pad">
 
                         <textarea id="content" name="content" rows="10" cols="80" >
-
+                                   {{$page->content}}
                         </textarea>
 
                 </div>
@@ -89,16 +89,16 @@
 @endsection
 @section('script')
 
-<script src="../../bower_components/ckeditor/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
+
 <script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
 <script>
 $(function () {
-  // Replace the <textarea id="editor1"> with a CKEditor
-  // instance, using default configuration.
-  CKEDITOR.replace('content')
-  //bootstrap WYSIHTML5 - text editor
-  $('.textarea').wysihtml5()
-})
+
+  CKEDITOR.replace('content');
+
+});
 </script>
 @endsection

@@ -22,7 +22,7 @@
 				<ul class="nav">
 					@foreach($addresses as $address)
 					<li>
-					<input type="radio" value="{{$address->id}}" name="address" id="address{{$address->id}}"><label style="background: #F0F0E9;">Name: {{$address->fullname}},Address: {{$address->address1}},{{$address->address2}},zipcode: {{$address->zipcode}},PhoneNo: {{$address->phoneno}},MobieNo: {{$address->mobileno}}</label>
+				<label style="background: #F0F0E9;">	<input type="radio" value="{{$address->id}}" name="address" id="address{{$address->id}}">Name: {{$address->fullname}},Address: {{$address->address1}},{{$address->address2}},zipcode: {{$address->zipcode}},PhoneNo: {{$address->phoneno}},MobieNo: {{$address->mobileno}}</label>
 					</li> <br><br>
 					@endforeach
 				</ul>
@@ -116,11 +116,12 @@
 						</tr>
 					</thead>
 					<tbody>
+
 					@foreach($products as $product)
 
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="{{asset('product/' .$product['image'])}}" alt="" width="60px" height="60px" /></a>
+								<a href=""><img src="{{asset('product/' .$product['image'])}}" alt="" width="60px" height="60px"></a>
 
 							</td>
 							<td class="cart_description">
@@ -128,7 +129,7 @@
 
 							</td>
 							<td class="cart_price">
-								<p style="margin-top: 25px;">{{$product['price']}}</p>
+								<p style="margin-top: 25px;"><i class="fa fa-inr"></i> {{$product['price']}}</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button" style="margin-top: 25px;">
@@ -152,16 +153,17 @@
 								<table class="table table-condensed total-result">
 									<tr>
 										<td>Cart Sub Total</td>
-										<td>{{ $totalPrice}}</td>
+										<td><i class="fa fa-inr"></i> {{ $totalPrice}}  </td>
+
 									</tr>
 									<tr>
 										<td>Exo Tax</td>
-										<td>$2</td>
+										<td><i class="fa fa-inr"></i> 0</td>
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost</td>
 										<td>@if($totalPrice<=500)
-                                50
+                  <i class="fa fa-inr"></i>  50
                           @else
                           Free
                         @endif
@@ -172,7 +174,7 @@
 										<td>
 
 
-											{{$shipTotalPrice}}
+										<i class="fa fa-inr"></i>	{{$shipTotalPrice}}
 											    </td>
 
 									</tr>
@@ -195,7 +197,7 @@
 					<div class="col-md-3" style="float: left;">
 					   <form action="{{url('coupon')}}" method="post">
                         {{ csrf_field() }}
-                        <input type="text" id="text" name="coupon"  placeholder="Coupon Code *" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
+                        <input type="text" id="text" name="coupon"  placeholder="Applycode..." value="{{request('coupon')}}" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
                             @if($message = Session::get('message'))
 
                                <div class="alert alert-danger">
@@ -224,8 +226,8 @@
 				</div>
 				<div class="col-sm-4">
 					<H3>Payment Option</H3>
-					<label><input type="radio" name="Payment" id="cod" value="COD">COD</label>
-                    <label><input type="radio" name="Payment" id="Paypal" value="Paypal"> Paypal</label>
+					<label><input type="radio" name="PaymentMode" id="cod" value="COD">COD</label>
+          <label><input type="radio" name="PaymentMode" id="Paypal" value="Paypal"> Paypal</label>
 				</div>
 		    </div>
 
@@ -245,13 +247,6 @@
 
    </div>
   </section>
-
-
-
-
-
-
-
 
 
 

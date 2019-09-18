@@ -10,22 +10,22 @@ use DB;
 
 class RoleController extends Controller
 {
-    // function ___construct()
-    // {
-    //     $this->middleware('permission:role-list');
-    //     $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
-    //     $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
-    //     $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    function ___construct()
+    {
+        $this->middleware('permission:role-list');
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
 
-    // }
+    }
 
      public function index(Request $request){
         $keyword = $request->get('search');
         $perPage = 5;
         // $coupons = coupon::orderBy('id')->paginate(10);
-                 if (!empty($keyword)) { 
+                 if (!empty($keyword)) {
             $roles = Role::where('name', 'LIKE', "%$keyword%")
-                
+
                 ->latest()->paginate($perPage);
         } else {
             $roles = Role::latest()->paginate($perPage);
@@ -98,7 +98,7 @@ class RoleController extends Controller
          ->with('success','Role Deleted Successfully');
 
      }
-      
+
 
 
 }

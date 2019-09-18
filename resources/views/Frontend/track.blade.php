@@ -36,7 +36,7 @@
                           <label for="orderid" class="col-md-2 control-label">Order Id </label>
                           <div class="col-md-3">
 
-                              <input id="orderid" type="number" class="form-control" name="orderid" value="{{ old('orderid') }}" required autofocus>
+                              <input id="orderid" type="text" class="form-control" name="orderid" value="{{ old('orderid') }}" required autofocus>
 
                               @if ($errors->has('orderid'))
                                   <span class="help-block">
@@ -77,19 +77,16 @@
                @include('Frontend.steps.processed')
 
 
-               @elseif($data->status=="dispatched")
-                @include('Frontend.steps.dispatched')
+               @elseif($data->status=="Dispatched")
+               @include('Frontend.steps.dispatched')
 
-
-
-
-                 @elseif($data->status=="shipped")
+                @elseif($data->status=="Shipped")
                 @include('Frontend.steps.shipped')
 
-                @elseif($data->status=="delivered")
+                @elseif($data->status=="Delivered")
                 @include('Frontend.steps.delivered')
 
-                @elseif($data->status=="cancelled")
+                @elseif($data->status=="Cancelled")
 
               <h1 align="center">your order cancelled by admin</h1>
 

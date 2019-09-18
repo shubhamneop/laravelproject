@@ -9,6 +9,7 @@ use Redirect;
 use App\Mail\Orderstatus;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use App\General;
 
 class OrderController extends Controller
 {
@@ -20,25 +21,29 @@ class OrderController extends Controller
     public function index(Request $request)
     {
 
-      $keyword = $request->get('search');
-   $perPage = 5;
+           $keyword = $request->get('search');
+           $email = $request->get('email');
+           $perPage = 5;
 
-   if (!empty($keyword)) {
-      $orders = Order_detail::where('status', 'LIKE', "%$keyword%")
-           ->latest()->paginate($perPage);
+     if (!empty($keyword)) {
+           $orders = Order_detail::whereHas('user', function ($query) use($keyword) {
+                                    $query->where('email','LIKE', "%$keyword%");
+                                   })->orwhere('status', 'LIKE', "%$keyword%")
+                                  ->orwhere('order_no','LIKE',"%$keyword%")
+                                  ->latest()->paginate($perPage);
            $orders->transform(function($order,$key){
            $order->cart = unserialize($order->cart);
            return $order;
             });
         } else {
 
-           $orders = Order_detail::orderBy('id')->paginate(5);
-          $orders->transform(function($order,$key){
-          $order->cart = unserialize($order->cart);
-          return $order;
-           });
+           $orders = Order_detail::orderBy('id','DESC')->paginate(5);
+           $orders->transform(function($order,$key){
+           $order->cart = unserialize($order->cart);
+           return $order;
+            });
        }
-        return view('admin.orders.index',compact('orders'))->with('i', ($request->input('page', 1) - 1) * 5);
+          return view('admin.orders.index',compact('orders'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -70,7 +75,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+         $order = Order_detail::find($id);
+         $orders = unserialize($order->cart);
+         return view('admin.orders.show',compact('orders','order'));
     }
 
     /**
@@ -81,10 +88,10 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-      $order = Order_detail::find($id);
-
+         $enumoption = General::getEnumValues('order_details','status');
+         $order = Order_detail::find($id);
          $orders = unserialize($order->cart);
-         return view('admin.orders.edit',compact('orders','order'));
+         return view('admin.orders.edit',compact('orders','order','enumoption'));
     }
 
     /**
@@ -97,18 +104,15 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
 
-        $order = Order_detail::find($id);
-
-        $dataupdate = array(
+          $order = Order_detail::find($id);
+          $dataupdate = array(
                     'status'=>$request->input('status'),
                        );
-              $order->update($dataupdate);
-
-              $id = $order->user_id;
-              $user=User::find($id);
-
-              Mail::to($user->email)->send(new Orderstatus($order));
-        return redirect('admin/order')->with('success','order status changed');
+          $order->update($dataupdate);
+          $id = $order->user_id;
+          $user=User::find($id);
+          Mail::to($user->email)->send(new Orderstatus($order));
+          return redirect('admin/order')->with('success','order status changed');
     }
 
     /**

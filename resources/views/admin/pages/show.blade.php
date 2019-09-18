@@ -24,8 +24,8 @@
                      <tr><th>Name</th><td> {{$page->name}}</td></tr>
                      <tr><th>Title</th><td> {{$page->title}}</td></tr>
                      <tr><th>Slug</th>  <td>{{$page->slug}}</td></tr>
-                     <tr><th>Content</th>  <td>{{$page->content}} </td></tr>
-                     <tr><th>Extra</th> <td>{{$page->extras}}</td></tr>
+                     <tr><th>Content</th>  <td>{!! $page->content !!} </td></tr>
+                     <tr><th>Status</th> <td>{{$page->status}}</td></tr>
 
 
                             </table>

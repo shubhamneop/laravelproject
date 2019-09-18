@@ -22,11 +22,7 @@ class UserController extends Controller
     }
 
 
-
-
     public function index(Request $request){
-
-
         $keyword = $request->get('search');
         $perPage = 5;
         // $coupons = coupon::orderBy('id')->paginate(10);

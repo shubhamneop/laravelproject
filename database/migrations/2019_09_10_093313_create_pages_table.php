@@ -19,7 +19,7 @@ class CreatePagesTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('content')->nullble();
-            $table->text('extras')->nullble();
+            $table->string('status')->defult('inactive');
             $table->timestamps();
         });
     }

@@ -152,6 +152,9 @@ return [
          * Package Service Providers...
          */
            Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+           SamuelTerra22\ReportGenerator\ServiceProvider::class,
+           ConsoleTVs\Charts\ChartsServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -216,6 +219,10 @@ return [
         'Html'=> Collective\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'PdfReport'     => SamuelTerra22\ReportGenerator\Facades\PdfReportFacade::class,
+        'ExcelReport'   => SamuelTerra22\ReportGenerator\Facades\ExcelReportFacade::class,
+        'CSVReport'     => SamuelTerra22\ReportGenerator\Facades\CSVReportFacade::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
 
     ],

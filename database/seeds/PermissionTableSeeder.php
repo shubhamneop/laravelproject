@@ -52,11 +52,22 @@ class PermissionTableSeeder extends Seeder
            'contact-create',
            'contact-edit',
            'contact-delete',
-           
+
              'order-list',
              'order-create',
              'order-edit',
-             'order-delete'
+             'order-delete',
+
+             'cms-list',
+             'cms-create',
+             'cms-edit',
+             'cms-delete',
+
+             'report-list',
+             'report-create',
+             'report-edit',
+             'report-delete'
+
 
         ];
 

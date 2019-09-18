@@ -23,7 +23,7 @@ class Cart
     public function add($item, $id){
            foreach($item->image as $image)
 
-    	  $storedItem = ['qty'=>0, 'price'=>$item->price,'image'=>$image->image_path,'item'=>$item];
+    	  $storedItem = ['id'=>$item->id,'qty'=>0, 'price'=>$item->price,'image'=>$image->image_path,'item'=>$item];
     	   if($this->items){
     	   	if(array_key_exists($id, $this->items)){
     	   		$storedItem = $this->items[$id];

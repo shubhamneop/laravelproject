@@ -28,8 +28,9 @@
 
              <div class="row" style="float:right;">
                      <div class="pull-right col-xs-12">
-                        <form method="GET" action="{{ url('users') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                        <form method="GET" action="{{ url('admin/users') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="">
+
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
                                 <span class="">
                                     <button class="btn btn-info" type="submit" style="margin-left:-24;" >

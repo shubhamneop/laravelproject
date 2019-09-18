@@ -25,7 +25,7 @@
 .row {
     margin-right: -15px;
     margin-left: -15px;
-		width: 901px;
+		width: 919px;
 }
 .col-md-6 {
     width: 50%;
@@ -60,7 +60,7 @@ table, th, td {
 	</div>
 	<br>
 	<div style="margin-top: 10px;">
-	<center><b style="font-size: 20px;">Your Order {{$order->id}}</b></center>
+	<center><b style="font-size: 20px;">Your Order {{$order->order_no}}</b></center>
 	<center>Placed on DATE </center><br>
  <center>
 <table>
@@ -94,7 +94,7 @@ table, th, td {
 
 
 </table>
- Payment Method : COD.
+ Payment Method : {{$order->payment_mode}}.
 
  </center>
    </div>

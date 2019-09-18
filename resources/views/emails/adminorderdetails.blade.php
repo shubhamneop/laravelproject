@@ -25,7 +25,7 @@
  .row {
     margin-right: -15px;
     margin-left: -15px;
-		width: 901px;
+		width: 919px;
  }
  .col-md-6 {
     width: 50%;
@@ -70,7 +70,7 @@
       <td> {{$item['qty']}}</td>
       <td>{{$item['price']}}</td>
 			<td>{{$order->user->name}}</td>
-		
+
 		</tr>
 
  @endforeach

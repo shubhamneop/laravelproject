@@ -45,8 +45,15 @@
 								<div class="form-group {{ $errors->has('parent_id') ? 'has-error' : '' }}">
 
 									{!! Form::label('Category:') !!}
+                  <select class="form-control" name="p_-id" data-parsley-required>
 
-									{!! Form::select('p_id',$allCategories, old('p_id'), ['class'=>'form-control', 'placeholder'=>'Select Category']) !!}
+                     @foreach($allCategories as $option)
+
+                       <option value="{{$option->id}}"@if($categories->parent->id==$option->id) selected="selected" @endif >{{$option->category_name}}</option>
+
+                     @endforeach
+                      
+                  </select>
 
 									<span class="text-danger">{{ $errors->first('p_id') }}</span>
 

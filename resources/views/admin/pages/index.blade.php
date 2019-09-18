@@ -44,7 +44,7 @@
                             <table class="table table-responsive">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Name</th><th>Title</th><th>Slug</th><th>Content</th><th>Extra</th><th style="width:10%;">Actions</th>
+                                        <th>#</th><th>Name</th><th>Title</th><th>Slug</th><th>Content</th><th>Status</th><th style="width:10%;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,19 +59,19 @@
                                         <td> {{$page->title}}</td>
                                         <td>{{$page->slug}}</td>
                                         <td>{{$page->content}} </td>
-                                        <td>{{$page->extras}}</td>
+                                        <td>{{$page->status}}</td>
 
 
                                 <td>
                                     @can('order-list')
-                                    <a href="{{ url('/admin/pages/' . $page->id) }}" title="View coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                    <a href="{{ url('/admin/pages/' . $page->id) }}" title="View Page"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                     @endcan
-                                    <a href="{{ url('/admin/pages/' . $page->id . '/edit') }}" title="Edit coupon"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                    <a href="{{ url('/admin/pages/' . $page->id . '/edit') }}" title="Edit Page"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
                                     <form method="POST" action="{{ url('/admin/pages'  . '/' . $page->id) }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete coupon" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete Page" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                     </form>
                                 </td>
                               </tr>

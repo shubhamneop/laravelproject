@@ -20,6 +20,7 @@ class PageController extends Controller
    if (!empty($keyword)) {
       $pages = Page::where('name', 'LIKE', "%$keyword%")
               ->orwhere('title', 'LIKE', "%$keyword%")
+              ->orwhere('slug', 'LIKE', "%$keyword%")
            ->latest()->paginate($perPage);
 
         } else {
@@ -48,14 +49,25 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-       $this->validate($request,[
-          'name'=>'required',
-          'title'=>'required|unique:pages,title',
-          'slug'=>'required',
-       ]);
-       $input =$request->all();
+           $this->validate($request,[
+             'name'=>'required',
+             'title'=>'required|unique:pages,title',
+             'slug'=>'required',
+             'status'=>'required',
+          ]);
 
-       Page::create($input);
+          $page = new Page;
+          $page->name=$request->input('name');
+          $page->title=$request->input('title');
+          $page->slug=$request->input('slug');
+          $page->content=$request->input('content');
+          $page->status=$request->input('status');
+          $page->save();
+
+
+
+
+
        return redirect('admin/pages')->with('success','Page created successfully');
     }
 
@@ -79,8 +91,15 @@ class PageController extends Controller
     public function showpage($slug)
     {
        $pages = Page::where('slug',$slug)->get();
+         foreach ($pages as $page) {
+            $status= $page->status;
+         }
+         if($status=='inactive'){
+          return view('Frontend.404');
+         }else{
+          return view('pages',compact('pages'));
+         }
 
-      return view('pages',compact('pages'));
     }
 
     /**
@@ -104,7 +123,10 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $input = $request->all();
+       $page = Page::find($id);
+       $page->update($input);
+       return redirect('admin/pages')->with('success','Content updated successfully');
     }
 
     /**

@@ -81,11 +81,10 @@ class CartController extends Controller
                        $newTotal = $amount-$discount;
                        }
 
-               $shipTotalPrice = 0;
-                if($newTotal<=500){
+
                  $shipTotalPrice = $newTotal;
 
-                 }
+
                   if(Auth::check()){
             $id = Auth::User()->id;
                  }else{
@@ -234,7 +233,7 @@ class CartController extends Controller
           // }else {
           //     $coupons =   coupon::whereNotIn('id',$ids)->get();
           // }
-       // $ids=[0];
+       $ids=[0];
           $coupons =   coupon::whereNotIn('id',$ids)->get();
       // $coupons = coupon::all();
 
@@ -262,15 +261,16 @@ class CartController extends Controller
 
          ]);
 
-
      if(!Session::has('cart')){
       return view('Frontend.cart',['products'=>null]);
     }
      $oldCart = Session::get('cart');
      $cart = new Cart($oldCart);
+
       $coupons = coupon::all();
 
       $totalPrice = $cart->totalPrice;
+      $newTotal = $cart->shipTotalPrice;
        $shipTotalPrice = 0;
        if($totalPrice>500){
          $shipTotalPrice = $totalPrice+50;
@@ -296,25 +296,38 @@ class CartController extends Controller
        $data->save();
          $addressId = $data->id;
        }
-
+       $coupon = Used_coupon::with('coupon','user')->orderBy('id','DESC')->first();
+       $latestOrder = Order_detail::orderBy('created_at','DESC')->first();
        $status ='Processing';
-     $id = Auth::User()->id;
+       $id = Auth::User()->id;
        $order = new Order_detail();
        $order->user_id = $id;
+       if($latestOrder==null){
+         $order->order_no = 'OD'.'1'.'_'.time();
+       }else{
+          $order->order_no = 'OD'.($latestOrder->id + 1).'_'.time() ;
+       }
        $order->cart = serialize($cart);
        $order->address_id =  $addressId;
         $order->total = $request->input('amount');
        $order->status = $status;
+       $order->payment_mode = $request->input('PaymentMode');
+       if($totalPrice>$newTotal){
+          $order->coupon_id= $coupon->id;
+        }
+
 
 
        $order->save();
 
-       $save = new User_order();
+       $userorder = new User_order();
+       $userorder->user_id = $id;
+       $userorder->order_id = $order->id;
+       $userorder->order_nos = $order->order_no;
+       $userorder->save();
 
-       $save->user_id = $id;
-       $save->order_id = $order->id;
 
-       $save->save();
+      
 
        $order = Order_detail::find($order->id);
 

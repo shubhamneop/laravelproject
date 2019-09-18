@@ -15,51 +15,32 @@ use App\Order_detail;
 use App\Used_coupon;
 use App\coupon;
 use App\Address;
+use App\banner;
 use App\Mail\Welcome;
 use Illuminate\Support\Facades\Mail;
 use DB;
+use Session;
 use Auth;
+use App\order;
+use App\ordersproduct;
 class FrontendController extends Controller
 {
 	public function index(){
-	  // $products = product::with('image','attribute','category')->get();
-	   //dd($products->image);
         $category =  cat::where('p_id',0)->get();
-       $demo = cat::with('childs','parent')->get();
+        $products = product::all();
+				$subcategory = cat::where('p_id','!=',0)->get();
+         $productlist = product::with('category')->get();
+          $banner = banner::all();
 
-      // dd($demo);
-/*
-        $parents  = DB::table('cats')
-            ->join('cats as c','c.p_id','=','cats.id')
-            ->select('cats.id','cats.category_name','cats.p_id')
-             ->get();
-             dd($parents);
-             */
-		$products = DB::table('products')
-     ->join('productimages','productimages.product_id','=','products.id')
-     ->join('productcategories','productcategories.product_id','=','products.id')
-     ->join('cats','cats.id','=','productcategories.category_id')
-     ->join('productattributesassocs','productattributesassocs.product_id','=','products.id')
-     ->select('products.id','products.name','products.description','productimages.image_path','cats.category_name','products.price','productattributesassocs.color','productattributesassocs.quantity')
-
-	->get();
-
-
-    	return view('Frontend.index',compact('products','category'));
+    	return view('Frontend.index',compact('products','category','subcategory','productss','banner'));
     }
 
 
    public function details($id){
-      // $products = product::with('image','attribute','category')->get();
-       //dd($products->image);
+
         $category =  cat::where('p_id',0)->get();
-       $demo = cat::with('childs','parent')->get();
-
-
-      $productsDetails = product::with('image','attribute','category')->findOrFail($id);
-
-
-
+        $demo = cat::with('childs','parent')->get();
+        $productsDetails = product::with('image','attribute','category')->findOrFail($id);
         return view('Frontend.product-details',compact('products','category','productsDetails'));
     }
 
@@ -71,14 +52,14 @@ class FrontendController extends Controller
 
        $id = $request->id;
 
-        $products = DB::table('products')
-        ->join('productcategories','productcategories.product_id','products.id')
-        ->join('cats','cats.id','productcategories.category_id')
-        ->join('productimages','productimages.product_id','products.id')
-        ->where('cats.id',$id)
-        ->get();
-             $category =  cat::where('p_id',0)->get();
-      return view('Frontend.index',compact('products','category'));
+			 $products = Product::whereHas('category',function($q) use($id)
+			 {
+			 $q->where('category_id',$id);
+			 })->with('image')->get();
+       $category =  cat::where('p_id',0)->get();
+			 $subcategory = cat::where('p_id','!=',0)->get();
+       $banner = banner::all();
+      return view('Frontend.index',compact('products','category','subcategory','banner'));
 
 
 
@@ -86,16 +67,16 @@ class FrontendController extends Controller
 
      public function proCat(Request $request){
 
-       $id = $request->id;
+            $id = $request->id;
+            $productss =Product::whereHas('category',function($q) use($id)
+	            	   {
+	             	    $q->where('category_id',$id);
+	              	 })->with('image')->get();
+			     	$products = product::all();
+			    	$subcategory = cat::where('p_id','!=',0)->get();
+            $category =  cat::where('p_id',0)->get();
 
-       $productss = DB::table('products')
-        ->join('productcategories','productcategories.product_id','products.id')
-        ->join('cats','cats.id','productcategories.category_id')
-        ->join('productimages','productimages.product_id','products.id')
-        ->where('cats.id',$id)
-        ->get();
-             $category =  cat::where('p_id',0)->get();
-        return view('Frontend.demo',compact('productss','category'));
+        return view('Frontend.demo',compact('productss', json_decode($productss, true),'category','products','subcategory'));
 
 
 
@@ -117,7 +98,7 @@ class FrontendController extends Controller
          return $order;
         });
 
-				  
+
 
 
        return view('Frontend.order',compact('orders','data'));
@@ -125,13 +106,13 @@ class FrontendController extends Controller
      public function trackorder(Request $request){
           $this->validate($request,[
 						'email'=>'required|email',
-						'orderid'=>'required|numeric',
+						'orderid'=>'required',
 					]);
 					$email = $request->input('email');
 					$orderid = $request->input('orderid');
 					$user = User::whereemail($email)->first();
 	               $id = $user->id;
-         	$userdata = User_order::where('user_id',$id)->where('order_id',$orderid)->first();
+         	$userdata = User_order::where('user_id',$id)->where('order_nos',$orderid)->first();
           if ($userdata==null) {
            return view('Frontend.track',['data' => $userdata])->with('success','Please enter valid details');
           }
@@ -144,23 +125,36 @@ class FrontendController extends Controller
 				  return view('Frontend.track',['data' => $orders,'order'=>$order]);
 		 }
 		public function test(){
-      // $orders = Auth::User()->orderDetails;
-		//	  $orders = User::with('orders')->get();
-		   $email = "shubham.ingole@neosofttech.com";
-	   	$user = User::whereemail($email)->first();
-              $id = $user->id;
-							$oid = 8;
-				$data = User_order::where('user_id',$id)->where('order_id',$oid)->first();
+    //   // $orders = Auth::User()->orderDetails;
+		// //	  $orders = User::with('orders')->get();
+		//    $email = "test1@demo.com";
+	  //  	$user = User::whereemail($email)->first();
+    //           $id = $user->id;
+		// 					$oid = 3;
+		// 		$data = User_order::where('user_id',$id)->where('order_id',$oid)->first();
+		//
+		// 	     $oid =$data->order_id;
+    //        //$oid=2;
+		// 			 $order = Order_detail::whereid($oid)->first();
+		// 			// dd($order->status);
+		// 		   return view('Frontend.track',['data' => $order]);
+         $id=44;
+		$products = Product::whereHas('category',function($q) use($id)
+		{
+		$q->where('category_id',$id);
+		})->with('image')->get();
 
-			     $oid =$data->order_id;
-           //$oid=2;
-					 $order = Order_detail::whereid($oid)->first();
-					// dd($order->status);
-				   return view('Frontend.track',['data' => $order]);
-
+		dd($products);
 
 
 		}
+
+
+
+
+
+
+
 
 
 }

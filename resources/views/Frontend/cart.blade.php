@@ -36,7 +36,7 @@
 
 							</td>
 							<td class="cart_price">
-								<p style="margin-top: 25px;">{{$product['price']}}</p>
+								<p style="margin-top: 25px;"><i class="fa fa-inr"></i> {{$product['price']}}</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button" style="margin-top: 25px;">
@@ -57,7 +57,7 @@
                  <h2>Buy Some Stuff</h2>
 				@endif
 			</div>
-		</div>
+
 	</section> <!--/#cart_items-->
 
 	<section id="do_action">
@@ -71,11 +71,11 @@
 
 						<ul>
 
-							<li>Cart Sub Total <span>{{ $totalPrice}}</span></li>
-							<li>Eco Tax <span>$2</span></li>
+							<li>Cart Sub Total <span><i class="fa fa-inr"></i> {{ $totalPrice}}</span></li>
+							<li>Eco Tax <span>0</span></li>
 							<li>Shipping Cost <span>Free</span></li>
 							<li>Total <span>
-                            {{ $total <=0 ? $shipTotalPrice : $total }}
+                          <i class="fa fa-inr"></i>  {{ $total <=0 ? $shipTotalPrice : $total }}
 							</span></li>
 
 						</ul>
@@ -90,7 +90,7 @@
 
 							@endif
 	</section><!--/#do_action-->
-
+</div>
 	@endsection
 
 

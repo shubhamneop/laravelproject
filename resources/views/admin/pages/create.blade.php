@@ -71,9 +71,15 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('extras') ? 'has-error' : ''}}">
-              <label for="title" class="control-label">{{ 'extras' }}</label>
-              <input type="text" class="form-control" name="extras" id="extras" value="{{old('extras')}}" >
-                 {!! $errors->first('extras', '<p class="help-block">:message</p>') !!}
+              <label for="title" class="control-label">{{ 'status' }}</label>
+                 <div class="radio">
+                  <label class="label label-success">  <input type="radio" name="status"  value="active"> Active</label>
+                </div>
+                <div class="radio">
+                 <label class="label label-danger">    <input type="radio" name="status" value="inactive">Inactive</label>
+               </div>
+
+                 {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
@@ -89,15 +95,13 @@
 @section('script')
 
 <script src="../../bower_components/ckeditor/ckeditor.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script>
 $(function () {
-  // Replace the <textarea id="editor1"> with a CKEditor
-  // instance, using default configuration.
-  CKEDITOR.replace('content')
-  //bootstrap WYSIHTML5 - text editor
-  $('.textarea').wysihtml5()
-})
+
+  CKEDITOR.replace('content').config.allowedContent = true;
+
+});
 </script>
 @endsection

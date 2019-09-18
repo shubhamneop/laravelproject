@@ -49,7 +49,7 @@ Route::get('remove/{id}','CartController@getRemoveItem');
 
 Route::post('coupon','CartController@checkCoupon');
 Route::get('productCat','FrontendController@proCat');
-Route::get('cat/{id}','FrontendController@productCat');
+Route::get('categories/{id}','FrontendController@productCat');
 Route::get('check_out','CartController@getChekout');
 
 Route::post('saveaddress','AddressesController@saveaddress');
@@ -86,7 +86,7 @@ Route::get('test','FrontendController@test');
 Route::get('success','CartController@update');
 Route::post('newsletter','NewsletterController@store');
 
-Route::get('/{page}', 'PageController@showpage');
+Route::get('/page/{page}', 'PageController@showpage');
 
 Route::get('sample',function(){
       // $data = App\Order_detail::latest()->first();
@@ -100,8 +100,14 @@ Route::get('sample',function(){
     dd($data);
 
 });
-
 Route::get('mail',function(){
     $mail = App\configuration::find(1);
     dd($mail->value);
+});
+
+
+
+Route::get('enum',function(){
+      $enumoption = App\General::getEnumValues('order_details','status');
+      dd($enumoption);
 });

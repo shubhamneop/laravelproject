@@ -17,11 +17,13 @@ class CreateUserOrderTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('order_id')->unsigned();
-           
-          
+            $table->string('order_nos');
+
             $table->timestamps();
-             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-              $table->foreign('order_id')->references('id')->on('order_details')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('order_details')->onDelete('cascade');
+            $table->foreign('order_nos')->references('order_no')->on('order_details')->onDelete('cascade');
+
         });
     }
 

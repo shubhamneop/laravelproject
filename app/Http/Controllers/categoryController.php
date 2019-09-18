@@ -75,7 +75,7 @@ class categoryController extends Controller
       $categories = cat::with('childs','parent')->find($id);
 
 
-      dd($categories);
+    
 
      //$categories = cat::findOrFail($id);
 
@@ -90,7 +90,7 @@ class categoryController extends Controller
         // dd($product->category_name);
      $categories = cat::with('parent')->findOrFail($id);
     // dd($categories->parent->category_name);
-     $allCategories= cat::where('p_id',0)->pluck('category_name','id');
+     $allCategories= cat::where('p_id',0)->get();
      return view('admin.categories.edit',compact('categories','allCategories'));
 
    }

@@ -70,6 +70,12 @@ Route::resource('admin/contactus', 'FrontEnd\\ContactusController');
 
 Route::resource('admin/pages','FrontEnd\\PageController');
 
+//gererate reports
+Route::get('admin/reports',function(){return view('admin.reports.index');});
+Route::get('admin/reports/customer','Admin\\ReportController@index');
+Route::get('admin/reports/customer/{id}','Admin\\ReportController@show');
+Route::get('admin/reports/coupon','Admin\\ReportController@allCoupon');
+Route::get('admin/reports/sales','Admin\\ReportController@sales');
 
 
 
@@ -95,18 +101,40 @@ Route::get('myform/ajax/{id}','productController@myformAjax');
     });
 
 
+    Route::get('couponsall',function(){
 
- Route::get('ajax-subcat',function(){
-    $p_id = Input::get('cat_id');
+      // $data= App\Used_coupon::with('coupon','user')->orderBy('id','DESC')->first();
+      //   App\Used_coupon::where('id',$data->id)->delete();
 
-    $subcategory = cat::where('p_id',$p_id)->get();
+    });
 
-    return Response::json($subcategory);
+    Route::get('check',function(){
+      $sales= App\Order_detail::all();
 
- });
+      $sales->transform(function($order,$key){
+      $order->cart=unserialize($order->cart);
+         foreach ($order->cart->items as $item){
+              return $item['item']['id'];
+         }
 
- Route::get('manageMailChimp', 'MailChimpController@manageMailChimp');
+      // dd($order->cart->items);
+         });
+         dd($sales);
+    foreach ($sales as $sale) {
+     foreach($sale->cart->items as $item){
+         dd($item['item']['category']);
+     }
+   }
 
-Route::post('subscribe',['as'=>'subscribe','uses'=>'MailChimpController@subscribe']);
+   // foreach ($sales as $sale) {
+   //     $sale->cart=json_decode($sale->cart,true);
+   // }
+   //  var_dump($sales);
 
-Route::post('sendCompaign',['as'=>'sendCompaign','uses'=>'MailChimpController@sendCompaign']);
+      // $sales = App\Order_detail::with('cart')->get();
+      // var_dump($sales);
+      // $sales  =unserialize($sales->cart);
+
+
+
+    });

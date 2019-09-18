@@ -174,7 +174,37 @@
           </ul>
         </li>
         @endcan
+        @can('cms-list')
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            <span> CMS</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('/admin/pages')}}"><i class="fa fa-circle-o"></i>Pages</a></li>
 
+          </ul>
+        </li>
+        @endcan
+        @can('report-list')
+        <li class="treeview">
+          <a href="#">
+          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            <span>Reports</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('admin/reports/sales')}}" ><i class="fa fa-circle-o"></i>Sales Reports</a></li>
+            <li><a href="{{url('admin/reports/customer')}}" ><i class="fa fa-circle-o"></i>Customer Reports</a></li>
+            <li><a href="{{url('admin/reports/coupon')}}"><i class="fa fa-circle-o"></i>Cupons Reports</a></li>
+          </ul>
+        </li>
+        @endcan
 
 
 

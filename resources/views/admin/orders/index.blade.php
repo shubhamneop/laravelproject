@@ -34,43 +34,36 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Title</th><th>Quantity</th><th>Price</th><th>Status</th><th>User name</th><th>Actions</th>
+                                        <th>#</th><th>Quantity</th><th>Total Price</th><th>Status</th><th>Placed At</th><th>Customer name</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                   @foreach($orders as $order)
 
 
-                                    @foreach($order->cart->items as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
 
-                                        <td> {{$item['item']['name']}}</td>
-                                        <td> {{$item['qty']}}</td>
-                                        <td>{{$item['price']}}</td>
+                                        <td> {{ $order->order_no }} </td>
+                                        <td>{{$order->cart->totalQty}}</td>
+                                        <td>{{$order->total}}</td>
                                         <td>{{$order->status}} </td>
-                                        <td>{{$order->user->name}}</td>
+                                        <td>{{$order->created_at}}</td>
+                                        <td>{{$order->address->fullname}}</td>
 
-                                    </tr>
-                                @endforeach
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    @can('order-list')
-                                    <a href="{{ url('/admin/order/' . $order->id) }}" title="View coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                    @endcan
-                                    <a href="{{  url('/admin/order/' . $order->id . '/edit') }}" title="Edit coupon"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                        <td>
+                                           @can('order-list')
+                                            <a href="{{ url('/admin/order/' . $order->id) }}" title="View Order"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            @endcan
+                                            <a href="{{  url('/admin/order/' . $order->id . '/edit') }}" title="Edit Order"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
-                                    <!-- <form method="POST" action="{{ url('/admin/order'  . '/' . $order->id) }}" accept-charset="UTF-8" style="display:inline">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete coupon" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-                                    </form> -->
-                                </td>
+                                              <!-- <form method="POST" action="{{ url('/admin/order'  . '/' . $order->id) }}" accept-charset="UTF-8" style="display:inline">
+                                                  {{ method_field('DELETE') }}
+                                                   {{ csrf_field() }}
+                                                     <button type="submit" class="btn btn-danger btn-sm" title="Delete coupon" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                                </form> -->
+                                            </td>
+                                </tr>
                               @endforeach
                                 </tbody>
                             </table>

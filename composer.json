@@ -13,7 +13,9 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.5",
         "paypal/rest-api-sdk-php": "^1.14",
+        "samuelterra22/laravel-report-generator": "^1.4",
         "spatie/laravel-newsletter": "^4.2",
+        "consoletvs/charts": "5.*",
         "spatie/laravel-permission": "^2.37"
     },
     "require-dev": {

@@ -60,14 +60,14 @@ You can check the status of your order by logging into your account.</p>
 	</div>
 	<br>
 	<div style="margin-top: 10px;">
-	<center><b style="font-size: 20px;">Your Order{{$order->id}} </b></center>
-   <center>Your Shipment #{{$order->status}} </center>
+	<center><b style="font-size: 20px;">Your Order {{$order->order_no}} </b></center>
+   <center>Your Shipment # {{$order->status}} </center>
 	<center> </center><br>
  <center>
 <table>
 <tr>
 <td>Tracking Code</td>
-<td>{{$order->id}}</td>
+<td>{{$order->order_no}}</td>
 
 
 </tr>

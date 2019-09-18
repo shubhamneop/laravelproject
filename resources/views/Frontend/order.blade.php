@@ -25,8 +25,8 @@
            	</ul>
            </div>
            <div class="panel-footer">
-
-           	<strong>Total Price: {{$order->cart->shipTotalPrice}}</strong>
+              
+           	<strong>Total Price: {{$order->total}}</strong>
 						 <strong style="float:right;">Status: {{$order->status}}</strong>
            </div>
 
