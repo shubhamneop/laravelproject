@@ -25,14 +25,30 @@ use App\order;
 use App\ordersproduct;
 class FrontendController extends Controller
 {
-	public function index(){
-        $category =  cat::where('p_id',0)->get();
-        $products = product::all();
-				$subcategory = cat::where('p_id','!=',0)->get();
-         $productlist = product::with('category')->get();
-          $banner = banner::all();
+	public function index(Request $request){
+          $keyword = $request->get('search');
+				  if (!empty($keyword)) {
 
-    	return view('Frontend.index',compact('products','category','subcategory','productss','banner'));
+						$products = product::where('name','LIKE',"%$keyword%")
+						                     ->orwhere('description','LIKE',"%$keyword%")->get();
+						$category =  cat::where('p_id',0)->get();
+						$subcategory = cat::where('p_id','!=',0)->get();
+						$productlist = product::with('category')->get();
+						$banner = banner::all();
+						$categorycounts =	productcategory::with('categories','products')->select('category_id', DB::raw('count(*) as total'))
+			                  ->groupBy('category_id')
+			                  ->get();
+					}else{
+            $category =  cat::where('p_id',0)->get();
+            $products = product::all();
+				    $subcategory = cat::where('p_id','!=',0)->get();
+            $productlist = product::with('category')->get();
+            $banner = banner::all();
+				  	$categorycounts =	productcategory::with('categories','products')->select('category_id', DB::raw('count(*) as total'))
+			                  ->groupBy('category_id')
+			                  ->get();
+				}
+    	return view('Frontend.index',compact('products','category','subcategory','productss','banner','categorycounts'));
     }
 
 
@@ -41,7 +57,10 @@ class FrontendController extends Controller
         $category =  cat::where('p_id',0)->get();
         $demo = cat::with('childs','parent')->get();
         $productsDetails = product::with('image','attribute','category')->findOrFail($id);
-        return view('Frontend.product-details',compact('products','category','productsDetails'));
+				$categorycounts =	productcategory::with('categories','products')->select('category_id', DB::raw('count(*) as total'))
+										->groupBy('category_id')
+										->get();
+        return view('Frontend.product-details',compact('products','category','productsDetails','categorycounts'));
     }
 
     public function shop(){
@@ -59,7 +78,10 @@ class FrontendController extends Controller
        $category =  cat::where('p_id',0)->get();
 			 $subcategory = cat::where('p_id','!=',0)->get();
        $banner = banner::all();
-      return view('Frontend.index',compact('products','category','subcategory','banner'));
+			 $categorycounts =	productcategory::with('categories','products')->select('category_id', DB::raw('count(*) as total'))
+									 ->groupBy('category_id')
+									 ->get();
+      return view('Frontend.index',compact('products','category','subcategory','banner','categorycounts'));
 
 
 
@@ -86,15 +108,10 @@ class FrontendController extends Controller
         if(Auth::guest()) {
          return redirect('login')->with('message', 'Please Login !');
              }
-            //  $data = User::with('orderDetails')->get();
-						// foreach ($data as $key => $value) {
-					  //  	foreach ($value->orderDetails as $key => $value) {
-					  //  		echo "$value->status";
-						// 	}
-						// }
-        $orders = Auth::User()->orderDetails;
-        $orders->transform(function($order,$key){
-         $order->cart = unserialize($order->cart);
+
+          $orders = Auth::User()->orderDetails;
+          $orders->transform(function($order,$key){
+          $order->cart = unserialize($order->cart);
          return $order;
         });
 
@@ -119,38 +136,11 @@ class FrontendController extends Controller
 					$oid =$userdata->order_id;
 
 					$orders = Order_detail::whereid($oid)->first();
-             $order = unserialize($orders->cart);
+          $order = unserialize($orders->cart);
 
 
 				  return view('Frontend.track',['data' => $orders,'order'=>$order]);
 		 }
-		public function test(){
-    //   // $orders = Auth::User()->orderDetails;
-		// //	  $orders = User::with('orders')->get();
-		//    $email = "test1@demo.com";
-	  //  	$user = User::whereemail($email)->first();
-    //           $id = $user->id;
-		// 					$oid = 3;
-		// 		$data = User_order::where('user_id',$id)->where('order_id',$oid)->first();
-		//
-		// 	     $oid =$data->order_id;
-    //        //$oid=2;
-		// 			 $order = Order_detail::whereid($oid)->first();
-		// 			// dd($order->status);
-		// 		   return view('Frontend.track',['data' => $order]);
-         $id=44;
-		$products = Product::whereHas('category',function($q) use($id)
-		{
-		$q->where('category_id',$id);
-		})->with('image')->get();
-
-		dd($products);
-
-
-		}
-
-
-
 
 
 

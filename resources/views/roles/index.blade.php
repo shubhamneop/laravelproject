@@ -4,7 +4,7 @@
   <div class="content-wrapper "style="min-height: 100%">
        <section class="content-header">
            <h2>Role Management</h2>
-           
+
        </section>
       <section class="content">
          <div class="row">
@@ -16,7 +16,7 @@
            </div>
             @if($message = Session::get('success'))
               <div class="alert alert-success">
-              <button type="button" class="close" data-dismiss="alert">×</button>	
+              <button type="button" class="close" data-dismiss="alert">×</button>
                  <p>{{$message}}</p>
                </div>
            @endif
@@ -24,7 +24,7 @@
 
 
              <div class="row" style="float:right;">
-                     <div class="pull-right col-xs-12"> 
+                     <div class="pull-right col-xs-12">
                         <form method="GET" action="{{ url('roles') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
@@ -53,7 +53,7 @@
               @foreach ($roles as $key => $role)
                   <tr>
                       <td>{{ ++$i }}</td>
-                      <td>{{ $role->name }}</td>
+                      <td>{{ ucfirst($role->name) }}</td>
                       <td>
                           @can('role-list')
                           <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}"><i class="fa fa-eye" aria-hidden="true"></i> View</a>

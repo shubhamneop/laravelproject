@@ -57,12 +57,12 @@ class bannersController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
-    {    
+    {
        $this->validate($request,[
            'name'=>'required',
            'bannername'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
        ]);
-                 
+
         $requestData = $request->all();
         if ($request->hasFile('bannername')) {
             $requestData['bannername'] = $request->file('bannername')
@@ -110,13 +110,13 @@ class bannersController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $id)
-    {  
+    {
         $this->validate($request,[
             'name'=>'required',
-            'bannername'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'bannername'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-         
-        
+
+
         $requestData = $request->all();
         if ($request->hasFile('bannername')) {
             $requestData['bannername'] = $request->file('bannername')

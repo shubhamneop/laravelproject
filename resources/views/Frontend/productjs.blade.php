@@ -1,13 +1,13 @@
 <script>
 $(document).ready(function(){
-@foreach(App\cat::all() as $clist)
-  $("#{{$clist->id}}").click(function(){
-          var cat = {{$clist->id}} ;
-     $.ajax({
+  $('ul.product_subcategory li').click(function(e)
+  		{
+  	 var category_id =$(this).attr("data-id");
+          $.ajax({
        type:'get',
        dataType:'html',
        url: '{{url('/productCat')}}',
-       data : 'id=' + cat,
+       data : 'id=' + category_id,
         success:function(responce){
 
          $("#productData").html(responce);
@@ -16,7 +16,6 @@ $(document).ready(function(){
      });
 
   });
-@endforeach
 });
 
 

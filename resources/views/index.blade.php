@@ -26,7 +26,7 @@
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-
+                <a href="{{url('admin/order')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -43,7 +43,7 @@
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-
+                <a href="{{url('admin/users')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-xs-6">
@@ -57,7 +57,7 @@
                 <div class="icon">
                   <i class="ion-ios-chatbubble-outline"style="color: cyan;"></i>
                 </div>
-
+              <a href="{{url('admin/contactus')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -79,10 +79,33 @@
                {!! $chart->html() !!}
                 </div>
               </div>
+
               <!-- /.box-body -->
             </div>
             <!-- /.box -->
         </div>
+        <div class="col-md-6">
+         <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Category Chart</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                 {!! $donut->html() !!}
+              </div>
+
+            </div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+      </div>
 
 
 
@@ -98,4 +121,6 @@
 
 {!! Charts::scripts() !!}
 {!! $chart->script() !!}
+{!! $pie->script() !!}
+{!! $donut->script() !!}
 @endsection

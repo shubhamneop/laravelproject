@@ -13,7 +13,7 @@
               <div class="pull-left">
                  <a href="{{ url('/admin/configurations/create') }}" class="btn btn-primary btn-sm" title="Add New configuration">
                             <i class="fa fa-plus" aria-hidden="true"></i>  New Config
-                        </a>     
+                        </a>
                 </div>
                 @endcan
              </div>
@@ -21,12 +21,12 @@
      @if($message = Session::get('success'))
 
          <div class="alert alert-success">
-         <button type="button" class="close" data-dismiss="alert">×</button>	
+         <button type="button" class="close" data-dismiss="alert">×</button>
                <p>{{$message}}</p>
         </div>
      @endif
                 <div class="row" style="float:right;">
-                     <div class="pull-right col-xs-12"> 
+                     <div class="pull-right col-xs-12">
                         <form method="GET" action="{{ url('/admin/configurations') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
@@ -40,7 +40,7 @@
                     </div>
                  </div>
 
-                     
+
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -51,7 +51,7 @@
                                 @foreach($configurations as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td><td>{{ $item->value }}</td>
+                                        <td>{{ ucfirst($item->name) }}</td><td>{{ $item->value }}</td>
                                         <td>
                                             <a href="{{ url('/admin/configurations/' . $item->id) }}" title="View configuration"><button class="btn btn-info "><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             @can('config-edit')
@@ -72,7 +72,7 @@
                             </table>
                             <div class="pagination-wrapper"> {!! $configurations->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
-                 
+
     </section>
- </div>   
+ </div>
 @endsection

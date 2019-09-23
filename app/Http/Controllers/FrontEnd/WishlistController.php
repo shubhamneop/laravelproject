@@ -17,7 +17,7 @@ class WishlistController extends Controller
     public function index()
     {
        $id = Auth::User()->id;
-        $wishlists = Wishlist::with('product')->where('user_id',$id)->get();
+        $wishlists = Wishlist::with('product')->where('user_id',$id)->select('product_id')->distinct()->get();
 
         return view('Frontend.wishlist',compact('wishlists'));
 
@@ -51,7 +51,7 @@ class WishlistController extends Controller
           $product->product_id =  $productid;
 
           $product->save();
-          return redirect('/');
+          return redirect()->back();
     }
 
     /**
@@ -97,7 +97,7 @@ class WishlistController extends Controller
     public function destroy($id)
     {
            $uid = Auth::User()->id;
-         Wishlist::where('product_id',$id)->where('user_id',$uid)->delete();
+           Wishlist::where('product_id',$id)->where('user_id',$uid)->delete();
 
          return redirect('wishlist')->with('success','product Removed');
     }

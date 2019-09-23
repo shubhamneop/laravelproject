@@ -63,7 +63,7 @@
                </tr>
            @endforeach
        </table>
-       <div class="pagination-wrapper"> {!! $users->appends(['search' => Request::get('search')])->render() !!} </div>
+       <div class="pagination-wrapper"> {!! $users->appends($_GET)->render() !!} </div>
 
 
 

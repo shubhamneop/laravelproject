@@ -15,7 +15,7 @@ class couponsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    
+
       function __construct(){
         $this->middleware('permission:coupon-list');
         $this->middleware('permission:coupon-create', ['only' => ['create', 'store']]);
@@ -32,7 +32,7 @@ class couponsController extends Controller
         $keyword = $request->get('search');
         $perPage = 5;
         // $coupons = coupon::orderBy('id')->paginate(10);
-                 if (!empty($keyword)) { 
+                 if (!empty($keyword)) {
             $coupons = coupon::where('code', 'LIKE', "%$keyword%")
                 ->orWhere('discount', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
@@ -63,7 +63,7 @@ class couponsController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
-    {  
+    {
          $this->validate($request,[
             'title'=>'required',
              'code'=>'required|regex:/^[a-zA-Z0-9_\-]*$/|unique:coupons,code',
@@ -72,25 +72,17 @@ class couponsController extends Controller
 
         ]);
 
-          /*
-           if ($request->input('type')=='percent') {
-               $requestData = $request->input('discount')/100;
-           }
-        $requestData = $request->all();
-        
-        coupon::create($requestData);
-        */
 
         $input = new coupon;
         $input->title = $request->input('title');
         $input->code = $request->input('code');
         $input->type = $request->input('type');
-       
-          
+
+
         $input->discount =$request->input('discount') ;
 
         $input->save();
-        
+
 
 
 
@@ -137,16 +129,14 @@ class couponsController extends Controller
     {
           $this->validate($request,[
             'title'=>'required',
-             'code' => 'required',
-             //'regex:/^[a-zA-Z0-9]*([a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$/',
-                            'type'=>'required',
-
-           'discount'=>'required',
+            'code' => 'required',
+            'type'=>'required',
+            'discount'=>'required',
 
         ]);
 
         $requestData = $request->all();
-        
+
         $coupon = coupon::findOrFail($id);
         $coupon->update($requestData);
 

@@ -33,4 +33,11 @@ public function getParentsNames() {
         return $this->name;
     }
 }
+
+ public function cartproductcategory()
+ {
+   return $this->hasOne('App\Cartdetail','category');
+ }
+
+
 }

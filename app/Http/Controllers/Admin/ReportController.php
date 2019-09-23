@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\User;
+use App\cat;
 use App\Order_detail;
 use App\Used_coupon;
+use App\Cartdetail;
 
 class ReportController extends Controller
 {
@@ -154,37 +156,52 @@ class ReportController extends Controller
     }
 
     public function sales(Request $request){
+        $id = $request->get('category_id');
+
         $keyword=$request->get('search');
         $start = date("Y-m-d",strtotime($request->get('fromdate')));
         $end = date("Y-m-d",strtotime($request->get('todate')));
+        if(!empty($id) && !empty($keyword)){
 
-      if(!empty($keyword)){
-        $sales= Order_detail::where('order_no','LIKE',"%$keyword%")->get();
-        $sales->transform(function($order,$key){
-          $order->cart=unserialize($order->cart);
-          return $order;
-           });
 
-      }else {
+          $sales = Cartdetail::whereHas('categoryname',function($q) use($id)
+             {
+              $q->where('category',$id);
+            })->where('product_name','LIKE',"%$keyword%")
+                                ->latest()->paginate(5);
 
-        if('1970-01-01'!=($start)){
+        }else{
+         if(!empty($id)){
+          $sales = Cartdetail::whereHas('categoryname',function($q) use($id)
+             {
+              $q->where('category',$id);
+            })->with('order_detail')->latest()->paginate(5);
+          }else {
+         if(!empty($keyword)){
+           $sales= Cartdetail::where('product_name','LIKE',"%$keyword%")
+                               ->orwhere('price','LIKE',"%$keyword%")
+                              ->latest()->paginate(5);
+
+         }else {
+
+          if('1970-01-01'!=($start)){
                  $start = $start.' '.'00:00:00';
                  $end = $end.' '.'23:59:58';
-                 $sales= Order_detail::whereBetween('created_at',[$start,$end])->get();
+                 $sales= Cartdetail::with('categoryname','order_detail')
+                        ->whereBetween('created_at',[$start,$end])->latest()->paginate(5);
 
-                 $sales->transform(function($order,$key){
-                 $order->cart=unserialize($order->cart);
-                 return $order;
-                    });
 
-          }else{
-           $sales= Order_detail::all();
-           $sales->transform(function($order,$key){
-           $order->cart=unserialize($order->cart);
-           return $order;
-         });
-       }
+
+            }else{
+            $sales = Cartdetail::with('categoryname','order_detail')->latest()->paginate(5);
+         }
+        }
       }
-      return view('admin.reports.sales.index',compact('sales'));
+    }
+
+
+       $subcategory = cat::where('p_id','!=',0)->get();
+
+      return view('admin.reports.sales.index',compact('sales','subcategory'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 }

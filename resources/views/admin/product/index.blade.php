@@ -66,15 +66,16 @@
 
                          @foreach($products  as $product)
                             <tr> <td>{{ $loop->iteration }}</td>
-                             <td>{{ $product->name }} </td>
-                             <td>{{$product->description}}</td>
+                             <td>{{ ucfirst($product->name) }} </td>
+                             <td>{{ucfirst($product->description)}}</td>
+
                                @foreach($product->image as $image)
 
                                @endforeach
-                             <td> <img src="{{asset('product/' . $image->image_path )}}"  style="width:50px;height:70px;"></td>
-                             <td>{{$product->category->categories->category_name}}</td>
+                             <td><img src="{{asset('product/' . $image->image_path )}}"  style="width:50px;height:70px;"></td>
+                             <td>{{ucfirst($product->category->categories->category_name)}}</td>
                              <td>{{$product->price}}</td>
-                             <td>{{$product->attribute->color}}</td>
+                             <td>{{ucfirst($product->attribute->color)}}</td>
                              <td>{{$product->attribute->quantity}}</td>
 
 

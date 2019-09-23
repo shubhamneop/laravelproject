@@ -43,13 +43,13 @@ class AddressesController extends Controller
         } else {
             $addresses = Address::latest()->where('user_id',$id)->paginate($perPage);
         }
-         
+
          if(Auth::check()){
-             return view('Frontend.addresses.index', compact('addresses'));    
+             return view('Frontend.addresses.index', compact('addresses'));
                  }else{
             return redirect('/');
         }
-       
+
     }
 
     /**
@@ -81,7 +81,7 @@ class AddressesController extends Controller
         $this->validate($request,[
           'fullname'=>'required',
           'address1'=>'required',
-         
+
           'country'=>'required',
           'state'=>'required',
           'mobileno'=>'required|numeric|min:10',
@@ -89,22 +89,22 @@ class AddressesController extends Controller
 
 
          $userid = Auth::User()->id;
-        $data = new Address;
+        $useraddress = new Address;
 
-        $data->fullname = $request->input('fullname');
-        $data->address1 = $request->input('address1');
-        $data->address2 = $request->input('address2');
-        $data->zipcode = $request->input('zipcode');
-        $data->country = $request->input('country');
-        $data->state = $request->input('state');
-        $data->phoneno = $request->input('phoneno');
-        $data->mobileno = $request->input('mobileno');
-        $data->user_id = $userid;
+        $useraddress->fullname = $request->input('fullname');
+        $useraddress->address1 = $request->input('address1');
+        $useraddress->address2 = $request->input('address2');
+        $useraddress->zipcode = $request->input('zipcode');
+        $useraddress->country = $request->input('country');
+        $useraddress->state = $request->input('state');
+        $useraddress->phoneno = $request->input('phoneno');
+        $useraddress->mobileno = $request->input('mobileno');
+        $useraddress->user_id = $userid;
 
 
-       $data->save();
-        
-    
+       $useraddress->save();
+
+
 
         return redirect('addresses')->with('flash_message', 'Address added!');
     }
@@ -148,7 +148,7 @@ class AddressesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $this->validate($request,[
           'fullname'=>'required',
           'address1'=>'required',
@@ -160,21 +160,21 @@ class AddressesController extends Controller
 
 
          $userid = Auth::User()->id;
-        $data = new Address;
+        $useraddress = new Address;
 
-        $data->fullname = $request->input('fullname');
-        $data->address1 = $request->input('address1');
-        $data->address2 = $request->input('address2');
-        $data->zipcode = $request->input('zipcode');
-        $data->country = $request->input('country');
-        $data->state = $request->input('state');
-        $data->phoneno = $request->input('phoneno');
-        $data->mobileno = $request->input('mobileno');
-        $data->user_id = $userid;
+        $useraddress->fullname = $request->input('fullname');
+        $useraddress->address1 = $request->input('address1');
+        $useraddress->address2 = $request->input('address2');
+        $useraddress->zipcode = $request->input('zipcode');
+        $useraddress->country = $request->input('country');
+        $useraddress->state = $request->input('state');
+        $useraddress->phoneno = $request->input('phoneno');
+        $useraddress->mobileno = $request->input('mobileno');
+        $useraddress->user_id = $userid;
 
-        
-        $data->id = Address::findOrFail($id);
-        $data->update();
+
+        $useraddress->id = Address::findOrFail($id);
+        $useraddress->update();
 
         return redirect('addresses')->with('flash_message', 'Address updated!');
     }
@@ -202,7 +202,7 @@ class AddressesController extends Controller
          }
            $addresses = Address::where('user_id',$uid)->get();
 
-      $data = Address::where('id',$id)->get(); 
+         $data = Address::where('id',$id)->get();
 
       if(!Session::has('cart')){
       return view('Frontend.cart',['products'=>null]);
@@ -210,17 +210,17 @@ class AddressesController extends Controller
      $oldCart = Session::get('cart');
      $cart = new Cart($oldCart);
       $coupons = coupon::all();
- 
+
      return view('Frontend.data',['products'=>$cart->items, 'totalPrice'=>$cart->totalPrice,'total'=>null,'addresses'=>$addresses,'data'=>$data]);
-        
-    
+
+
    }
 
    public function saveaddress(Request $request){
     $this->validate($request,[
           'fullname'=>'required',
           'address1'=>'required',
-         
+
           'country'=>'required',
           'state'=>'required',
           'mobileno'=>'required|numeric|min:10',
@@ -242,8 +242,8 @@ class AddressesController extends Controller
 
 
        $data->save();
-        
-    
+
+
 
         return redirect()->back()->with('flash_message', 'Address added!');
    }

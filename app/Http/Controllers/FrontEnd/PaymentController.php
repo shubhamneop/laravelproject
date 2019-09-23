@@ -12,12 +12,14 @@ use App\Sample;
 use App\Order_detail;
 use App\Address;
 use App\Used_coupon;
+use App\Cartdetail;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
 use Auth;
 use App\Cart;
 use App\User_order;
+use App\productattributesassoc;
 
 /** All Paypal Details class **/
 use PayPal\Api\ItemList;
@@ -71,26 +73,26 @@ class PaymentController extends Controller
 
                   if($addressId==null){
                     $userid = Auth::User()->id;
-                   $data = new Address;
+                   $useraddress = new Address;
 
-                   $data->fullname = $request->input('fullname');
-                   $data->address1 = $request->input('address1');
-                   $data->address2 = $request->input('address2');
-                   $data->zipcode = $request->input('zipcode');
-                   $data->country = $request->input('country');
-                   $data->state = $request->input('state');
-                   $data->phoneno = $request->input('phoneno');
-                   $data->mobileno = $request->input('mobileno');
-                   $data->user_id = $userid;
+                   $useraddress->fullname = $request->input('fullname');
+                   $useraddress->address1 = $request->input('address1');
+                   $useraddress->address2 = $request->input('address2');
+                   $useraddress->zipcode = $request->input('zipcode');
+                   $useraddress->country = $request->input('country');
+                   $useraddress->state = $request->input('state');
+                   $useraddress->phoneno = $request->input('phoneno');
+                   $useraddress->mobileno = $request->input('mobileno');
+                   $useraddress->user_id = $userid;
 
 
-                  $data->save();
-                    $addressId = $data->id;
+                  $useraddress->save();
+                    $addressId = $useraddress->id;
                   }
                    $oldCart = Session::get('cart');
                    $cart = new Cart($oldCart);
                    $totalPrice = $cart->totalPrice;
-                   $newTotal = $cart->shipTotalPrice;
+                   $newTotal = $request->input('amount');
 
        $coupon = Used_coupon::with('coupon','user')->orderBy('id','DESC')->first();
        $latestOrder = Order_detail::orderBy('created_at','DESC')->first();
@@ -120,6 +122,34 @@ class PaymentController extends Controller
 
        $userorder->save();
 
+       $order = Order_detail::find($order->id);
+
+          $orders = unserialize($order->cart);
+
+            foreach ($orders->items as $item) {
+                 $cartdetails = new Cartdetail;
+                    $cartdetails->order_id = $order->id;
+                    $cartdetails->product_id=$item['item']['id'];
+                    $cartdetails->product_name=$item['item']['name'];
+                    $cartdetails->product_image=$item['image'];
+                    $cartdetails->quantity=$item['qty'];
+                    $cartdetails->price=$item['price'];
+                    $cartdetails->category=$item['item']['category']['category_id'];
+                    $cartdetails->save();
+
+                    $product = productattributesassoc::where('product_id',$item['item']['id'])->get();
+                     foreach ($product as $dataid) {
+                       $id=$dataid->id;
+                     }
+                     $productid = productattributesassoc::find($id);
+                         $productquantity=$productid->quantity;
+                         $productquantity = $productquantity-$item['qty'];
+
+                       $dataupdate=array(
+                         'quantity'=> $productquantity,
+                       );
+                     $productid->update($dataupdate);
+                }
 
 
 

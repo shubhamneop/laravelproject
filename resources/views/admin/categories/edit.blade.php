@@ -34,25 +34,20 @@
 
 								</div>
 
-                       @if($categories->parent)
-                      <div class="form-group">
-                        <label for="value" class="control-label">{{ 'Parent' }}</label>
-                      :   {{$categories->parent->category_name}}
-
-                      </div>
-                      @endif
 
 								<div class="form-group {{ $errors->has('parent_id') ? 'has-error' : '' }}">
 
 									{!! Form::label('Category:') !!}
-                  <select class="form-control" name="p_-id" data-parsley-required>
-
+                  <select class="form-control" name="p_id" data-parsley-required>
+                       <option value="">select category</option>
                      @foreach($allCategories as $option)
-
-                       <option value="{{$option->id}}"@if($categories->parent->id==$option->id) selected="selected" @endif >{{$option->category_name}}</option>
-
+                         @if($categories->p_id==0)
+                          <option value="{{$option->id}}">{{$option->category_name}}</option>
+                          @else
+                         <option value="{{$option->id}}"@if($categories->parent->id==$option->id) selected="selected" @endif >{{$option->category_name}}</option>
+                          @endif
                      @endforeach
-                      
+
                   </select>
 
 									<span class="text-danger">{{ $errors->first('p_id') }}</span>

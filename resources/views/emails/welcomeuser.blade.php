@@ -7,8 +7,8 @@
 
 <div style="background-color:lightgrey;color:black;width:auto;height:70px;">
 use this following values when prompted to log in:<br/>
-Email:{{$user->email}}<br/>
-Password:{{$user->password}}
+Email: {{$user->email}}<br/>
+Password: {{$user->password}}
 </div>
 When you log in to your account, you will be able to do the following:
 

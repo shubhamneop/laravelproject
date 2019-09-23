@@ -109,13 +109,10 @@
 							<h2>Brands</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
-									<li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-									<li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-									<li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-									<li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-									<li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-									<li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-									<li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+									@foreach($categorycounts as $productcount)
+                	<li><a href="#"> <span class="pull-right">({{$productcount->total}})</span>{{$productcount->categories->category_name}}</a></li>
+									@endforeach
+									
 								</ul>
 							</div>
 						</div><!--/brands_products-->
@@ -156,14 +153,22 @@
 									 <img src="{{asset('product/' .$image->image_path)}}" alt="" width="268px" height="249px"/>
 									 <h2><i class="fa fa-inr"></i>  {{ $product->price }}</h2>
 									 <p>{{ strtoupper($product->name) }}</p>
+									  @if($product->attribute->quantity<=0)
+									 <a href="" class="btn btn-default add-to-cart" disabled><i class="fa fa-close"></i>Out of Stock</a>
+                    @else
 									 <a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                    @endif
 								 </div>
 								 <div class="product-overlay">
 									 <div class="overlay-content">
 
 									 <h2><i class="fa fa-inr"></i>  {{ $product->price }}</h2>
 									 <p>{{ strtoupper($product->name)}}<p>
-										 <a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										 @if($product->attribute->quantity<=0)
+										<a href="" class="btn btn-default add-to-cart" disabled><i class="fa fa-close"></i>Out of Stock</a>
+										 @else
+										<a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										 @endif
 										 <a href="{{url('productdetails/'.$product->id)}}" class="btn btn-default cart"><i class="fa fa-plus-square"></i>Product Details</a>
 									 </div>
 								 </div>
@@ -184,9 +189,9 @@
 
 					<div class="category-tab"><!--category-tab-->
 						<div class="col-sm-12">
-							<ul class="nav nav-tabs">
+							<ul class="nav nav-tabs product_subcategory">
 								@foreach($subcategory as $child)
-                  <li class=""><a href="#{{$child->category_name}}" id="{{$child->id}}" data-toggle="tab">{{$child->category_name}}</a></li>
+                  <li class="" data-id="{{$child->id}}"><a href="#{{$child->category_name}}" id="{{$child->id}}" data-toggle="tab">{{$child->category_name}}</a></li>
 								@endforeach
 
 							</ul>

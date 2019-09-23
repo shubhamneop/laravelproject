@@ -3,60 +3,65 @@
  <div class="content-wrapper">
     <section class="content-header">
         <h2>Sales Report</h2>
-        <div class="pull-right col-xs-12" style="position: relative;
-    left: 510px;">
-           <form method="GET" action="{{ url('/admin/reports/sales') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
-                <div style="margin-bottom: 20px;">
 
-                  <label> From date</label>
-                   <input type="date" class="form-control" name="fromdate" placeholder="Search..." value="{{ request('fromdate') }}">
-                  <label>To date</label>
-                   <input type="date" class="form-control" name="todate" placeholder="Search..." value="{{ request('todate') }}">
-                   <span class="">
-                       <button class="btn btn-info" type="submit">
-                           <i class="fa fa-search"></i>
-                       </button>
-                   </span>
-
-
-               </div>
-           </form>
-       </div>
     </section>
      <section class="content">
        <div class="row" style="float:right;">
+         <div class="pull-right col-xs-12" >
+            <form method="GET" action="{{ url('/admin/reports/sales') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                 <div style="margin-bottom: 20px;">
+                    <select name="category_id" class="select-control">
+                      <option value="" >select category</option>
+                        @foreach($subcategory as $category)
+                        <option value="{{ isset($category->id) ? $category->id :request('category_id')}}">{{ucfirst($category->category_name)}}</option>
+                       @endforeach
+                     </select>
+                   <label> From date</label>
+                    <input type="date" class="form-control" name="fromdate" placeholder="Search..." value="{{ request('fromdate') }}">
+                   <label>To date</label>
+                    <input type="date" class="form-control" name="todate" placeholder="Search..." value="{{ request('todate') }}">
+                     <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
+                    <span class="">
+                        <button class="btn btn-info" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
 
+
+                </div>
+            </form>
+        </div>
       <br>
   </div>
-        <table id="example2" class="table table-bordered table-hover" role="grid">
-            <thead>
-           <tr>
-              <th>#</th>
-               <th>Item image</th>
-               <th>ProductName</th>
-               <th>Price</th>
-               <th>Customer Name</th>
-               <th>Category</th>
+        <table  class="table table-bordered table-hover" role="grid">
+          <thead>
+         <tr>
+            <th>#</th>
+             <th>Item image</th>
+             <th>ProductName</th>
+             <th>Price</th>
+             <th>Quantity</th>
+             <th>Category</th>
 
-           </tr>
-         </thead>
-         <tbody>
-         @foreach($sales as $sale)
-            @foreach($sale->cart->items as $item)
-               <tr>
-                   <td>{{$sale->id}}</td>
-                     <td>  <img src="{{asset('product/' .$item['image'])}}" alt="" width="60px" height="60px" /></td>
-                   <td>{{strtoupper($item['item']['name'])}}</td>
-                   <td>{{$item['price']}}</td>
-                   <td>{{strtoupper($sale->user->name)}}</td>
-                   <td>{{strtoupper($item['item']['category']['categories']['category_name'])}}</td>
-               </tr>
-               @endforeach
-        @endforeach
+         </tr>
+       </thead>
+       <tbody>
+         @foreach($sales as $item)
+             <tr>
+                 <td>{{$loop->iteration}}</td>
+                   <td>  <img src="{{asset('product/' .$item->product_image)}}" alt="product image" width="60px" height="60px" /></td>
+                 <td>{{strtoupper($item->product_name)}}</td>
+                 <td>{{$item->price}}</td>
+                 <td>{{$item->quantity}}</td>
+                 <td>{{$item->categoryname->category_name}}</td>
+             </tr>
+
+      @endforeach
       </tbody>
 
        </table>
 
+       <div class="pagination-wrapper"> {!! $sales->appends($_GET)->render() !!} </div>
 
 
 

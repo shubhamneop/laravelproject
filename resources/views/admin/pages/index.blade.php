@@ -44,7 +44,7 @@
                             <table class="table table-responsive">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Name</th><th>Title</th><th>Slug</th><th>Content</th><th>Status</th><th style="width:10%;">Actions</th>
+                                        <th width="5%">#</th><th width="5%">Name</th><th width="5%">Title</th><th width="5%">Slug</th><th width="5%">Content</th><th width="5%">Status</th><th style="width:10%;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,11 +55,11 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
 
-                                        <td> {{$page->name}}</td>
-                                        <td> {{$page->title}}</td>
-                                        <td>{{$page->slug}}</td>
+                                        <td> {{ucfirst($page->name)}}</td>
+                                        <td> {{ucfirst($page->title)}}</td>
+                                        <td>{{ucfirst($page->slug)}}</td>
                                         <td>{{$page->content}} </td>
-                                        <td>{{$page->status}}</td>
+                                        <td>{{ucfirst($page->status)}}</td>
 
 
                                 <td>
@@ -85,5 +85,6 @@
 
 
         </section>
+
     </div>
 @endsection

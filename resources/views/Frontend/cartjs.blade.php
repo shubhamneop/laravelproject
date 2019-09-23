@@ -8,7 +8,7 @@ $(document).ready(function(){
    if ( $(this).is(':checked') ) {
       $('#text').val($(this).val());
        var coupon = $("#coupon{{$coupon->id}}").val();
-         
+
    }
    else{ $('#text').val(""); }
 });
@@ -102,6 +102,15 @@ $('#cod').on('change',function(){
 
 });
 
+    var url = window.location.href;
+    var couponurl = 'http://127.0.0.1:8000/coupon';
+   if(url==couponurl){
+     var clear = document.getElementById("clear");
+     var apply = document.getElementById("apply");
+     clear.style.display = "block";
+     apply.style.display ="none";
+
+   }
 
 
 

@@ -3,10 +3,10 @@
 
 Route::get('/','FrontendController@index');
 Route::get('/demo','FrontendController@shop');
- Route::get('order','FrontendController@getOrder');
+Route::get('order','FrontendController@getOrder');
 
 Route::get('checkout',function(){ return view('Frontend.checkout'); });
-//Route::get('cart',function(){ return view('Frontend.cart'); });
+
 Route::get('login',function(){ return view('Frontend.login'); })->name('loginuser');
 Route::get('contact',function(){ return view('Frontend.contact-us'); });
 
@@ -67,13 +67,9 @@ Route::post('paypal', 'PaymentController@payWithpaypal');
 // route for check status of the payment
 Route::get('status', 'PaymentController@getPaymentStatus');
 
- Route::get('payonfo',function(){
+Route::get('payonfo',function(){ return view('Frontend.payinfo'); });
 
- return view('Frontend.payinfo');
-
- });
-
- Route::post('saveorder','CartController@saveorder');
+Route::post('saveorder','CartController@saveorder');
 
 Route::get('trackorder',function(){$data = null;return view('Frontend.track',compact('data'));});
 Route::post('trackorder','FrontendController@trackorder');
@@ -88,26 +84,4 @@ Route::post('newsletter','NewsletterController@store');
 
 Route::get('/page/{page}', 'PageController@showpage');
 
-Route::get('sample',function(){
-      // $data = App\Order_detail::latest()->first();
-     //  dd($data->id);
-  //  $products = App\product::with('image','attribute','category')->findOrFail(19);
-    $id = Auth::User()->id;
-    $data =  App\Used_coupon::with('coupon')->where('user_id',$id)->get();
-    foreach ($data as  $value)
-       dd($value->id);
-
-    dd($data);
-
-});
-Route::get('mail',function(){
-    $mail = App\configuration::find(1);
-    dd($mail->value);
-});
-
-
-
-Route::get('enum',function(){
-      $enumoption = App\General::getEnumValues('order_details','status');
-      dd($enumoption);
-});
+Route::get('removecoupon','CartController@removecoupon');

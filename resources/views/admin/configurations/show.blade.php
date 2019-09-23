@@ -19,22 +19,22 @@
                             <button type="submit" class="btn btn-danger btn-sm" title="Delete configuration" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                         </form>
                    -->
-               </div>    
+               </div>
             </div>
-          </div> 
-                        
-                       
+          </div>
+
+
 
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody>
-                                  
-                                    <tr><th> Name </th><td> {{ $configuration->name }} </td></tr><tr><th> Value </th><td> {{ $configuration->value }} </td></tr>
+
+                                    <tr><th> Name </th><td> {{ ucfirst($configuration->name) }} </td></tr><tr><th> Value </th><td> {{ $configuration->value }} </td></tr>
                                 </tbody>
                             </table>
                         </div>
 
-              
+
         </section>
     </div>
 @endsection

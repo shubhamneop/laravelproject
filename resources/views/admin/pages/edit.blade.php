@@ -23,21 +23,21 @@
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
               <label for="title" class="control-label">{{ 'Name' }}</label>
-              <input type="text" class="form-control" name="name"  id="name" value="{{$page->name}}" >
+              <input type="text" class="form-control" name="name"  id="name" value="{{$page->name}}" required>
                   {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
               <label for="title" class="control-label">{{ 'title' }}</label>
-              <input type="text" class="form-control" name="title" id="title" value="{{$page->title}}" >
+              <input type="text" class="form-control" name="title" id="title" value="{{$page->title}}" required>
                   {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('slug') ? 'has-error' : ''}}">
               <label for="title" class="control-label">{{ 'slug' }}</label>
-              <input type="text" class="form-control" name="slug" id="slug" value="{{$page->slug}}" >
+              <input type="text" class="form-control" name="slug" id="slug" value="{{$page->slug}}" required>
                  {!! $errors->first('slug', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
@@ -72,9 +72,12 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('extras') ? 'has-error' : ''}}">
-              <label for="title" class="control-label">{{ 'extras' }}</label>
-              <input type="text" class="form-control" name="extras" id="extras" value="{{$page->extras}}" >
-                 {!! $errors->first('extras', '<p class="help-block">:message</p>') !!}
+              <label for="title" class="control-label">{{ 'status' }}</label>
+                 <div class="radio">
+                  <label class="label label-success"> <input type="radio" name="status"  value="{{ $page->status}}"> Active</label>
+                </div>
+                <div class="radio">
+                 <label class="label label-danger"><input type="radio" name="status" value="{{ $page->status}}" checked>Inactive</label>
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">

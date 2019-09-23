@@ -51,9 +51,9 @@
                                 @foreach($coupons as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{$item->title}}</td>
+                                        <td>{{ucfirst($item->title)}}</td>
                                         <td>{{ $item->code }}</td>
-                                        <td>{{$item->type}}</td>
+                                        <td>{{ucfirst($item->type)}}</td>
                                         <td>{{ $item->discount }}</td>
                                         <td>
                                             @can('coupon-list')

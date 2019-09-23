@@ -25,168 +25,91 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
+        <li>
           <a href="{{url('admin-dash')}}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('admin-dash')}}">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-
-          </ul>
         </li>
 
         @can('user-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{route('users.index')}}">
             <i class="fa fa-user-circle-o" aria-hidden="true"></i>
             <span>Manage User</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{route('users.index')}}"><i class="fa fa-circle-o"></i> User</a></li>
-
-          </ul>
         </li>
         @endcan
         @can('role-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+        <a href="{{route('roles.index')}}">
             <i class="fa fa-users" aria-hidden="true"></i>
             <span>Manage Role</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{route('roles.index')}}"><i class="fa fa-circle-o"></i> Role</a></li>
-
-          </ul>
         </li>
         @endcan
         @can('config-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{url('/admin/configurations')}}">
             <i class="fa fa-envelope" aria-hidden="true"></i>
             <span>Manage Mail</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/admin/configurations')}}"><i class="fa fa-circle-o"></i> Mail</a></li>
-
-          </ul>
         </li>
         @endcan
         @can('banner-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{url('/admin/banners')}}">
            <i class="fa fa-image" aria-hidden="true"></i>
             <span>Manage Banner</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/admin/banners')}}"><i class="fa fa-circle-o"></i>Banner</a></li>
-
-          </ul>
         </li>
         @endcan
         @can('category-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+        <a href="{{url('/admin/categories')}}">
            <i class="fa fa-list-alt" aria-hidden="true"></i>
             <span>Manage Category</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/admin/categories')}}"><i class="fa fa-circle-o"></i>Category</a></li>
-
-          </ul>
         </li>
         @endcan
         @can('product-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{url('/admin/product')}}">
            <i class="fa fa-product-hunt" aria-hidden="true"></i>
             <span>Manage Product</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/admin/product')}}"><i class="fa fa-circle-o"></i>Products</a></li>
-
-          </ul>
         </li>
         @endcan
         @can('coupon-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{url('/admin/coupons')}}">
           <i class="fa fa-money" aria-hidden="true"></i>
             <span>Manage Coupons</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/admin/coupons')}}"><i class="fa fa-circle-o"></i>Coupons</a></li>
-
-          </ul>
         </li>
         @endcan
         @can('contact-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+        <a href="{{url('/admin/contactus')}}">
             <i class="fa fa-comments" aria-hidden="true"></i>
-            <span>Manage Message</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/admin/contactus')}}"><i class="fa fa-circle-o"></i>Message</a></li>
-
-          </ul>
+            <span>Manage Message</span></a>
         </li>
         @endcan
         @can('order-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+        <a href="{{url('/admin/order')}}">
             <i class="fa fa-first-order"aria-hidden="true"></i>
             <span>Manage Order</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/admin/order')}}"><i class="fa fa-circle-o"></i>Order</a></li>
-
-          </ul>
         </li>
         @endcan
         @can('cms-list')
-        <li class="treeview">
-          <a href="#">
+        <li>
+        <a href="{{url('/admin/pages')}}">
             <i class="fa fa-file" aria-hidden="true"></i>
             <span> CMS</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/admin/pages')}}"><i class="fa fa-circle-o"></i>Pages</a></li>
 
-          </ul>
+          </a>
+
         </li>
         @endcan
         @can('report-list')

@@ -94,7 +94,7 @@
 						<div class="order-message">
 							<p>Shipping Order</p>
 							<textarea   placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-							<label><input type="checkbox"> Shipping to bill address</label>
+							<!-- <label><input type="checkbox"> Shipping to bill address</label> -->
 						</div>
 					</div>
 				</div>
@@ -112,6 +112,7 @@
 							<td class="description"></td>
 							<td class="price">Price</td>
 							<td class="quantity">Quantity</td>
+              <td class="total">Total </td>
 							<td class="cart_delete"></td>
 						</tr>
 					</thead>
@@ -129,7 +130,7 @@
 
 							</td>
 							<td class="cart_price">
-								<p style="margin-top: 25px;"><i class="fa fa-inr"></i> {{$product['price']}}</p>
+								<p style="margin-top: 25px;"><i class="fa fa-inr"></i> {{$product['item']['price']}}</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button" style="margin-top: 25px;">
@@ -139,6 +140,9 @@
 									<a class="cart_quantity_down" href="{{url('reduce/'.$product['item']['id'])}}"> - </a>
 								</div>
 							</td>
+              <td class="cart_price">
+                <p style="margin-top: 25px;"><i class="fa fa-inr"></i>{{$product['price']}} </p>
+              </td>
 							<td class="cart_delete">
 								<a class="cart_quantity_delete" href="{{url('remove/'.$product['item']['id'])}}"><i class="fa fa-times"></i></a>
 							</td>
@@ -148,7 +152,7 @@
 
 
                        <tr>
-							<td colspan="2">&nbsp;</td>
+							<td colspan="3">&nbsp;</td>
 							<td colspan="2">
 								<table class="table table-condensed total-result">
 									<tr>
@@ -191,6 +195,8 @@
 			</div>
 
 
+
+
 			<div class="rows">
 				<div class="col-md-8 chose_area" style="border: 1px,solid,black;">
 					<H3>Coupons Apply</H3>
@@ -208,7 +214,7 @@
                           <input type="text" name="total" value="{{ $totalPrice}}" style="display: none;">
                             <div >
                               <input type="submit" id="apply" name="Apply" value="Apply" class="btn btn-primary" style="display:block;">
-                              <input type="reset" name="reset" value="Clear" id="clear" class="btn btn-primary" style="display: none;">
+                              <a href="{{url('removecoupon')}}" id="clear" class="btn btn-primary" style="display: none;">Remove</a>
                             </div>
                        </form>
                    </div>

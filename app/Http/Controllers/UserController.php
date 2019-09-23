@@ -61,26 +61,25 @@ class UserController extends Controller
 
 
             ]);
-/*
-        $firstname=$request->input('firstname');
+
+        $firstname=$request->input('name');
         $lastname= $request->input('lastname');
         $email = $request->input('email');
-        $password =bcrypt($request->input('password'));
-        $role = $request->input('role');
+        $password = Hash::make($request->input('password'));
         $status=$request->input('status');
 
-      $reg = new user();
+      $user = new user();
 
-      $reg->name=$firstname;
-      $reg->lastname=$lastname;
-      $reg->email=$email;
-      $reg->password=$password;
-      $reg->status=$status;
-      $reg->save();
-*/
-          $input =$request->all();
-          $input['password']= Hash::make($input['password']);
-          $user = User::create($input);
+      $user->name=$firstname;
+      $user->lastname=$lastname;
+      $user->email=$email;
+      $user->password=$password;
+      $user->status=$status;
+      $user->save();
+
+          // $input =$request->all();
+          // $input['password']= Hash::make($input['password']);
+          // $user = User::create($input);
           $user->assignRole($request->input('roles'));
 
 

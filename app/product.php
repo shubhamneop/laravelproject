@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class product extends Model
 {
- 
 
- protected $fillable=['name','description','price'];   
- 
+
+ protected $fillable=['name','description','price'];
+
 
 public function productimage(){
-   
+
 
    return $this->hasOne('App\productimage');
-   
+
       }
 
 
@@ -43,4 +43,3 @@ public function wishlist(){
 
 
 }
-

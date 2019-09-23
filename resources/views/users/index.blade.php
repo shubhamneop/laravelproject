@@ -53,12 +53,12 @@
                 @foreach ($data as $key => $user)
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <td>{{ $user->name }}</td>
+                        <td>{{ ucfirst($user->name) }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
                             @if(!empty($user->getRoleNames()))
-                                @foreach($user->getRoleNames() as $v)
-                                    <label class="btn btn-success">{{ $v }}</label>
+                                @foreach($user->getRoleNames() as $role)
+                                    <label class="btn btn-success">{{ucfirst($role) }}</label>
                                 @endforeach
                             @endif
                         </td>

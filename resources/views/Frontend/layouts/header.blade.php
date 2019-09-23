@@ -115,8 +115,8 @@
 								<li><a href="{{url('/')}}" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li>
+                                        <li><a href="{{url('/')}}">Products</a></li>
+										<li><a href="#">Product Details</a></li>
 										<li><a href="{{url('checkout')}}">Checkout</a></li>
 										<li><a href="{{url('cart')}}">Cart</a></li>
 										<li><a href="{{url('login')}}">Login</a></li>
@@ -135,7 +135,14 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							  <form method="GET" action="{{ url('/') }}" accept-charset="UTF-8"  role="search">
+						    	<input type="text" name="search" placeholder="Search"/>
+									<span class="" style="margin-left:-41px;height: 64px">
+                      <button class="btn btn-info" type="submit">
+                          <i class="fa fa-search"></i>
+                      </button>
+                  </span>
+							  </form>
 						</div>
 					</div>
 				</div>

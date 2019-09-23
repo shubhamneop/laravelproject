@@ -24,11 +24,22 @@
 
 @if($formMode=='edit')
    @foreach($product->image as $image)
-   @endforeach
-<div class="col-xs-12 col-sm-12 col-md-12 form-group">
-  <img src="{{asset('/product/' .$image->image_path)}}"  style="width:50px;height:70px;">
-</div>
-@endif
+   <div class="col-xs-2 col-sm-2 col-md-2 form-group" >
+
+    <img src="{{asset('/product/' .$image->image_path)}}"  style="width:50px;height:70px;">
+  </div>
+  @endforeach
+
+  <div class="col-xs-12 col-sm-12 col-md-12">
+ <div class="form-group {{ $errors->has('image_path') ? 'has-error' : ''}} increment">
+     <label for="image_path" class="control-label">{{ 'Image Path' }}</label>
+     <input class="form-control" multiple="multiple" name="image_path[]" type="file" id="image_path" value="{{ isset($image->image_path) ? $image->image_path : ''}}" data-parsley-required>
+     {!! $errors->first('image_path', '<p class="help-block">:message</p>') !!}
+
+ </div>
+ </div>
+
+@else
  <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group {{ $errors->has('image_path') ? 'has-error' : ''}} increment">
     <label for="image_path" class="control-label">{{ 'Image Path' }}</label>
@@ -37,38 +48,64 @@
 
 </div>
 </div>
-
+@endif
 
 
 @if($formMode=='edit')
 
-<div class="col-xs-12 col-sm-12 col-md-12 form-group">
-        <label for="image_path" class="control-label">{{ 'Old Category' }}</label>
-     : {{$product->category->categories->category_name}}</div>
-@endif
-
-
 <div class="col-xs-12 col-sm-12 col-md-12">
    <div class="form-group">
       <label for="title">Select Category:</label>
+
         <select name="category" id="category" class="form-control" data-parsley-required >
             <option value="">--- Select Category ---</option>
            @foreach ($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+           @if($category->p_id == 0)
+           <option value="{{$category->id}}"@if($product->category->categories->parent->id == $category->id) selected="selected" @endif>
+               {{$category->category_name}}
+           </option>
+           @endif
             @endforeach
         </select>
        <span class="text-danger">{{ $errors->first('category') }}</span>
   </div>
 </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <label for="title">Select Subcategory:</label>
-                <select name="subcategories" class="form-control" id="subcategory" data-parsley-required>
-                </select>
-                   <span class="text-danger">{{ $errors->first('subcategories') }}</span>
-            </div>
-            </div>
+  <div class="col-xs-12 col-sm-12 col-md-12">
+  <div class="form-group">
+    <label for="title">Select Subcategory:</label>
+      <select name="subcategories" class="form-control" id="subcategory" data-parsley-required>
+        <option value="{{$product->category->categories->id}}">{{$product->category->categories->category_name}}</option>
+      </select>
+         <span class="text-danger">{{ $errors->first('subcategories') }}</span>
+  </div>
+  </div>
+  @else
+<div class="col-xs-12 col-sm-12 col-md-12">
+   <div class="form-group">
+      <label for="title">Select Category:</label>
 
+        <select name="category" id="category" class="form-control" data-parsley-required >
+            <option value="">--- Select Category ---</option>
+           @foreach ($categories as $category)
+
+           <option value="{{$category->id}}">
+               {{$category->category_name}}
+           </option>
+
+            @endforeach
+        </select>
+       <span class="text-danger">{{ $errors->first('category') }}</span>
+  </div>
+</div>
+  <div class="col-xs-12 col-sm-12 col-md-12">
+  <div class="form-group">
+    <label for="title">Select Subcategory:</label>
+      <select name="subcategories" class="form-control" id="subcategory" data-parsley-required>
+      </select>
+         <span class="text-danger">{{ $errors->first('subcategories') }}</span>
+  </div>
+</div>
+@endif
 
  <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group {{ $errors->has('colour') ? 'has-error' : ''}}">

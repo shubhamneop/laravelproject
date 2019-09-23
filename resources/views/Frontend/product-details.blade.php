@@ -36,7 +36,7 @@
 										@endforeach
 									</div>
 								</div>
-                              @endforeach
+              @endforeach
 
 							</div>
 
@@ -57,13 +57,10 @@
 							<h2>Brands</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
-									<li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-									<li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-									<li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-									<li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-									<li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-									<li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-									<li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+									@foreach($categorycounts as $productcount)
+									<li><a href="#"> <span class="pull-right">({{$productcount->total}})</span>{{$productcount->categories->category_name}}</a></li>
+									@endforeach
+
 								</ul>
 							</div>
 						</div><!--/brands_products-->
@@ -132,14 +129,22 @@
 								<p>Web ID: ab{{$productsDetails->id}}</p>
 								<img src="images/product-details/rating.png" alt="" />
 								<span>
-									<span>Rs {{$productsDetails->price}}</span>
+									<span><i class="fa fa-inr"></i> {{$productsDetails->price}}</span>
 									<label>Quantity:</label>
 									<input type="text" value="{{$productsDetails->attribute->quantity}}" />
-
-									<a href="{{url('add-to-cart/'.$productsDetails->id)}}" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>
+                   @if($productsDetails->attribute->quantity<=0)
+									<a href="{{url('add-to-cart/'.$productsDetails->id)}}" class="btn btn-fefault cart" disabled><i class="fa fa-close"></i>
 										Add to cart</a>
+										@else
+										<a href="{{url('add-to-cart/'.$productsDetails->id)}}" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>
+											Add to cart</a>
+										@endif
 								</span>
-								<p><b>Availability:</b> In Stock</p>
+							  	@if($productsDetails->attribute->quantity<=0)
+							    <p><b>Availability:</b> Out of Stock</p>
+								  @else
+								 <p><b>Availability:</b> In Stock</p>
+								 @endif
 								<p><b>Condition:</b> New</p>
 								<p><b>Brand:</b> E-SHOPPER</p>
 								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>

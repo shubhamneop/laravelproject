@@ -24,13 +24,13 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th>Name</th><td>{{ $contact->name }}</td>
+                                        <th>Name</th><td>{{ ucfirst($contact->name) }}</td>
                                     </tr>
                                     <tr><th> Contact No </th><td> {{$contact->contactno}} </td></tr>
                                     <th> E-Mail </th><td> {{ $contact->email }} </td></tr>
-                                    <tr><th> Subject </th><td> {{ $contact->subject }} </td></tr>
-                                    <tr><th>Message</th><td> {{$contact->message}}</td></tr>
-                                      <tr><th>Note</th><td> {{$contact->note}}</td></tr>  
+                                    <tr><th> Subject </th><td> {{ ucfirst($contact->subject) }} </td></tr>
+                                    <tr><th>Message</th><td> {{ucfirst($contact->message)}}</td></tr>
+                                      <tr><th>Note</th><td> {{ucfirst($contact->note)}}</td></tr>
                                 </tbody>
                             </table>
                         </div>

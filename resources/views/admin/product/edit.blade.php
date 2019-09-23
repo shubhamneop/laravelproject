@@ -34,7 +34,7 @@
 
 <script type="text/javascript">
    $(document).ready(function() {
-        $('#product-form').parsley();
+      
         $('select[name="category"]').on('change', function() {
             var stateID = $(this).val();
             if(stateID) {

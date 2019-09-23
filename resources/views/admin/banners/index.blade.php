@@ -51,7 +51,7 @@
                                 @foreach($banners as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td><td> <img src="{{asset('/storage/' .$item->bannername)}}"  style="width:50px;height:70px;"></td>
+                                        <td>{{ ucfirst($item->name) }}</td><td> <img src="{{asset('/storage/' .$item->bannername)}}"  style="width:50px;height:70px;"></td>
                                         <td>
                                             <a href="{{ url('/admin/banners/' . $item->id) }}" title="View banner"><button class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/banners/' . $item->id . '/edit') }}" title="Edit banner"><button class="btn btn-success "><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

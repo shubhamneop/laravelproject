@@ -32,10 +32,10 @@ class Cart
 
 
            $storedItem['qty']++;
-           $storedItem['price']= $item->price;
+           $storedItem['price']= $item->price* $storedItem['qty'];
     	   $this->items[$id] = $storedItem;
     	   $this->totalQty++;
-    	   $this->totalPrice += $item->price * $storedItem['qty'];
+    	   $this->totalPrice += $item->price;
            if($this->totalPrice<500){
             $this->shipTotalPrice = $this->totalPrice+50;
            }else{
@@ -47,7 +47,7 @@ class Cart
 
            $this->items[$id]['qty']--;
            $this->items[$id]['price'] -= $this->items[$id]['item']['price'];
-    	   $this->totalQty--;
+
 
     	   $this->totalPrice -= $this->items[$id]['item']['price'];
              if($this->totalPrice<500){
@@ -56,6 +56,7 @@ class Cart
             $this->shipTotalPrice= $this->totalPrice;
            }
     	   if($this->items[$id]['qty']<=0){
+           $this->totalQty--;
     	   	unset($this->items[$id]);
     	   }
 
@@ -64,7 +65,7 @@ class Cart
 
            $this->items[$id]['qty']++;
            $this->items[$id]['price'] += $this->items[$id]['item']['price'];
-    	   $this->totalQty++;
+    	   $this->totalQty;
     	   $this->totalPrice += $this->items[$id]['item']['price'];
 
           if($this->totalPrice<500){

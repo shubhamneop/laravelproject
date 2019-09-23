@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Order_detail;
+use App\Cartdetail;
 use Redirect;
 use App\Mail\Orderstatus;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use DB;
 use App\General;
 
 class OrderController extends Controller

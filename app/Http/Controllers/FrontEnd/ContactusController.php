@@ -60,9 +60,9 @@ class ContactusController extends Controller
         'subject'=>'required',
         'message'=>'required',
       ]);
-       $input = $request->all();
-      $contact = Contactus::create($input);
-      $mail = configuration::find(1);
+        $input = $request->all();
+        $contact = Contactus::create($input);
+        $mail = configuration::find(1);
         Mail::to($mail->value)->send(new NotificationToAdmin($contact));
          return redirect()->back();
     }
@@ -108,10 +108,10 @@ class ContactusController extends Controller
         'subject'=>'required',
         'message'=>'required',
       ]);
-       $input = $request->all();
+         $input = $request->all();
          $message = Contactus::find($id);
-       $message->update($input);
-       $mail = configuration::find(1);
+         $message->update($input);
+         $mail = configuration::find(1);
          Mail::to($message->email)->send(new Notebyadmin($message));
          return redirect('admin/contactus')->with('success', 'Note Addred by admin!');
     }

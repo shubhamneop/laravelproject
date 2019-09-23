@@ -25,14 +25,14 @@
 
                                 <tbody>
 
-                                    <tr><th> Name </th><td> {{ $products->name }} </td></tr><tr><th> Description </th><td> {{ $products->description }} </td></tr><tr><th> Image  </th>
+                                    <tr><th> Name </th><td> {{ ucfirst($products->name) }} </td></tr><tr><th> Description </th><td> {{ ucfirst($products->description) }} </td></tr><tr><th> Image  </th>
                                           @foreach($products->image as $image)
                                           @endforeach
                                       <td><img src="{{asset('product/' . $image->image_path )}}"  style="width:50px;height:70px;"> </td></tr>
                                     <tr><th>Price</th><td>{{$products->price}}</td></tr>
-                                    <tr><th> Category </th><td> {{ $products->category->categories->category_name }} </td></tr><tr>
+                                    <tr><th> Category </th><td> {{ ucfirst($products->category->categories->category_name) }} </td></tr><tr>
 
-                                        <th> Colour </th><td> {{ $products->attribute->color }} </td></tr><tr><th>Quantity</th><td>{{$products->attribute->quantity}}</td></tr>
+                                        <th> Colour </th><td> {{ ucfirst($products->attribute->color) }} </td></tr><tr><th>Quantity</th><td>{{$products->attribute->quantity}}</td></tr>
                                 </tbody>
                             </table>
                         </div>

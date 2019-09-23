@@ -39,18 +39,18 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Name</th><th>Contact No</th><th>E-Mail</th><th>Subject</th><th>Message</th><th>Actions</th>
+                                        <th width="5%">#</th><th width="5%">Name</th><th width="5%">Contact No</th><th width="5%">E-Mail</th><th width="5%">Subject</th><th width="5%">Message</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($contacts as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{$item->name}}</td>
+                                        <td>{{ucfirst($item->name)}}</td>
                                         <td>{{ $item->contactno }}</td>
                                         <td>{{$item->email}}</td>
-                                        <td>{{ $item->subject }}</td>
-                                        <td>{{$item->message}}</td>
+                                        <td>{{ ucfirst($item->subject) }}</td>
+                                        <td>{{ucfirst($item->message)}}</td>
                                         <td>
                                             @can('contact-list')
                                             <a href="{{ url('/admin/contactus/' . $item->id) }}" title="View Message"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

@@ -15,7 +15,9 @@ use App\User_order;
 use App\User;
 use App\Sample;
 use App\Used_coupon;
+use App\Cartdetail;
 use App\configuration;
+use App\productattributesassoc;
 use Redirect;
 use DB;
 use Auth;
@@ -86,7 +88,7 @@ class CartController extends Controller
 
 
                   if(Auth::check()){
-            $id = Auth::User()->id;
+                  $id = Auth::User()->id;
                  }else{
              $id = 0;
          }
@@ -153,7 +155,7 @@ class CartController extends Controller
        $cart->add($product,$product->id);
 
        $request->session()->put('cart', $cart);
-      return redirect()->back()->with('success', 'Product added to cart successfully!');
+      return redirect()->back();
 
 
 
@@ -210,38 +212,26 @@ class CartController extends Controller
                  }else{
              $id = 0;
          }
-           $addresses = Address::where('user_id',$id)->get();
+       $addresses = Address::where('user_id',$id)->get();
        $data = null;
 
     if(!Session::has('cart')){
       return view('Frontend.cart',['products'=>null]);
-    }
+      }
      $oldCart = Session::get('cart');
      $cart = new Cart($oldCart);
 
      $data =  Used_coupon::with('coupon')->where('user_id',$id)->get();
 
-
-         foreach ($data as $key => $value) {
-             $ids[] = $value->coupon_id;
-
-             }
-
-
-          // if ($ids== null) {
-          //  $coupons = coupon::all();
-          // }else {
-          //     $coupons =   coupon::whereNotIn('id',$ids)->get();
-          // }
-       $ids=[0];
-          $coupons =   coupon::whereNotIn('id',$ids)->get();
-      // $coupons = coupon::all();
-
-     // $totalPrice = $cart->totalPrice;
-       //$shipTotalPrice = 0;
-       //if($totalPrice>500){
-         //$shipTotalPrice = $totalPrice+50;}
-
+         if(count($data)<=0)
+            {
+              $coupons = coupon::all();
+            }else{
+              foreach ($data as $key => $value) {
+                  $ids[] = $value->coupon_id;
+                  }
+              $coupons =   coupon::whereNotIn('id',$ids)->get();
+            }
 
 
      return view('Frontend.checkout',['products'=>$cart->items, 'totalPrice'=>$cart->totalPrice,'shipTotalPrice'=>$cart->shipTotalPrice,'total'=>null,'addresses'=>$addresses,'data'=>$data,'coupons'=>$coupons]);
@@ -270,7 +260,7 @@ class CartController extends Controller
       $coupons = coupon::all();
 
       $totalPrice = $cart->totalPrice;
-      $newTotal = $cart->shipTotalPrice;
+      $newTotal = $request->input('amount');
        $shipTotalPrice = 0;
        if($totalPrice>500){
          $shipTotalPrice = $totalPrice+50;
@@ -300,6 +290,7 @@ class CartController extends Controller
        $latestOrder = Order_detail::orderBy('created_at','DESC')->first();
        $status ='Processing';
        $id = Auth::User()->id;
+
        $order = new Order_detail();
        $order->user_id = $id;
        if($latestOrder==null){
@@ -315,9 +306,6 @@ class CartController extends Controller
        if($totalPrice>$newTotal){
           $order->coupon_id= $coupon->id;
         }
-
-
-
        $order->save();
 
        $userorder = new User_order();
@@ -327,11 +315,35 @@ class CartController extends Controller
        $userorder->save();
 
 
-      
+
 
        $order = Order_detail::find($order->id);
 
           $orders = unserialize($order->cart);
+
+            foreach ($orders->items as $item) {
+                 $cartdetails = new Cartdetail;
+                    $cartdetails->order_id = $order->id;
+                    $cartdetails->product_id=$item['item']['id'];
+                    $cartdetails->product_name=$item['item']['name'];
+                    $cartdetails->product_image=$item['image'];
+                    $cartdetails->quantity=$item['qty'];
+                    $cartdetails->price=$item['price'];
+                    $cartdetails->category=$item['item']['category']['category_id'];
+                    $cartdetails->save();
+
+                    $product = productattributesassoc::where('product_id',$item['item']['id'])->get();
+                     foreach ($product as $dataid){
+                          $id=$dataid->id;
+                        }
+                     $productid = productattributesassoc::find($id);
+                         $productquantity=$productid->quantity;
+                         $productquantity = $productquantity-$item['qty'];
+                         $dataupdate=array(
+                           'quantity'=> $productquantity,
+                              );
+                        $productid->update($dataupdate);
+                }
 
         $email = Auth::User()->email;
       Mail::to($email)->send(new Orderdetails($orders,$order));
@@ -342,6 +354,13 @@ class CartController extends Controller
       return redirect('payonfo');
 
 
+
+  }
+
+  public function removecoupon(){
+     $coupon = Used_coupon::with('coupon','user')->orderBy('id','DESC')->first();
+     Used_coupon::where('id',$coupon->id)->delete();
+     return redirect('check_out');
 
   }
 

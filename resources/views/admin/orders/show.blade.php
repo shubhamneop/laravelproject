@@ -34,8 +34,8 @@
 
                                      <tr><td>Status</td>  <td>{{$order->status}} </td></tr>
                                      <tr><td>Total Amount</td>  <td >{{$order->total}}</td></tr>
-                                     <tr><td>Customer</td>  <td><a href="{{url('users/'.$order->user->id)}}" >{{$order->user->name}}</a></td></tr>
-                                     <tr><td>Customer Address </td><td>{{$order->address->fullname}} {{$order->address->address1}} {{$order->address->address2}} {{$order->address->zipcode}} {{$order->address->cuntry}} {{$order->address->state}} {{$order->address->phoneno}} {{$order->address->mobileno}}</td>
+                                     <tr><td>Customer</td>  <td><a href="{{url('users/'.$order->user->id)}}" >{{ucfirst($order->user->name)}} {{ucfirst($order->user->lastname)}}</a></td></tr>
+                                     <tr><td>Customer Address </td><td>{{ucfirst($order->address->fullname)}} {{$order->address->address1}} {{$order->address->address2}} {{$order->address->zipcode}} {{$order->address->cuntry}} {{$order->address->state}} {{$order->address->phoneno}} {{$order->address->mobileno}}</td>
                                       <tr><td>Payment Mode</td>  <td>{{$order->payment_mode}}</td></tr>
                                         <tr><td>Payment Id</td>  <td>{{$order->payment_id}}</td></tr>
 

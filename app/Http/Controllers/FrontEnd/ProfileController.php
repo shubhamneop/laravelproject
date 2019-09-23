@@ -31,13 +31,10 @@ class ProfileController extends Controller
 
               $id = Auth::User()->id;
               $user =  User::where('id',$id);
-
-
               $dataupdate = array(
                           'name'=> $request->input('name'),
                           'lastname'=>$request->input('lastname'),
                           'email' => $request->input('email'),
-
                              );
 
                    $user->update($dataupdate);
@@ -53,8 +50,8 @@ class ProfileController extends Controller
         ]);
 
          $id = Auth::User()->id;
-        $user =  User::where('id',$id);
-        $path = public_path('User_profile');
+         $user =  User::where('id',$id);
+         $path = public_path('User_profile');
 
 
            if(!File::isDirectory($path)){
@@ -69,14 +66,12 @@ class ProfileController extends Controller
 
 
         $profile_image_url = $profileImageSaveAsName;
-       $success = $profileImage->move($path, $profileImageSaveAsName);
+        $success = $profileImage->move($path, $profileImageSaveAsName);
 
 
        $dataupdate = array(
-
                    'profile_image'=>$profile_image_url,
                       );
-
             $user->update($dataupdate);
 
 

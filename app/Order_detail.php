@@ -25,4 +25,7 @@ class Order_detail extends Model
      public function used_coupon(){
        return $this->belongsTo('App\Used_coupon','coupon_id','id');
      }
+     public function cartdetail(){
+       return $this->hasMany('App\Cartdetail','order_id');
+     }
 }

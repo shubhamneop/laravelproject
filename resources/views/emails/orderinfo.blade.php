@@ -75,8 +75,8 @@ table, th, td {
       <td>{{$loop->iteration}}</td>
       <td> {{$item['item']['name']}}</td>
       <td> {{$item['qty']}}</td>
+      <td>{{$item['item']['price']}}</td>
       <td>{{$item['price']}}</td>
-      <td>{{$orders->shipTotalPrice}}</td>
 
 </tr>
 @endforeach

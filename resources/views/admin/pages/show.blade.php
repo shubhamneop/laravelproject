@@ -21,11 +21,11 @@
         <div class="table-responsive">
            <table class="table table-responsive">
 
-                     <tr><th>Name</th><td> {{$page->name}}</td></tr>
-                     <tr><th>Title</th><td> {{$page->title}}</td></tr>
-                     <tr><th>Slug</th>  <td>{{$page->slug}}</td></tr>
+                     <tr><th>Name</th><td> {{ucfirst($page->name)}}</td></tr>
+                     <tr><th>Title</th><td> {{ucfirst($page->title)}}</td></tr>
+                     <tr><th>Slug</th>  <td>{{ucfirst($page->slug)}}</td></tr>
                      <tr><th>Content</th>  <td>{!! $page->content !!} </td></tr>
-                     <tr><th>Status</th> <td>{{$page->status}}</td></tr>
+                     <tr><th>Status</th> <td>{{ucfirst($page->status)}}</td></tr>
 
 
                             </table>

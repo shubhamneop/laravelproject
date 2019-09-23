@@ -47,9 +47,10 @@ class UserloginController extends Controller
            ]);
 
            $userdata = array(
-             'email'=>$request->input('email'),
+               'email'=>$request->input('email'),
                'password'=>$request->input('password'),
-           );
+             );
+
            if(Auth::attempt($userdata)){
 
                return Redirect::to('/');
@@ -101,19 +102,28 @@ class UserloginController extends Controller
                  'password'=>'required|min:6|required_with:password_confirmation|same:password_confirmation',
 
             ]);
-          $input =$request->all();
-          $input['password']= Hash::make($input['password']);
-          $user = User::create($input);
-          $user->assignRole('customer');
+            $input =$request->all();
+            $input['password']= Hash::make($input['password']);
+            $users = User::create($input);
+            $users->assignRole('customer');
+            $user = array(
+               'name'=>$request->input('name'),
+               'lastname'=>$request->input('lastname'),
+               'email'=>$request->input('email'),
+               'password'=>$request->input('password')
+              );
 
-          if($user){
-              Auth::login($user);
-              Mail::to($user->email)->send(new Welcome($user));
+
+           $user = (object)$user;
+
+          if($users){
+              Auth::login($users);
+              Mail::to($users->email)->send(new Welcome($user));
               $mail = configuration::find(1);
-                Mail::to($mail->value)->send(new WelcomeAdmin($user));
+              Mail::to($mail->value)->send(new WelcomeAdmin($user));
                  return Redirect::to('/');
            }else{
-          return view('Frontend.login');
+             return view('Frontend.login');
           }
 
 

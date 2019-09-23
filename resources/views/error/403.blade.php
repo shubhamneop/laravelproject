@@ -34,8 +34,8 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-    
-     
+
+
     </section>
 
     <!-- Main content -->
@@ -45,13 +45,21 @@
 
         <div class="error-content">
           <h3><i class="fa fa-warning text-yellow"></i> Oops! You Don't have access Rights.</h3>
-
+        
           <p>
             We could not find the page you were looking for.
-            Meanwhile, you may <a href="{{ url('admin')}}">return to dashboard</a> or try using the search form.
+            Meanwhile, you may <a class="dropdown-item" href="{{ url('logoutadmin') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+
+                              return to dashboard</a>
+
+                                <form id="logout-form" action="{{ url('logoutadmin  ') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form> or try using the search form.
           </p>
 
-          
+
         </div>
         <!-- /.error-content -->
       </div>

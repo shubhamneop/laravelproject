@@ -30,7 +30,7 @@
                                         <td>{{ $banner->id }}</td>
                                     </tr>
                                     <tr><th> Name </th>
-                                    <td> {{ $banner->name }} </td>
+                                    <td> {{ ucfirst($banner->name) }} </td>
                                     </tr>
                                     <tr><th> Banner Image </th>
                                     <td ><img src="{{asset('/storage/' .$banner->bannername)}}"> </td>

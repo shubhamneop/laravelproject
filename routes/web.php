@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/admin-dash', 'HomeController@index');//->middleware('role:admin');
+Route::get('/admin-dash', 'HomeController@index')->middleware('role:admin|inventory manager|order manager|superadmin');
 Route::get('admin',function(){
     return view('login');
 });
@@ -91,50 +91,4 @@ Auth::routes();
 Route::get('myform/ajax/{id}','productController@myformAjax');
 
 
-    Route::get('categories',function(){
-         $category = DB::table('cats')
-                          ->where('p_id',29)
-                          ->get();
-              dd($category);
-
-
-    });
-
-
-    Route::get('couponsall',function(){
-
-      // $data= App\Used_coupon::with('coupon','user')->orderBy('id','DESC')->first();
-      //   App\Used_coupon::where('id',$data->id)->delete();
-
-    });
-
-    Route::get('check',function(){
-      $sales= App\Order_detail::all();
-
-      $sales->transform(function($order,$key){
-      $order->cart=unserialize($order->cart);
-         foreach ($order->cart->items as $item){
-              return $item['item']['id'];
-         }
-
-      // dd($order->cart->items);
-         });
-         dd($sales);
-    foreach ($sales as $sale) {
-     foreach($sale->cart->items as $item){
-         dd($item['item']['category']);
-     }
-   }
-
-   // foreach ($sales as $sale) {
-   //     $sale->cart=json_decode($sale->cart,true);
-   // }
-   //  var_dump($sales);
-
-      // $sales = App\Order_detail::with('cart')->get();
-      // var_dump($sales);
-      // $sales  =unserialize($sales->cart);
-
-
-
-    });
+  

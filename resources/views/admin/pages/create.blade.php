@@ -22,21 +22,21 @@
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
               <label for="title" class="control-label">{{ 'Name' }}</label>
-              <input type="text" class="form-control" name="name"  id="name" value="{{old('name')}}" >
+              <input type="text" class="form-control" name="name"  id="name" value="{{old('name')}}" required>
                   {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
               <label for="title" class="control-label">{{ 'title' }}</label>
-              <input type="text" class="form-control" name="title" id="title" value="{{old('title')}}" >
+              <input type="text" class="form-control" name="title" id="title" value="{{old('title')}}" required>
                   {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('slug') ? 'has-error' : ''}}">
               <label for="title" class="control-label">{{ 'slug' }}</label>
-              <input type="text" class="form-control" name="slug" id="slug" value="{{old('slug')}}" >
+              <input type="text" class="form-control" name="slug" id="slug" value="{{old('slug')}}" required>
                  {!! $errors->first('slug', '<p class="help-block">:message</p>') !!}
             </div>
           </div>

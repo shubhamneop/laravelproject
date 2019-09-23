@@ -7,9 +7,9 @@
      <section class="content">
         <div class="row">
             <div class="col-xs-12 margin-tb">
-       
+
               <div class="pull-right">
-                   
+
                         <a href="{{ url('/admin/coupons') }}" class="btn btn-info btn-sm" title="Add New product">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                         </a>
@@ -18,13 +18,13 @@
           </div>
 
 
-                     
+
 
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th>Title</th><td>{{ $coupon->title }}</td>
+                                        <th>Title</th><td>{{ ucfirst($coupon->title) }}</td>
                                     </tr>
                                     <tr><th> Code </th><td> {{ $coupon->code }} </td></tr>
                                     <th> Type </th><td> {{ $coupon->type }} </td></tr>

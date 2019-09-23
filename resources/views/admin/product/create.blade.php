@@ -12,9 +12,9 @@
 
 
 
-                        <form id="product-form" method="POST" action="{{ url('/admin/product') }}" accept-charset="UTF-8"  enctype="multipart/form-data">
+                        <form id="product-form" method="POST" action="{{ url('/admin/product') }}" accept-charset="UTF-8"  enctype="multipart/form-data" data-parsley-validate>
                             {{ csrf_field() }}
-                              
+
                             @include ('admin.product.form', ['formMode' => 'create'])
 
                         </form>
@@ -27,7 +27,7 @@
 
 <script type="text/javascript">
    $(document).ready(function() {
-         $('#product-form').parsley();
+
         $('select[name="category"]').on('change', function() {
             var stateID = $(this).val();
             if(stateID) {

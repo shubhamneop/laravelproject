@@ -47,9 +47,9 @@
                                         <td> {{ $order->order_no }} </td>
                                         <td>{{$order->cart->totalQty}}</td>
                                         <td>{{$order->total}}</td>
-                                        <td>{{$order->status}} </td>
+                                        <td>{{ucfirst($order->status)}} </td>
                                         <td>{{$order->created_at}}</td>
-                                        <td>{{$order->address->fullname}}</td>
+                                        <td>{{ucfirst($order->address->fullname)}}</td>
 
                                         <td>
                                            @can('order-list')
