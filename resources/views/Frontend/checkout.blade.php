@@ -224,7 +224,7 @@
                                  <label class="label label-success">  Available Coupons </label> <br><br>
                         @foreach($coupons as $v)
                          <span class="badge" style="color:black;margin:1px;display:inline;">
-                     <input type="radio" name="coupon" id="coupon{{$v->id}}" value="{{$v->code}}">
+                         <input type="radio" name="coupon" id="coupon{{$v->id}}" value="{{$v->code}}">
                       {{ $v->code  }}</span> &nbsp;
                         @endforeach
                       @endif
