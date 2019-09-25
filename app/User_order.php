@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class User_order extends Model
 {
@@ -16,5 +18,7 @@ class User_order extends Model
     	return $this->belongsTo('App\Order_detail','id');
     }
 
+    use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
 }

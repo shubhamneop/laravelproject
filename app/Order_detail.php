@@ -3,13 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order_detail extends Model
 {
 
 
     protected $fillable = ['cart', 'address_id', 'total', 'status', 'payment_id', 'payment_mode', 'user_id'];
+    use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
   public function user(){
 
     	return $this->belongsTo('App\User');

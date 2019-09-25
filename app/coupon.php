@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class coupon extends Model
 {
@@ -26,6 +27,9 @@ class coupon extends Model
      * @var array
      */
     protected $fillable = ['title','code','type', 'discount'];
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     public function usedcoupon(){
       return $this->hasMany('App\Used_coupon','coupon_id');

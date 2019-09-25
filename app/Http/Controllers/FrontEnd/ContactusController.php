@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ContactusRequest;
 use App\Http\Controllers\Controller;
 use App\Contactus;
 use App\configuration;
@@ -51,15 +52,9 @@ class ContactusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactusRequest $request)
     {
-      $this->validate($request,[
-        'name'=>'required',
-        'contactno'=>'required|numeric|min:10',
-        'email'=>'required|email',
-        'subject'=>'required',
-        'message'=>'required',
-      ]);
+
         $input = $request->all();
         $contact = Contactus::create($input);
         $mail = configuration::find(1);
@@ -99,15 +94,9 @@ class ContactusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ContactusRequest $request, $id)
     {
-      $this->validate($request,[
-        'name'=>'required',
-        'contactno'=>'required|numeric|min:10',
-        'email'=>'required|email',
-        'subject'=>'required',
-        'message'=>'required',
-      ]);
+      
          $input = $request->all();
          $message = Contactus::find($id);
          $message->update($input);

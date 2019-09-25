@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class banner extends Model
 {
@@ -27,5 +28,7 @@ class banner extends Model
      */
     protected $fillable = ['name', 'bannername'];
 
-    
+    use SoftDeletes;
+
+   protected $dates = ['deleted_at'];
 }

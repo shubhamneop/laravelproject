@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\MailRequest;
+use App\Http\Requests\MailUpdateRequest;
 use App\configuration;
 use Illuminate\Http\Request;
 
@@ -55,15 +56,12 @@ class configurationsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
-    {     
-         $this->validate($request,[
-            'name'=>'required',
-            'value'=> 'required|email|unique:configurations,value', 
-         ]);  
+    public function store(MailRequest $request)
+    {
+
 
         $requestData = $request->all();
-        
+
         configuration::create($requestData);
 
         return redirect('admin/configurations')->with('success', 'configuration added!');
@@ -105,14 +103,11 @@ class configurationsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(MailUpdateRequest $request, $id)
     {
-        $this->validate($request,[
-            'name'=>'required',
-            'value'=> 'required|email|unique:configurations,value', 
-         ]); 
+
         $requestData = $request->all();
-        
+
         $configuration = configuration::findOrFail($id);
         $configuration->update($requestData);
 

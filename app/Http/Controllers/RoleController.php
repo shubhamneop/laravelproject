@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\RoleRequest;
+use App\Http\Requests\RoleUpdateRequest;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -50,12 +52,8 @@ class RoleController extends Controller
         return view('roles.edit',compact('role','permission','rolePermissions'))->with('i',($request->input('page',1)-1)*5);
     }
 
-    public function update(Request $request, $id)
+    public function update(RoleUpdateRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'permission' => 'required',
-        ]);
 
 
         $role = Role::find($id);
@@ -69,11 +67,8 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
             ->with('success','Role updated successfully');
     }
-    public function store(Request $request){
-        $this->validate($request ,[
-        'name' => 'required|unique:roles,name',
-            'permission' => 'required',
-        ]);
+    public function store(RoleRequest $request){
+
 
 
         $role = Role::create(['name' => $request->input('name')]);

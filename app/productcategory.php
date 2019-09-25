@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class productcategory extends Model
     {
+      use SoftDeletes;
+
+      protected $dates = ['deleted_at'];
          public function products()
            {
             return $this->belongsTo('App\product','product_id', 'id');
@@ -17,5 +20,5 @@ class productcategory extends Model
               }
     //
 
-     
+
 }

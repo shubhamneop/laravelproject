@@ -78,6 +78,7 @@ class Cart
      	$this->totalQty -= $this->items[$id]['qty'];
          $this->shipTotalPrice -=$this->totalPrice;
      	$this->totalPrice -= $this->items[$id]['price'];
+  
         if($this->totalPrice<500){
             $this->shipTotalPrice = $this->totalPrice+50;
            }else{

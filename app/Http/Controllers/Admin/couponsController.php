@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\CouponRequest;
+use App\Http\Requests\CouponUpdateRequest;
 use App\coupon;
 use Illuminate\Http\Request;
 
@@ -62,15 +63,8 @@ class couponsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(CouponRequest $request)
     {
-         $this->validate($request,[
-            'title'=>'required',
-             'code'=>'required|regex:/^[a-zA-Z0-9_\-]*$/|unique:coupons,code',
-             'type'=>'required',
-           'discount'=>'required',
-
-        ]);
 
 
         $input = new coupon;
@@ -125,15 +119,9 @@ class couponsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(CouponUpdateRequest $request, $id)
     {
-          $this->validate($request,[
-            'title'=>'required',
-            'code' => 'required',
-            'type'=>'required',
-            'discount'=>'required',
 
-        ]);
 
         $requestData = $request->all();
 

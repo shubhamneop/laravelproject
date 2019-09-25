@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Used_coupon extends Model
 {
@@ -17,4 +18,8 @@ class Used_coupon extends Model
     public function order_detail(){
       return $this->hasOne('App\Order_detail','coupon_id','id');
     }
+
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 }

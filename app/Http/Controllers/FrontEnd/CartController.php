@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontEnd;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddressRequest;
 use App\Mail\Orderdetails;
 use Illuminate\Support\Facades\Mail;
 use App\Cart;
@@ -238,18 +239,9 @@ class CartController extends Controller
 
   }
 
-  public function saveorder(Request $request){
-
-        $this->validate($request,[
-            'fullname'=>'required',
-            'address1'=>'required',
-            'zipcode'=>'required|numeric',
-            'country'=>'required|alpha',
-            'state'=>'required|alpha',
-            'mobileno'=>'required|numeric',
+  public function saveorder(AddressRequest $request){
 
 
-         ]);
 
      if(!Session::has('cart')){
       return view('Frontend.cart',['products'=>null]);

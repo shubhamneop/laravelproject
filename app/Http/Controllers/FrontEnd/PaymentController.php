@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontEnd;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Orderdetails;
@@ -52,18 +53,9 @@ class PaymentController extends Controller
         );
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
-     public function payWithpaypal(Request $request)
+     public function payWithpaypal(AddressRequest $request)
     {
-         $this->validate($request,[
-            'fullname'=>'required',
-            'address1'=>'required',
-            'zipcode'=>'required|numeric',
-            'country'=>'required|alpha',
-            'state'=>'required|alpha',
-            'mobileno'=>'required|numeric',
-
-
-         ]);
+         
 
           if(!Session::has('cart')){
              return view('Frontend.cart',['products'=>null]);

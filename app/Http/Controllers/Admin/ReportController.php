@@ -61,26 +61,7 @@ class ReportController extends Controller
         return view('admin.reports.customer.index',compact('users'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -147,7 +128,7 @@ class ReportController extends Controller
 
          } else {
 
-            $coupons = Used_coupon::with('coupon','user','order_detail')->orderBy('id','DESC')->paginate($perPage);
+            $coupons = Used_coupon::with('coupon','user','order_detail')->where('coupon_id','!=',0)->orderBy('id','DESC')->paginate($perPage);
         }
 
 

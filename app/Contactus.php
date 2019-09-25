@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contactus extends Model
 {
@@ -26,4 +27,8 @@ class Contactus extends Model
    * @var array
    */
   protected $fillable = ['name', 'email', 'contactno', 'subject', 'message','note'];
+
+  use SoftDeletes;
+
+  protected $dates = ['deleted_at'];
 }

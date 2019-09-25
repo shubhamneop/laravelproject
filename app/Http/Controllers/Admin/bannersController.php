@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\banner;
 use Illuminate\Http\Request;
+use App\Http\Requests\BannerRequest;
+use App\Http\Requests\BannerUpdateRequest;
 
 class bannersController extends Controller
 {
@@ -56,12 +57,9 @@ class bannersController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(BannerRequest $request)
     {
-       $this->validate($request,[
-           'name'=>'required',
-           'bannername'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-       ]);
+
 
         $requestData = $request->all();
         if ($request->hasFile('bannername')) {
@@ -109,13 +107,8 @@ class bannersController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(BannerUpdateRequest $request, $id)
     {
-        $this->validate($request,[
-            'name'=>'required',
-            'bannername'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-
 
         $requestData = $request->all();
         if ($request->hasFile('bannername')) {

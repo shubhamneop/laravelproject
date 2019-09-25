@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 namespace App\Http\Controllers\FrontEnd;
 use Illuminate\Http\Request;
+use App\Http\Requests\PageRequest;
+use App\Http\Requests\PageUpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Page;
 class PageController extends Controller
@@ -47,14 +49,8 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PageRequest $request)
     {
-           $this->validate($request,[
-             'name'=>'required',
-             'title'=>'required|unique:pages,title',
-             'slug'=>'required',
-             'status'=>'required',
-          ]);
 
           $page = new Page;
           $page->name=$request->input('name');
@@ -121,7 +117,7 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PageUpdateRequest $request, $id)
     {
       $input = $request->all();
        $page = Page::find($id);

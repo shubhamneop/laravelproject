@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class configuration extends Model
 {
@@ -28,5 +29,9 @@ class configuration extends Model
     protected $fillable = ['name', 'value', '--view-path=admin-dash --controller-namespace=Admin-dash --route-group=admin-dash
 php artisan crud:generate configurations --fields=name'];
 
-    
+use SoftDeletes;
+
+protected $dates = ['deleted_at'];
+
+
 }

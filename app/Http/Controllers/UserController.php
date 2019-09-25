@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use App\User;
@@ -46,21 +48,9 @@ class UserController extends Controller
      return view('users.new2',compact('roles'));
  }
 
-   public function store(Request $request){
+   public function store(UserRequest $request){
 
 
-        $this->validate($request,[
-            'name'=>'required',
-            'lastname'=>'required',
-            'email'=>'required|email|unique:users,email',
-
-            'password' => 'min:6|required_with:confirm-password|same:confirm-password',
-            'confirm-password' => 'min:6',
-            'roles'=>'required',
-            'status'=>'required',
-
-
-            ]);
 
         $firstname=$request->input('name');
         $lastname= $request->input('lastname');
@@ -94,17 +84,9 @@ class UserController extends Controller
         return view('users.edit',compact('user','roles','userRole'));
 
    }
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'lastname'=>'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
-        ]);
-
-
+      
         $input = $request->all();
         if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);

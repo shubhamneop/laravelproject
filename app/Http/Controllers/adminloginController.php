@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Input;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Session;
@@ -12,29 +13,19 @@ use Session;
 class adminloginController extends Controller
 {
 
-   
+
     use AuthenticatesUsers;
 protected $redirectTo = 'admin';
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-       
+
 
     }
 
-    public function login(Request $request){
+    public function login(LoginRequest $request){
 
-       $this->validate($request,[
-
-           'email'=>'required',
-           'password'=>'required',
-
-           ], [
-            'email.required'=>'please enter email id',
-            'password.required'=>'please enter password',
-
-
-           ]);
+       
 
            $userdata = array(
              'email'=>$request->input('email'),
@@ -43,12 +34,12 @@ protected $redirectTo = 'admin';
            if(Auth::attempt($userdata)){
                if(Session::get('oldUrl')){
                 $oldUrl = Session::get('oldUrl');
-                
+
                 return Redirect::to($oldUrl);
                 Session::forget('oldUrl');
                  }
                return Redirect::to('admin-dash');
-             
+
 
            }else{
                return Redirect::to('admin');
@@ -57,7 +48,7 @@ protected $redirectTo = 'admin';
     }
 
     public function logout(){
-        auth::logout(); 
+        auth::logout();
            return Redirect::to('admin');
        }
 

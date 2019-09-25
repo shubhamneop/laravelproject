@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 use App\cat;
 use DB;
 
@@ -42,11 +44,7 @@ class categoryController extends Controller
   	$allCategories= cat::where('p_id',0)->pluck('category_name','id')->all();
   	return view('admin.categories.create',compact('allCategories'));
   }
-   public function store(Request $request){
-
-             $this->validate($request, [
-        		'category_name' => 'required|unique:cats,category_name',
-           	]);
+   public function store(CategoryRequest $request){
 
         $input = $request->all();
         $input['p_id'] = empty($input['p_id']) ? 0 : $input['p_id'];
@@ -73,12 +71,9 @@ class categoryController extends Controller
    }
 
 
-   public function update(Request $request, $id)
+   public function update(CategoryUpdateRequest $request, $id)
     {
-        $this->validate($request,[
-            'category_name'=>'required',
 
-         ]);
 
             $input = $request->all();
         $input['p_id'] = empty($input['p_id']) ? 0 : $input['p_id'];

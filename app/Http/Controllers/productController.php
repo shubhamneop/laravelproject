@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\product;
 use App\productattributesassoc;
 use App\productcategory;
@@ -40,7 +42,7 @@ class productController extends Controller
             $products = product::where('name', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-           $products = product::orderBy('id')->paginate(4);
+           $products = product::orderBy('id')->paginate($perPage);
 
  	        }
     	return view('admin.product.index',compact('products'))->with('i', ($request->input('page', 1) - 1) * 4);
@@ -53,29 +55,17 @@ class productController extends Controller
  	return view('admin.product.create',compact('categories','product'));
     }
 
- public function store(Request $request)
+ public function store(ProductRequest $request)
  {
 
-     $this->validate($request,[
-         'name'=>'required',
-         'description'=>'required',
-          'image_path'=>'required',
-         'image_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-         'category'=>'required',
-         'subcategories'=>'required',
-         'colour'=>'required',
-         'quantity'=>'required|numeric',
 
-                 ]);
+         $product = new product;
+         $product->name=$request->input('name');
+         $product->description= $request->input('description');
+         $product->price= $request->input('price');
 
-
-         $pro = new product;
-         $pro->name=$request->input('name');
-         $pro->description= $request->input('description');
-         $pro->price= $request->input('price');
-
-         $pro->save();
-         $id= $pro->id;
+         $product->save();
+         $id= $product->id;
 
 
                  foreach ($request->image_path as $photo) {
@@ -90,19 +80,19 @@ class productController extends Controller
 
 
                   $prodductimage = new productimage;
-                  $prodductimage->product_id = $pro->id;
+                  $prodductimage->product_id = $product->id;
                   $prodductimage->image_path = $profile_image_url;
                   $prodductimage->save();
                }
            $cat = new productcategory;
-           $cat->product_id=$pro->id;
+           $cat->product_id=$product->id;
            $cat->category_id=$request->input('subcategories');
            $cat->save();
 
 
           $assoc = new productattributesassoc;
 
-          $assoc->product_id=$pro->id;
+          $assoc->product_id=$product->id;
           $assoc->color=$request->input('colour');
           $assoc->quantity=$request->input('quantity');
           $assoc->save();
@@ -122,7 +112,7 @@ class productController extends Controller
            $categories = cat::where('p_id',0)->get();
 
 
-	return view('admin.product.edit',compact('product','categories'));
+	   return view('admin.product.edit',compact('product','categories'));
 
 
         }
@@ -136,20 +126,7 @@ class productController extends Controller
         }
 
 
-        public function update(Request $request, $id){
-            $this->validate($request,[
-                'name'=>'required',
-                'description'=>'required',
-
-               'image_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-              'category'=>'required',
-               'subcategories'=>'required',
-               'price'=>'required',
-               'colour'=>'required',
-               'quantity'=>'required',
-
-
-            ]);
+        public function update(ProductUpdateRequest $request, $id){
 
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\FrontEnd;
 use Auth;
 use Input;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -32,19 +34,9 @@ class UserloginController extends Controller
 
     }
 
-    public function login(Request $request){
-
-       $this->validate($request,[
-
-           'email'=>'required',
-           'password'=>'required',
-
-           ], [
-            'email.required'=>'please enter email id',
-            'password.required'=>'please enter password',
+    public function login(LoginRequest $request){
 
 
-           ]);
 
            $userdata = array(
                'email'=>$request->input('email'),
@@ -93,15 +85,9 @@ class UserloginController extends Controller
 
 
 
-   public function store(Request $request){
+   public function store(RegisterRequest $request){
 
-            $this->validate($request,[
-                 'name'=>'required',
-                  'lastname'=>'required',
-                 'email'=>'required|email|unique:users,email',
-                 'password'=>'required|min:6|required_with:password_confirmation|same:password_confirmation',
 
-            ]);
             $input =$request->all();
             $input['password']= Hash::make($input['password']);
             $users = User::create($input);

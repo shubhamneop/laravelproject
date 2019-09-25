@@ -53,7 +53,7 @@
                         <strong>Permission:</strong>
                         <br/>
                         @foreach($permission as $value)
-                            <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name', 'data-parsley-multiple','required'=>'required')) }}
+                            <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name','placeholder'=>'role')) }}
                                 {{ $value->name }}</label>
                             <br/>
                         @endforeach

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEnd;
 use Auth;
 use App\Http\Requests;
+use App\Http\Requests\AddressRequest;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Address;
@@ -76,16 +77,9 @@ class AddressesController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(AddressRequest $request)
     {
-        $this->validate($request,[
-          'fullname'=>'required',
-          'address1'=>'required',
 
-          'country'=>'required',
-          'state'=>'required',
-          'mobileno'=>'required|numeric|min:10',
-        ]);
 
 
          $userid = Auth::User()->id;
@@ -146,17 +140,9 @@ class AddressesController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(AddressRequest $request, $id)
     {
 
-        $this->validate($request,[
-          'fullname'=>'required',
-          'address1'=>'required',
-          'zipcode'=>'max:6',
-          'country'=>'required',
-          'state'=>'required',
-          'mobileno'=>'required|numeric|min:10',
-        ]);
 
 
          $userid = Auth::User()->id;

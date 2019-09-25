@@ -3,13 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class product extends Model
 {
 
 
  protected $fillable=['name','description','price'];
+ use SoftDeletes;
 
+ protected $dates = ['deleted_at'];
 
 public function productimage(){
 
@@ -17,7 +20,6 @@ public function productimage(){
    return $this->hasOne('App\productimage');
 
       }
-
 
 
 
