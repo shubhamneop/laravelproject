@@ -68,11 +68,11 @@ class ContactusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Contactus $contactus)
     {
-      $contact = Contactus::findOrFail($id);
+      // $contact = Contactus::findOrFail($id);
 
-      return view('admin.contactus.show',compact('contact'));
+      return view('admin.contactus.show',compact('contactus'));
     }
 
     /**
@@ -81,10 +81,10 @@ class ContactusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Contactus $contactus)
     {
-      $contact = Contactus::findOrFail($id);
-       return view('admin.contactus.edit',compact('contact'));
+      // $contact = Contactus::findOrFail($id);
+       return view('admin.contactus.edit',compact('contactus'));
     }
 
     /**
@@ -94,12 +94,14 @@ class ContactusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ContactusRequest $request, $id)
+    public function update(ContactusRequest $request, Contactus $contactus)
     {
-      
+
          $input = $request->all();
-         $message = Contactus::find($id);
-         $message->update($input);
+         // $message = Contactus::find($id);
+           $contactus->update($input);
+           $message = $contactus;
+
          $mail = configuration::find(1);
          Mail::to($message->email)->send(new Notebyadmin($message));
          return redirect('admin/contactus')->with('success', 'Note Addred by admin!');
@@ -111,9 +113,9 @@ class ContactusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Contactus $contactus)
     {
-       Contactus::destroy($id);
+         $contactus->delete();
         return redirect('admin/contactus')->with('success', 'Message deleted!');
 
     }

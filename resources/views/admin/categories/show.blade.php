@@ -3,7 +3,7 @@
 @section('content')
   <div class="content-wrapper">
          <section class="content-header">
-            <h2> Category #{{ $categories->id }}</h2>
+            <h2> Category #{{ $category->id }}</h2>
           </section>
 
         <section class="content">
@@ -22,9 +22,9 @@
                             <table class="table">
                                 <tbody>
 
-                                    <tr><th> Name </th><td> {{ ucfirst($categories->category_name) }} </td></tr><tr><th> Parent </th>
-                                       @if($categories->parent)
-                                      <td> {{ ucfirst($categories->parent->category_name) }} </td>
+                                    <tr><th> Name </th><td> {{ ucfirst($category->category_name) }} </td></tr><tr><th> Parent </th>
+                                       @if($category->parent)
+                                      <td> {{ ucfirst($category->parent->category_name) }} </td>
                                        @else
                                        <td>-</td>
                                       @endif

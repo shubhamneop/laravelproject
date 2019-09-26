@@ -3,7 +3,7 @@
 @section('content')
  <div class="content-wrapper">
      <section class="content-header">
-        <h2> Respon Message #{{ $contact->id }} </h3>
+        <h2> Respon Message #{{ $contactus->id }} </h3>
      </section>
      <section class="content">
 
@@ -16,33 +16,33 @@
 
 
                        <br><br>
-                        <form id="demo-form" method="POST" action="{{ url('/admin/contactus/' . $contact->id) }}"  accept-charset="UTF-8" enctype="multipart/form-data" data-parsley-validate>
+                        <form id="demo-form" method="POST" action="{{ url('/admin/contactus/' . $contactus->id) }}"  accept-charset="UTF-8" enctype="multipart/form-data" data-parsley-validate>
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
                             <div class="form-group col-md-6">
-                               <input type="text" name="name" class="form-control"  value="{{$contact->name}}" placeholder="Name"  data-parsley-pattern="/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i" >
+                               <input type="text" name="name" class="form-control"  value="{{$contactus->name}}" placeholder="Name"  data-parsley-pattern="/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i" >
                                  <span style="color: red">{{ $errors->first('name') }}</span>
                            </div>
                            <div class="form-group col-md-6">
-                              <input type="text" name="contactno" class="form-control"  value="{{$contact->contactno}}" placeholder="Contact No"  data-parsley-type="number" data-parsley-pattern="/^\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$/" >
+                              <input type="text" name="contactno" class="form-control"  value="{{$contactus->contactno}}" placeholder="Contact No"  data-parsley-type="number" data-parsley-pattern="/^\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$/" >
                                 <span style="color: red">{{ $errors->first('contactno') }}</span>
                           </div>
                            <div class="form-group col-md-12">
-                               <input type="email" name="email" class="form-control"  value="{{$contact->email}}" placeholder="Email"  >
+                               <input type="email" name="email" class="form-control"  value="{{$contactus->email}}" placeholder="Email"  >
                                  <span style="color: red">{{ $errors->first('email') }}</span>
                            </div>
 
                            <div class="form-group col-md-12">
-                               <input type="text" name="subject" class="form-control"  value="{{$contact->subject}}" placeholder="Subject" >
+                               <input type="text" name="subject" class="form-control"  value="{{$contactus->subject}}" placeholder="Subject" >
                                  <span style="color: red">{{ $errors->first('subject') }}</span>
                            </div>
                            <div class="form-group col-md-12">
-                               <input name="message" id="message"  class="form-control" value="{{$contact->message}}" rows="8" placeholder="Your Message Here" >
+                               <input name="message" id="message"  class="form-control" value="{{$contactus->message}}" rows="8" placeholder="Your Message Here" >
                                  <span style="color: red">{{ $errors->first('message') }}</span>
                            </div>
                            <div class="form-group col-md-12">
                              <label>Add note</label>
-                               <textarea name="note" id="note" required="required" class="form-control" value="{{$contact->note}}" rows="8" placeholder="Add Note Here"> </textarea>
+                               <textarea name="note" id="note" required="required" class="form-control" value="{{$contactus->note}}" rows="8" placeholder="Add Note Here"> </textarea>
                                  <span style="color: red">{{ $errors->first('note') }}</span>
                            </div>
                            <div class="form-group col-md-12">

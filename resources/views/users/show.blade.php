@@ -6,11 +6,11 @@
             <div class="pull-left">
                 <h2> Show User</h2>
             </div>
-            
+
         </div>
     </section>
    <section class="content">
-       
+
    <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('users.index') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
             </div>
@@ -18,19 +18,19 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th>Name</th><td>{{ $user->name }}</td>
+                                        <th>Name</th><td>{{ $users->name }}</td>
                                     </tr>
-                                    <tr><th> Email </th><td> {{ $user->email }} </td></tr>
+                                    <tr><th> Email </th><td> {{ $users->email }} </td></tr>
                                     <tr><th> Role </th>
-                                    <td> 
-                                     @if(!empty($user->getRoleNames()))
-                                          @foreach($user->getRoleNames() as $v)
+                                    <td>
+                                     @if(!empty($users->getRoleNames()))
+                                          @foreach($users->getRoleNames() as $v)
                                              <label class="label label-success">{{ $v }}</label>
                                            @endforeach
                                 @endif </td></tr>
                                 </tbody>
                             </table>
-                        
+
        </div>
 
    </section>

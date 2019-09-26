@@ -74,10 +74,8 @@ class configurationsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(configuration $configuration)
     {
-        $configuration = configuration::findOrFail($id);
-
         return view('admin.configurations.show', compact('configuration'));
     }
 
@@ -88,9 +86,9 @@ class configurationsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(configuration $configuration)
     {
-        $configuration = configuration::findOrFail($id);
+        // $configuration = configuration::findOrFail($id);
 
         return view('admin.configurations.edit', compact('configuration'));
     }
@@ -121,9 +119,9 @@ class configurationsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(configuration $configuration)
     {
-        configuration::destroy($id);
+        $configuration->delete();
         return redirect('admin/configurations')->with('success', 'configuration deleted!');
         //return redirect('admin/configurations')->with('flash_message', 'configuration deleted!');
     }

@@ -105,9 +105,9 @@ class productController extends Controller
   }
 
 
-        public function edit($id){
+        public function edit(product $product){
 
-            $product = product::with('image','attribute','category')->findOrFail($id);
+
 
            $categories = cat::where('p_id',0)->get();
 
@@ -117,10 +117,10 @@ class productController extends Controller
 
         }
 
-        public function show($id){
-             $products = product::with('image','attribute','category')->findOrFail($id);
+        public function show(product $product){
 
-	 return view('admin.product.show',compact('products','image'));
+
+	 return view('admin.product.show',compact('product','image'));
 
 
         }

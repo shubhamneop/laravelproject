@@ -76,17 +76,17 @@ class UserController extends Controller
        return redirect()->route('users.index')
            ->with('success','User created successfully');
    }
-   public function edit($id){
-        $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
-        $userRole= $user->roles->pluck('name','name')->all();
+   public function edit(User $users){
 
-        return view('users.edit',compact('user','roles','userRole'));
+        $roles = Role::pluck('name','name')->all();
+        $userRole= $users->roles->pluck('name','name')->all();
+
+        return view('users.edit',compact('users','roles','userRole'));
 
    }
     public function update(UserUpdateRequest $request, $id)
     {
-      
+
         $input = $request->all();
         if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
@@ -106,13 +106,13 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success','User updated successfully');
     }
-    public function show($id){
-        $user = User::find($id);
-        return view('users.show',compact('user'));
+    public function show(User $users){
+
+        return view('users.show',compact('users'));
     }
-    public function destroy($id)
+    public function destroy(User $users)
     {
-        User::find($id)->delete();
+         $users->delete();
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }

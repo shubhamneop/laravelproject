@@ -11,7 +11,7 @@
                 <a class="btn btn-primary" href="{{ route('users.index') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
             </div>
             @can('user-create')
-            {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id],'data-parsley-validate']) !!}
+            {!! Form::model($users, ['method' => 'PATCH','route' => ['users.update', $users->id],'data-parsley-validate']) !!}
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">

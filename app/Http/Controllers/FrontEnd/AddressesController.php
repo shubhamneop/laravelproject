@@ -110,9 +110,9 @@ class AddressesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Address $address)
     {
-        $address = Address::findOrFail($id);
+
 
         return view('Frontend.addresses.show', compact('address'));
     }
@@ -124,10 +124,10 @@ class AddressesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Address $address)
     {
-          $userid = Auth::User()->id;
-        $address = Address::findOrFail($id);
+        //   $userid = Auth::User()->id;
+        // $address = Address::findOrFail($id);
 
         return view('Frontend.addresses.edit', compact('address'));
     }
@@ -140,27 +140,32 @@ class AddressesController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(AddressRequest $request, $id)
+    public function update(AddressRequest $request, Address $address)
     {
 
 
 
          $userid = Auth::User()->id;
-        $useraddress = new Address;
+         $useraddress = $request->all();
+         $useraddress['user_id']= $userid;
 
-        $useraddress->fullname = $request->input('fullname');
-        $useraddress->address1 = $request->input('address1');
-        $useraddress->address2 = $request->input('address2');
-        $useraddress->zipcode = $request->input('zipcode');
-        $useraddress->country = $request->input('country');
-        $useraddress->state = $request->input('state');
-        $useraddress->phoneno = $request->input('phoneno');
-        $useraddress->mobileno = $request->input('mobileno');
-        $useraddress->user_id = $userid;
+         $address->update($useraddress);
 
-
-        $useraddress->id = Address::findOrFail($id);
-        $useraddress->update();
+        // $useraddress = new Address;
+        //
+        // $useraddress->fullname = $request->input('fullname');
+        // $useraddress->address1 = $request->input('address1');
+        // $useraddress->address2 = $request->input('address2');
+        // $useraddress->zipcode = $request->input('zipcode');
+        // $useraddress->country = $request->input('country');
+        // $useraddress->state = $request->input('state');
+        // $useraddress->phoneno = $request->input('phoneno');
+        // $useraddress->mobileno = $request->input('mobileno');
+        // $useraddress->user_id = $userid;
+        //
+        //
+        // $useraddress->id = Address::findOrFail($id);
+        // $useraddress->update();
 
         return redirect('addresses')->with('flash_message', 'Address updated!');
     }
@@ -172,9 +177,9 @@ class AddressesController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Address $address)
     {
-        Address::destroy($id);
+         $address->delete();
 
         return redirect('addresses')->with('flash_message', 'Address deleted!');
     }

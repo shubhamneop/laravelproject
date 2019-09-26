@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\FrontEnd;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangePassworRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\User;
 use Auth;
 use DB;
@@ -20,14 +22,8 @@ class ProfileController extends Controller
 
      }
 
-     public function update(Request $request){
+     public function update(UpdateProfileRequest $request){
 
-          $this->validate($request,[
-            'name'=>'required|alpha',
-            'lastname'=>'required|alpha',
-            'email'=>'required|email'
-
-              ]);
 
               $id = Auth::User()->id;
               $user =  User::where('id',$id);
@@ -78,12 +74,8 @@ class ProfileController extends Controller
         return redirect()->back()->with('success','Profile Updated');
      }
 
-    public function changePassword(Request $request){
-      $this->validate($request,[
-        'password_current'=>'required',
-        'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
-        'password_confirmation' => 'min:6',
-      ]);
+    public function changePassword(ChangePasswordRequest $request){
+
 
       $user = User::find(Auth::id());
 

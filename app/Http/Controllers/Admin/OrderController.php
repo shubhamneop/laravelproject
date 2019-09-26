@@ -75,9 +75,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order_detail $order)
     {
-         $order = Order_detail::find($id);
+
          $orders = unserialize($order->cart);
          return view('admin.orders.show',compact('orders','order'));
     }
@@ -88,10 +88,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Order_detail $order)
     {
          $enumoption = General::getEnumValues('order_details','status');
-         $order = Order_detail::find($id);
+
          $orders = unserialize($order->cart);
          return view('admin.orders.edit',compact('orders','order','enumoption'));
     }
@@ -103,10 +103,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Order_detail $order)
     {
 
-          $order = Order_detail::find($id);
+
           $dataupdate = array(
                     'status'=>$request->input('status'),
                        );
@@ -117,14 +117,6 @@ class OrderController extends Controller
           return redirect('admin/order')->with('success','order status changed');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+  
+
 }

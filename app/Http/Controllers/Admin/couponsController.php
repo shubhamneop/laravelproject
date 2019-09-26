@@ -90,9 +90,9 @@ class couponsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(coupon $coupon)
     {
-        $coupon = coupon::findOrFail($id);
+        // $coupon = coupon::findOrFail($id);
 
         return view('admin.coupons.show', compact('coupon'));
     }
@@ -104,9 +104,9 @@ class couponsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(coupon $coupon)
     {
-        $coupon = coupon::findOrFail($id);
+        // $coupon = coupon::findOrFail($id);
 
         return view('admin.coupons.edit', compact('coupon'));
     }
@@ -138,9 +138,9 @@ class couponsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(coupon $coupon)
     {
-        coupon::destroy($id);
+        $coupon->delete();
 
         return redirect('admin/coupons')->with('success', 'coupon deleted!');
     }

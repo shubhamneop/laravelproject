@@ -2,7 +2,7 @@
 @section('content')
   <div class="content-wrapper">
       <section class="content-header">
-         <h2> Role #{{$role->name}} </h2>
+         <h2> Role #{{$roles->name}} </h2>
        </section>
       <section class="content">
 
@@ -18,7 +18,7 @@
              <table class="table">
                 <tbody>
                  <tr>
-                 <th>Name</th><td>{{ ucfirst($role->name) }}</td>
+                 <th>Name</th><td>{{ ucfirst($roles->name) }}</td>
                   </tr>
                    <tr><th> Role </th>
                    <td>

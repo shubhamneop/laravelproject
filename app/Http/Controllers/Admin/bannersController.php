@@ -78,10 +78,8 @@ class bannersController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(banner $banner)
     {
-        $banner = banner::findOrFail($id);
-
         return view('admin.banners.show', compact('banner'));
     }
 
@@ -92,9 +90,8 @@ class bannersController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(banner $banner)
     {
-        $banner = banner::findOrFail($id);
 
         return view('admin.banners.edit', compact('banner'));
     }
@@ -128,9 +125,9 @@ class bannersController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(banner $banner)
     {
-        banner::destroy($id);
+       $banner->delete();
 
         return redirect('admin/banners')->with('success', 'banner deleted!');
     }

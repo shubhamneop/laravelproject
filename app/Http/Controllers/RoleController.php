@@ -43,13 +43,13 @@ class RoleController extends Controller
         return view('roles.create',compact('permission'));
     }
 
-    public function edit(Request $request, $id){
-        $role = Role::find($id);
+    public function edit(Request $request, Role $roles){
+
         $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$roles->id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
-        return view('roles.edit',compact('role','permission','rolePermissions'))->with('i',($request->input('page',1)-1)*5);
+        return view('roles.edit',compact('roles','permission','rolePermissions'))->with('i',($request->input('page',1)-1)*5);
     }
 
     public function update(RoleUpdateRequest $request, $id)
@@ -78,17 +78,18 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
             ->with('success','Role created successfully');
     }
-     public function show($id){
-         $role = Role::find($id);
+     public function show(Role $roles){
+
+
          $permissions= Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-         ->where("role_has_permissions.role_id",$id)
+         ->where("role_has_permissions.role_id",$roles->id)
          ->get();
-         return view('roles.show',compact('role','permissions'));
+         return view('roles.show',compact('roles','permissions'));
      }
 
 
-     public function destroy($id){
-         Role::where('id',$id)->delete();
+     public function destroy(Role $roles){
+         $roles->delete();
          return redirect()->route('roles.index')
          ->with('success','Role Deleted Successfully');
 

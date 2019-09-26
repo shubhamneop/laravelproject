@@ -78,9 +78,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function show($id)
+     public function show(Page $page)
      {
-        $page = Page::find($id);
+
         return view('admin.pages.show',compact('page'));
      }
 
@@ -104,9 +104,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Page $page)
     {
-      $page = Page::find($id);
+
       return view('admin.pages.edit',compact('page'));
     }
 
@@ -120,6 +120,7 @@ class PageController extends Controller
     public function update(PageUpdateRequest $request, $id)
     {
       $input = $request->all();
+      $input['status'] = $request->input('status');
        $page = Page::find($id);
        $page->update($input);
        return redirect('admin/pages')->with('success','Content updated successfully');
@@ -131,9 +132,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Page $page)
     {
-      Page::find($id)->delete();
+      $page->delete();
         return redirect('admin/pages')->with('success','Page deleted successfully');
     }
 }

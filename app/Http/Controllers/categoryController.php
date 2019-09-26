@@ -53,20 +53,20 @@ class categoryController extends Controller
 
 
    }
-   public function show($id){
+   public function show(cat $category){
 
-      $categories = cat::with('childs','parent')->find($id);
+      // $categories = cat::with('childs','parent')->find($id);
 
-     return view('admin.categories.show',compact('categories'));
+     return view('admin.categories.show',compact('category'));
 
    }
 
-   public function edit($id){
+   public function edit(cat $category){
 
 
-     $categories = cat::with('parent')->findOrFail($id);
+     // $categories = cat::with('parent')->findOrFail($id);
      $allCategories= cat::where('p_id',0)->get();
-     return view('admin.categories.edit',compact('categories','allCategories'));
+     return view('admin.categories.edit',compact('category','allCategories'));
 
    }
 
@@ -82,10 +82,10 @@ class categoryController extends Controller
 
         return redirect('admin/categories')->with('success', 'Category updated!');
     }
-    public function destroy(Request $request, $id){
-              $category = cat::find($id);
+    public function destroy(Request $request, cat $category){
+
               $category->delete();
-              cat::wherep_id($id)->update(['p_id' => 0]);
+              cat::wherep_id($category)->update(['p_id' => 0]);
       return redirect('admin/categories')->with('success','Category Deleted');
     }
 

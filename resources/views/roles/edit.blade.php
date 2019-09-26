@@ -4,7 +4,7 @@
     @can('role-edit')
 <div class="content-wrapper">
     <section class="content-header">
-        <h2>Edit Role #{{$role->name}} </h2>
+        <h2>Edit Role #{{$roles->name}} </h2>
     </section>
 
     <section class="content">
@@ -25,7 +25,7 @@
                  </div>
              </div>
           </div>
-     {!! Form::model($role,['method'=>'PATCH','route'=>['roles.update', $role->id],'id'=>'role-form']) !!}
+     {!! Form::model($roles,['method'=>'PATCH','route'=>['roles.update', $roles->id],'id'=>'role-form']) !!}
          <div class="row">
              <div class="col-xs-12 col-sm-12">
                  <div class="form-group">

@@ -18,14 +18,14 @@
 
 
 
-                           <form id="category-form" method="POST" action="{{ url('/admin/categories/' . $categories->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">
+                           <form id="category-form" method="POST" action="{{ url('/admin/categories/' .$category->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 
 
 									<div class="form-group {{ $errors->has('value') ? 'has-error' : ''}}">
                                     <label for="value" class="control-label">{{ 'Name' }}</label>
-                                    <input class="form-control" name="category_name" type="text" id="value" value="{{$categories->category_name}}"
+                                    <input class="form-control" name="category_name" type="text" id="value" value="{{$category->category_name}}"
                                     data-parsley-required-message = "Category name is required"
                                      data-parsley-trigger="change"
                                      data-parsley-pattern ="/^[a-zA-Z]*$/"   >
@@ -41,10 +41,10 @@
                   <select class="form-control" name="p_id" data-parsley-required>
                        <option value="">select category</option>
                      @foreach($allCategories as $option)
-                         @if($categories->p_id==0)
+                         @if($category->p_id==0)
                           <option value="{{$option->id}}">{{$option->category_name}}</option>
                           @else
-                         <option value="{{$option->id}}"@if($categories->parent->id==$option->id) selected="selected" @endif >{{$option->category_name}}</option>
+                         <option value="{{$option->id}}"@if($category->parent->id==$option->id) selected="selected" @endif >{{$option->category_name}}</option>
                           @endif
                      @endforeach
 

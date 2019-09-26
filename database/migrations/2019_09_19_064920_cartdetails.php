@@ -25,7 +25,7 @@ class Cartdetails extends Migration
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('order_details');
-            $table->foreign('category')->references('category_id')->on('productcategories');
+          
         });
     }
 
