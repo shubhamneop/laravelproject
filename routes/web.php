@@ -88,4 +88,4 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('myform/ajax/{id}','ProductController@myformAjax');
+Route::get('myform/ajax/{id}','ProductController@subcategory');

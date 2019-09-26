@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Wishlist;
 use App\Mail\Wishlistadmin;
 use Illuminate\Support\Facades\Mail;
+use DB;
 
 
 class UsersWishlist extends Command
@@ -41,7 +42,7 @@ class UsersWishlist extends Command
      */
     public function handle()
     {
-        $wishlists = Wishlist::with('product')->get();
+        $wishlists = Wishlist::with('product')->whereDate('created_at',DB::raw('CURDATE()'))->get();
         Mail::to('admin@demo.com')->send(new Wishlistadmin($wishlists));
 
     }

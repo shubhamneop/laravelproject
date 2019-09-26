@@ -188,7 +188,7 @@ class ProductController extends Controller
      }
 
 
-      public function myformAjax($id)
+      public function subcategory($id)
     {
         $subcategory = DB::table("cats")
                     ->where("p_id",$id)

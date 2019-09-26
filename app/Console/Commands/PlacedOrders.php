@@ -41,7 +41,7 @@ class PlacedOrders extends Command
      */
     public function handle()
     {
-      $orders = Order_detail::whereDate('created_at',DB::raw('CURDATE()'))->get();;
+      $orders = Order_detail::whereDate('created_at',DB::raw('CURDATE()'))->get();
       $orders->transform(function($order,$key){
        $order->cart = unserialize($order->cart);
        return $order;
