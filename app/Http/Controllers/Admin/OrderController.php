@@ -91,7 +91,7 @@ class OrderController extends Controller
     public function edit(Order_detail $order)
     {
          $enumoption = General::getEnumValues('order_details','status');
-
+            
          $orders = unserialize($order->cart);
          return view('admin.orders.edit',compact('orders','order','enumoption'));
     }
@@ -117,6 +117,6 @@ class OrderController extends Controller
           return redirect('admin/order')->with('success','order status changed');
     }
 
-  
+
 
 }

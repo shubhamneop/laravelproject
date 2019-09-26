@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePassworRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\UpdateImageRequest;
 use App\User;
 use Auth;
 use DB;
@@ -40,10 +41,8 @@ class ProfileController extends Controller
 
      }
 
-     public function updateimage(Request $request){
-        $this->validate($request,[
-            'profile'=>'required|image',
-        ]);
+     public function updateimage(UpdateImageRequest $request){
+
 
          $id = Auth::User()->id;
          $user =  User::where('id',$id);

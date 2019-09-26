@@ -117,11 +117,11 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PageUpdateRequest $request, $id)
+    public function update(PageUpdateRequest $request, Page $page)
     {
       $input = $request->all();
       $input['status'] = $request->input('status');
-       $page = Page::find($id);
+       
        $page->update($input);
        return redirect('admin/pages')->with('success','Content updated successfully');
     }

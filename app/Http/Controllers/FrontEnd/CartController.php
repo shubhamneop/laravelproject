@@ -338,11 +338,11 @@ class CartController extends Controller
                 }
 
         $email = Auth::User()->email;
-      Mail::to($email)->send(new Orderdetails($orders,$order));
-      $mail = Configuration::find(1);
+        Mail::to($email)->send(new Orderdetails($orders,$order));
+        $mail = Configuration::find(1);
         Mail::to($mail->value)->send(new Orderdetails($orders,$order));
-      Session::put('success', 'Order Placed Successfully');
-       Session::forget('cart');
+        Session::put('success', 'Order Placed Successfully');
+        Session::forget('cart');
       return redirect('payonfo');
 
 
@@ -356,44 +356,6 @@ class CartController extends Controller
 
   }
 
-  public function test(){
-    // $data = product::with('image','attribute','category')->findOrFail(19);
-     //$data = User::with('orderDetails','orders')->get();
-       //$data = Order_detail::with('user')->get();
-          // $data = Session::get('payment_id');
-
-      return view('Frontend.demo',compact('data'));
-
-
-  }
-
-
-  public function update(Request $request){
-
-          $data = Session::get('payment_id');
-      /*
-       $order = new Sample();
-
-       $order->payment_id = $data;
-
-       $order->save();
-      */
-
-       $id =  Auth::User()->id;
-            $user =  Order_detail::where('user_id',$id);
-                $dataupdate = array(
-                             'status'=> 'Processing',
-                            'payment_id' => $data
-
-                               );
-
-                     $user->update($dataupdate);
-       return $data;
-
-
-
-
-  }
 
 
 
