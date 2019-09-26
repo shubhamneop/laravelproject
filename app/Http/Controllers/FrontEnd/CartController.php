@@ -8,17 +8,17 @@ use App\Http\Requests\AddressRequest;
 use App\Mail\Orderdetails;
 use Illuminate\Support\Facades\Mail;
 use App\Cart;
-use App\product;
-use App\coupon;
-use App\cat;
+use App\Product;
+use App\Coupon;
+use App\Category;
 use App\Order_detail;
 use App\User_order;
 use App\User;
 use App\Sample;
 use App\Used_coupon;
 use App\Cartdetail;
-use App\configuration;
-use App\productattributesassoc;
+use App\Configuration;
+use App\Productattributesassoc;
 use Redirect;
 use DB;
 use Auth;
@@ -104,7 +104,7 @@ class CartController extends Controller
                         $ids[] = $value->coupon_id;
 
                         }
-            			 	$coupons = coupon::whereNotIn('id',$ids)
+            			 	$coupons = Coupon::whereNotIn('id',$ids)
             			                    ->get();
 
                  return view('Frontend.checkout',['products'=>$cart->items, 'totalPrice'=>$cart->totalPrice, 'total'=>$newTotal,'coupons'=>$coupons,'data'=>$data,'shipTotalPrice'=>$shipTotalPrice,'addresses'=>$addresses]);
@@ -149,7 +149,7 @@ class CartController extends Controller
              return redirect('login')->with('message', 'Please Login !');
               }
 
-       $product = product::with('image','attribute','category')->find($id);
+       $product = Product::with('image','attribute','category')->find($id);
 
        $oldCart = Session::has('cart') ? Session::get('cart') : null;
        $cart = new Cart($oldCart);
@@ -198,7 +198,7 @@ class CartController extends Controller
   	}
      $oldCart = Session::get('cart');
      $cart = new Cart($oldCart);
-      $coupons = coupon::all();
+      $coupons = Coupon::all();
 
      return view('Frontend.cart',['products'=>$cart->items, 'totalPrice'=>$cart->totalPrice,'shipTotalPrice'=>$cart->shipTotalPrice,'total'=>null,'coupons'=>$coupons]);
 
@@ -226,12 +226,12 @@ class CartController extends Controller
 
          if(count($data)<=0)
             {
-              $coupons = coupon::all();
+              $coupons = Coupon::all();
             }else{
               foreach ($data as $key => $value) {
                   $ids[] = $value->coupon_id;
                   }
-              $coupons =   coupon::whereNotIn('id',$ids)->get();
+              $coupons =   Coupon::whereNotIn('id',$ids)->get();
             }
 
 
@@ -249,7 +249,7 @@ class CartController extends Controller
      $oldCart = Session::get('cart');
      $cart = new Cart($oldCart);
 
-      $coupons = coupon::all();
+      $coupons = Coupon::all();
 
       $totalPrice = $cart->totalPrice;
       $newTotal = $request->input('amount');
@@ -339,7 +339,7 @@ class CartController extends Controller
 
         $email = Auth::User()->email;
       Mail::to($email)->send(new Orderdetails($orders,$order));
-      $mail = configuration::find(1);
+      $mail = Configuration::find(1);
         Mail::to($mail->value)->send(new Orderdetails($orders,$order));
       Session::put('success', 'Order Placed Successfully');
        Session::forget('cart');

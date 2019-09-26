@@ -6,10 +6,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CouponRequest;
 use App\Http\Requests\CouponUpdateRequest;
-use App\coupon;
+use App\Coupon;
 use Illuminate\Http\Request;
 
-class couponsController extends Controller
+class CouponController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,11 +34,11 @@ class couponsController extends Controller
         $perPage = 5;
         // $coupons = coupon::orderBy('id')->paginate(10);
                  if (!empty($keyword)) {
-            $coupons = coupon::where('code', 'LIKE', "%$keyword%")
+            $coupons = Coupon::where('code', 'LIKE', "%$keyword%")
                 ->orWhere('discount', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $coupons = coupon::latest()->paginate($perPage);
+            $coupons = Coupon::latest()->paginate($perPage);
         }
 
         return view('admin.coupons.index', compact('coupons'));
@@ -67,7 +67,7 @@ class couponsController extends Controller
     {
 
 
-        $input = new coupon;
+        $input = new Coupon;
         $input->title = $request->input('title');
         $input->code = $request->input('code');
         $input->type = $request->input('type');
@@ -90,7 +90,7 @@ class couponsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show(coupon $coupon)
+    public function show(Coupon $coupon)
     {
         // $coupon = coupon::findOrFail($id);
 
@@ -104,7 +104,7 @@ class couponsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit(coupon $coupon)
+    public function edit(Coupon $coupon)
     {
         // $coupon = coupon::findOrFail($id);
 
@@ -119,13 +119,12 @@ class couponsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(CouponUpdateRequest $request, $id)
+    public function update(CouponUpdateRequest $request, Coupon $coupon)
     {
 
 
         $requestData = $request->all();
 
-        $coupon = coupon::findOrFail($id);
         $coupon->update($requestData);
 
         return redirect('admin/coupons')->with('success', 'coupon updated!');
@@ -138,7 +137,7 @@ class couponsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy(coupon $coupon)
+    public function destroy(Coupon $coupon)
     {
         $coupon->delete();
 

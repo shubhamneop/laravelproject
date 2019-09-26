@@ -25,7 +25,7 @@ class BannerUpdateRequest extends FormRequest
     {
 
         return [
-          'name'=>'required|unique:banners,name,'.$this->banner,
+          'name'=>'required|unique:banners,name,'.$this->banner->id,
           'bannername'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }

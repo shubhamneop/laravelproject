@@ -9,8 +9,8 @@ use App\User;
 use App\Address;
 use Illuminate\Http\Request;
 use App\Cart;
-use App\product;
-use App\coupon;
+use App\Product;
+use App\Coupon;
 use App\cat;
 use DB;
 use Session;
@@ -144,7 +144,7 @@ class AddressesController extends Controller
     {
 
 
-         
+
          $userid = Auth::User()->id;
          $useraddress = $request->all();
          $useraddress['user_id']= $userid;
@@ -184,7 +184,7 @@ class AddressesController extends Controller
     }
      $oldCart = Session::get('cart');
      $cart = new Cart($oldCart);
-      $coupons = coupon::all();
+      $coupons = Coupon::all();
 
      return view('Frontend.data',['products'=>$cart->items, 'totalPrice'=>$cart->totalPrice,'total'=>null,'addresses'=>$addresses,'data'=>$data]);
 

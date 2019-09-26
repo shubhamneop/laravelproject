@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class product extends Model
+class Product extends Model
 {
 
 
@@ -17,7 +17,7 @@ class product extends Model
 public function productimage(){
 
 
-   return $this->hasOne('App\productimage');
+   return $this->hasOne('App\Productimage');
 
       }
 
@@ -26,15 +26,15 @@ public function productimage(){
 
 public function category()
 {
-    return $this->hasone('App\productcategory','product_id');
+    return $this->hasone('App\Productcategory','product_id');
 }
 public function attribute()
 {
-    return $this->hasOne('App\productattributesassoc');
+    return $this->hasOne('App\Productattributesassoc');
 }
 public function image()
 {
-    return $this->hasMany('App\productimage','product_id');
+    return $this->hasMany('App\Productimage','product_id');
 }
 
 public function wishlist(){

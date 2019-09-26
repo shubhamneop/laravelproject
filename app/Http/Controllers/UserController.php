@@ -27,7 +27,7 @@ class UserController extends Controller
     public function index(Request $request){
         $keyword = $request->get('search');
         $perPage = 5;
-        // $coupons = coupon::orderBy('id')->paginate(10);
+
                  if (!empty($keyword)) {
             $data = User::where('name', 'LIKE', "%$keyword%")
                 ->orWhere('email', 'LIKE', "%$keyword%")
@@ -84,7 +84,7 @@ class UserController extends Controller
         return view('users.edit',compact('users','roles','userRole'));
 
    }
-    public function update(UserUpdateRequest $request, $id)
+    public function update(UserUpdateRequest $request, User $users)
     {
 
         $input = $request->all();
@@ -95,12 +95,12 @@ class UserController extends Controller
         }
 
 
-        $user = User::find($id);
-        $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+
+        $users->update($input);
+        DB::table('model_has_roles')->where('model_id',$users->id)->delete();
 
 
-        $user->assignRole($request->input('roles'));
+        $users->assignRole($request->input('roles'));
 
 
         return redirect()->route('users.index')

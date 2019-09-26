@@ -54,15 +54,15 @@ Route::group(['middleware'=>['auth']],function (){
 */
 
 
-Route::resource('admin/configurations', 'Admin\\configurationsController')->middleware('role:admin');
+Route::resource('admin/configurations', 'Admin\\ConfigurationController')->middleware('role:admin');
 
-Route::resource('admin/banners', 'Admin\\bannersController')->middleware('role:admin');
+Route::resource('admin/banners', 'Admin\\BannersController')->middleware('role:admin');
 
-Route::resource('admin/categories','categoryController');
+Route::resource('admin/categories','CategoryController');
 
-Route::resource('admin/product','productController');
+Route::resource('admin/product','ProductController');
 
-Route::resource('admin/coupons', 'Admin\\couponsController');
+Route::resource('admin/coupons', 'Admin\\CouponController');
 
 Route::resource('admin/order','Admin\\OrderController');
 
@@ -88,7 +88,4 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('myform/ajax/{id}','productController@myformAjax');
-
-
-  
+Route::get('myform/ajax/{id}','ProductController@myformAjax');

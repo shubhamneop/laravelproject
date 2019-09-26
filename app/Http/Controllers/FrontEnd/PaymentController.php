@@ -8,7 +8,7 @@ use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Orderdetails;
-use App\configuration;
+use App\Configuration;
 use App\Sample;
 use App\Order_detail;
 use App\Address;
@@ -55,7 +55,7 @@ class PaymentController extends Controller
     }
      public function payWithpaypal(AddressRequest $request)
     {
-         
+
 
           if(!Session::has('cart')){
              return view('Frontend.cart',['products'=>null]);
@@ -236,7 +236,7 @@ class PaymentController extends Controller
 
                       $email = Auth::User()->email;
                     Mail::to($email)->send(new Orderdetails($orders,$order));
-                    $mail = configuration::find(1);
+                    $mail = Configuration::find(1);
                       Mail::to($mail->value)->send(new Orderdetails($orders,$order));
                Session::forget('cart');
             return Redirect::to('payonfo');

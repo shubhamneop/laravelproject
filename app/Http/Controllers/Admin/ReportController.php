@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\User;
-use App\cat;
+use App\Category;
 use App\Order_detail;
 use App\Used_coupon;
 use App\Cartdetail;
@@ -181,7 +181,7 @@ class ReportController extends Controller
     }
 
 
-       $subcategory = cat::where('p_id','!=',0)->get();
+       $subcategory = Category::where('p_id','!=',0)->get();
 
       return view('admin.reports.sales.index',compact('sales','subcategory'))->with('i', ($request->input('page', 1) - 1) * 5);
     }

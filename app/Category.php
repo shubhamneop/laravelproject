@@ -5,31 +5,34 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class cat extends Model
+class Category extends Model
 {
+
+    protected $table = 'cats';
+
     public $fillable = ['category_name','p_id'];
 
     use SoftDeletes;
-    
+
     protected $dates = ['deleted_at'];
 
      public function childs(){
 
-    return $this->hasMany('App\cat','p_id');
+    return $this->hasMany('App\Category','p_id');
      }
 
     public function categoryproduct ()
         {
-         return $this->hasOne('App\productcategory');
+         return $this->hasOne('App\Productcategory');
        }
 
      public function parents(){
-     	return $this->belongTo('App\cat','p_id');
+     	return $this->belongTo('App\Category','p_id');
      }
 
      public function parent()
        {
-    return $this->belongsTo('App\cat', 'p_id');
+    return $this->belongsTo('App\Category', 'p_id');
         }
 
 

@@ -25,7 +25,7 @@ class CouponUpdateRequest extends FormRequest
     {
         return [
           'title'=>'required',
-           'code'=>'required|regex:/^[a-zA-Z0-9_\-]*$/|unique:coupons,code,'.$this->coupon,
+           'code'=>'required|regex:/^[a-zA-Z0-9_\-]*$/|unique:coupons,code,'.$this->coupon->id,
            'type'=>'required',
          'discount'=>'required',
         ];

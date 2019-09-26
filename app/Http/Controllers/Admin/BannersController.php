@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\banner;
+use App\Banner;
 use Illuminate\Http\Request;
 use App\Http\Requests\BannerRequest;
 use App\Http\Requests\BannerUpdateRequest;
 
-class bannersController extends Controller
+class BannersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,11 +30,11 @@ class bannersController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $banners = banner::where('name', 'LIKE', "%$keyword%")
+            $banners = Banner::where('name', 'LIKE', "%$keyword%")
                 ->orWhere('bannername', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $banners = banner::latest()->paginate($perPage);
+            $banners = Banner::latest()->paginate($perPage);
         }
 
         return view('admin.banners.index', compact('banners'));
@@ -66,7 +66,7 @@ class bannersController extends Controller
             $requestData['bannername'] = $request->file('bannername')
                 ->store('banner', 'public');
         }
-        banner::create($requestData);
+        Banner::create($requestData);
 
         return redirect('admin/banners')->with('success', 'banner added!');
     }
@@ -78,7 +78,7 @@ class bannersController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show(banner $banner)
+    public function show(Banner $banner)
     {
         return view('admin.banners.show', compact('banner'));
     }
@@ -90,7 +90,7 @@ class bannersController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit(banner $banner)
+    public function edit(Banner $banner)
     {
 
         return view('admin.banners.edit', compact('banner'));
@@ -104,7 +104,7 @@ class bannersController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(BannerUpdateRequest $request, banner $banner)
+    public function update(BannerUpdateRequest $request , Banner $banner)
     {
 
         $requestData = $request->all();
@@ -112,7 +112,7 @@ class bannersController extends Controller
             $requestData['bannername'] = $request->file('bannername')
                 ->store('banner', 'public');
         }
-        
+
         $banner->update($requestData);
 
         return redirect('admin/banners')->with('success', 'banner updated!');
@@ -125,7 +125,7 @@ class bannersController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy(banner $banner)
+    public function destroy(Banner $banner)
     {
        $banner->delete();
 

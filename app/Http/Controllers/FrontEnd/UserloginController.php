@@ -14,7 +14,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Mail\Welcome;
 use App\Mail\WelcomeAdmin;
 use Illuminate\Support\Facades\Mail;
-use App\configuration;
+use App\Configuration;
 use App\User;
 use DB;
 use Hash;
@@ -105,7 +105,7 @@ class UserloginController extends Controller
           if($users){
               Auth::login($users);
               Mail::to($users->email)->send(new Welcome($user));
-              $mail = configuration::find(1);
+              $mail = Configuration::find(1);
               Mail::to($mail->value)->send(new WelcomeAdmin($user));
                  return Redirect::to('/');
            }else{

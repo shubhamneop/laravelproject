@@ -9,7 +9,7 @@ class Used_coupon extends Model
 {
     public function coupon(){
 
-      return $this->belongsTo('App\coupon');
+      return $this->belongsTo('App\Coupon');
     }
 
     public function user(){

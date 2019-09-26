@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ContactusRequest;
 use App\Http\Controllers\Controller;
 use App\Contactus;
-use App\configuration;
+use App\Configuration;
 use App\Mail\NotificationToAdmin;
 use App\Mail\Notebyadmin;
 use Illuminate\Support\Facades\Mail;
@@ -57,7 +57,7 @@ class ContactusController extends Controller
 
         $input = $request->all();
         $contact = Contactus::create($input);
-        $mail = configuration::find(1);
+        $mail = Configuration::find(1);
         Mail::to($mail->value)->send(new NotificationToAdmin($contact));
          return redirect()->back();
     }
@@ -102,7 +102,7 @@ class ContactusController extends Controller
            $contactus->update($input);
            $message = $contactus;
 
-         $mail = configuration::find(1);
+         $mail = Configuration::find(1);
          Mail::to($message->email)->send(new Notebyadmin($message));
          return redirect('admin/contactus')->with('success', 'Note Addred by admin!');
     }

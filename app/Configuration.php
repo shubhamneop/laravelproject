@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class configuration extends Model
+class Configuration extends Model
 {
     /**
      * The database table used by the model.

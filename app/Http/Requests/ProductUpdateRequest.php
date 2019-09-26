@@ -22,9 +22,9 @@ class ProductUpdateRequest extends FormRequest
      * @return array
      */
     public function rules()
-    { 
+    {
         return [
-          'name'=>'required|unique:products,name,'.$this->product,
+          'name'=>'required|unique:products,name,'.$this->product->id,
           'description'=>'required',
          'image_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'category'=>'required',

@@ -22,7 +22,7 @@ class PageUpdateRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {  
         return [
           'name'=>'required',
           'title'=>'required|unique:pages,title,'.$this->page,

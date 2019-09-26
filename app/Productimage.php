@@ -5,9 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class productimage extends Model
+class Productimage extends Model
 {
-
+     protected $table = 'productimages';
 	 protected $fillable=['product_id','image_path'];
 
     public function product()

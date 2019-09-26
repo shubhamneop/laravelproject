@@ -5,14 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class coupon extends Model
+class Banner extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'coupons';
+    protected $table = 'banners';
 
     /**
     * The database primary key value.
@@ -26,12 +26,10 @@ class coupon extends Model
      *
      * @var array
      */
-    protected $fillable = ['title','code','type', 'discount'];
+    protected $fillable = ['name', 'bannername'];
+
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+   protected $dates = ['deleted_at'];
 
-    public function usedcoupon(){
-      return $this->hasMany('App\Used_coupon','coupon_id');
-    }
 }

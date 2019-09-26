@@ -6,10 +6,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MailRequest;
 use App\Http\Requests\MailUpdateRequest;
-use App\configuration;
+use App\Configuration;
 use Illuminate\Http\Request;
 
-class configurationsController extends Controller
+class ConfigurationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,10 +30,10 @@ class configurationsController extends Controller
         $perPage = 5;
 
         if (!empty($keyword)) {
-            $configurations = configuration::where('name', 'LIKE', "%$keyword%")
+            $configurations = Configuration::where('name', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $configurations = configuration::latest()->paginate($perPage);
+            $configurations = Configuration::latest()->paginate($perPage);
         }
 
         return view('admin.configurations.index', compact('configurations'));
@@ -62,7 +62,7 @@ class configurationsController extends Controller
 
         $requestData = $request->all();
 
-        configuration::create($requestData);
+        Configuration::create($requestData);
 
         return redirect('admin/configurations')->with('success', 'configuration added!');
     }
@@ -86,7 +86,7 @@ class configurationsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit(configuration $configuration)
+    public function edit(Configuration $configuration)
     {
         // $configuration = configuration::findOrFail($id);
 
@@ -106,7 +106,7 @@ class configurationsController extends Controller
 
         $requestData = $request->all();
 
-        $configuration = configuration::findOrFail($id);
+        $configuration = Configuration::findOrFail($id);
         $configuration->update($requestData);
 
         return redirect('admin/configurations')->with('success', 'configuration updated!');
@@ -119,7 +119,7 @@ class configurationsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy(configuration $configuration)
+    public function destroy(Configuration $configuration)
     {
         $configuration->delete();
         return redirect('admin/configurations')->with('success', 'configuration deleted!');
