@@ -104,7 +104,7 @@ class bannersController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(BannerUpdateRequest $request, $id)
+    public function update(BannerUpdateRequest $request, banner $banner)
     {
 
         $requestData = $request->all();
@@ -112,7 +112,7 @@ class bannersController extends Controller
             $requestData['bannername'] = $request->file('bannername')
                 ->store('banner', 'public');
         }
-        $banner = banner::findOrFail($id);
+        
         $banner->update($requestData);
 
         return redirect('admin/banners')->with('success', 'banner updated!');

@@ -144,28 +144,12 @@ class AddressesController extends Controller
     {
 
 
-
+         
          $userid = Auth::User()->id;
          $useraddress = $request->all();
          $useraddress['user_id']= $userid;
 
          $address->update($useraddress);
-
-        // $useraddress = new Address;
-        //
-        // $useraddress->fullname = $request->input('fullname');
-        // $useraddress->address1 = $request->input('address1');
-        // $useraddress->address2 = $request->input('address2');
-        // $useraddress->zipcode = $request->input('zipcode');
-        // $useraddress->country = $request->input('country');
-        // $useraddress->state = $request->input('state');
-        // $useraddress->phoneno = $request->input('phoneno');
-        // $useraddress->mobileno = $request->input('mobileno');
-        // $useraddress->user_id = $userid;
-        //
-        //
-        // $useraddress->id = Address::findOrFail($id);
-        // $useraddress->update();
 
         return redirect('addresses')->with('flash_message', 'Address updated!');
     }
