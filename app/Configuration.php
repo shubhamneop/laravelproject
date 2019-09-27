@@ -26,12 +26,11 @@ class Configuration extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'value', '--view-path=admin-dash --controller-namespace=Admin-dash --route-group=admin-dash
-php artisan crud:generate configurations --fields=name'];
+    protected $fillable = ['name', 'value'];
 
-use SoftDeletes;
+    use SoftDeletes;
 
-protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
 
 }

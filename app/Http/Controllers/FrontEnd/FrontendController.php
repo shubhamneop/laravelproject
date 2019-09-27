@@ -33,22 +33,24 @@ class FrontendController extends Controller
 						                     ->orwhere('description','LIKE',"%$keyword%")->get();
 						$category =  Category::where('p_id',0)->get();
 						$subcategory = Category::where('p_id','!=',0)->get();
-						$productlist = Product::with('category')->get();
+
 						$banner = Banner::all();
-						$categorycounts =	Productcategory::with('categories','products')->select('category_id', DB::raw('count(*) as total'))
+						$categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
 			                  ->groupBy('category_id')
 			                  ->get();
 					}else{
             $category =  Category::where('p_id',0)->get();
             $products = Product::all();
 				    $subcategory = Category::where('p_id','!=',0)->get();
-            $productlist = Product::with('category')->get();
+
             $banner = Banner::all();
-				  	$categorycounts =	Productcategory::with('categories','products')->select('category_id', DB::raw('count(*) as total'))
+				  	$categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
 			                  ->groupBy('category_id')
 			                  ->get();
+
+
 				}
-    	return view('Frontend.index',compact('products','category','subcategory','productss','banner','categorycounts'));
+    	return view('Frontend.index',compact('products','category','subcategory','banner','categorycounts'));
     }
 
 
@@ -57,7 +59,7 @@ class FrontendController extends Controller
         $category =  Category::where('p_id',0)->get();
         $demo = Category::with('childs','parent')->get();
         $productsDetails = Product::with('image','attribute','category')->findOrFail($id);
-				$categorycounts =	Productcategory::with('categories','products')->select('category_id', DB::raw('count(*) as total'))
+				$categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
 										->groupBy('category_id')
 										->get();
         return view('Frontend.product-details',compact('products','category','productsDetails','categorycounts'));
@@ -67,7 +69,7 @@ class FrontendController extends Controller
     	return view('Frontend.demo');
     }
 
-    public function productCat(Request $request){
+    public function productCattegory(Request $request){
 
        $id = $request->id;
 
@@ -78,7 +80,7 @@ class FrontendController extends Controller
        $category =  Category::where('p_id',0)->get();
 			 $subcategory = Category::where('p_id','!=',0)->get();
        $banner = Banner::all();
-			 $categorycounts =	Productcategory::with('categories','products')->select('category_id', DB::raw('count(*) as total'))
+			 $categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
 									 ->groupBy('category_id')
 									 ->get();
       return view('Frontend.index',compact('products','category','subcategory','banner','categorycounts'));
@@ -87,7 +89,7 @@ class FrontendController extends Controller
 
     }
 
-     public function proCat(Request $request){
+     public function productBySubcategory(Request $request){
 
             $id = $request->id;
             $productss =Product::whereHas('category',function($q) use($id)

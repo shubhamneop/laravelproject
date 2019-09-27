@@ -77,15 +77,8 @@ Route::get('admin/reports/customer/{id}','Admin\\ReportController@show');
 Route::get('admin/reports/coupon','Admin\\ReportController@allCoupon');
 Route::get('admin/reports/sales','Admin\\ReportController@sales');
 
-
-
-
-
-
-Route::get('index2','productController@index2');
-
 Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('myform/ajax/{id}','ProductController@subcategory');
+Route::get('getsubcategory/{id}','ProductController@subcategory');

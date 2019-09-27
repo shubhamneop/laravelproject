@@ -11,10 +11,10 @@ class Productcategory extends Model
       use SoftDeletes;
 
       protected $dates = ['deleted_at'];
-         public function products()
-           {
-            return $this->belongsTo('App\Product','product_id', 'id');
-              }
+         // public function products()
+         //   {
+         //    return $this->belongsTo('App\Product','product_id', 'id');
+         //      }
 
              public function categories()
                {

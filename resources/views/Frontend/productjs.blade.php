@@ -6,7 +6,7 @@ $(document).ready(function(){
           $.ajax({
        type:'get',
        dataType:'html',
-       url: '{{url('/productCat')}}',
+       url: '{{url('/productbysubcategory')}}',
        data : 'id=' + category_id,
         success:function(responce){
 
@@ -16,6 +16,8 @@ $(document).ready(function(){
      });
 
   });
+  
+
 });
 
 

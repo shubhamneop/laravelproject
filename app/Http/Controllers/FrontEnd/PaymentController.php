@@ -126,7 +126,7 @@ class PaymentController extends Controller
                     $cartdetails->product_image=$item['image'];
                     $cartdetails->quantity=$item['qty'];
                     $cartdetails->price=$item['price'];
-                    $cartdetails->category=$item['item']['category']['category_id'];
+                    $cartdetails->category=$item['item']['category'][0]['id'];
                     $cartdetails->save();
 
                     $product = productattributesassoc::where('product_id',$item['item']['id'])->get();

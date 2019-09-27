@@ -61,7 +61,7 @@
             <option value="">--- Select Category ---</option>
            @foreach ($categories as $category)
            @if($category->p_id == 0)
-           <option value="{{$category->id}}"@if($product->category->categories->parent->id == $category->id) selected="selected" @endif>
+           <option value="{{$category->id}}"@if($product->category[0]->parent->id == $category->id) selected="selected" @endif>
                {{$category->category_name}}
            </option>
            @endif
@@ -74,7 +74,7 @@
   <div class="form-group">
     <label for="title">Select Subcategory:</label>
       <select name="subcategories" class="form-control" id="subcategory" data-parsley-required>
-        <option value="{{$product->category->categories->id}}">{{$product->category->categories->category_name}}</option>
+        <option value="{{$product->category[0]->id}}">{{$product->category[0]->category_name}}</option>
       </select>
          <span class="text-danger">{{ $errors->first('subcategories') }}</span>
   </div>

@@ -54,22 +54,18 @@ class CartController extends Controller
 
 
 
-      $check = DB::table('coupons')
-        ->where('code',$code)
-        ->get();
+      $check = Coupon::where('code',$code)->get();
         if(count($check)=="1")
          {
 
             $user_id = Auth::user()->id;
-            $check_used = DB::table('used_coupons')
-            ->where('user_id',$user_id)
-            ->where('coupon_id',$check[0]->id)
-            ->count();
+            $check_used = Used_coupon::where('user_id',$user_id)
+                  ->where('coupon_id',$check[0]->id)
+                  ->count();
            if($check_used=="0")
             {
                 //insert used one
-                 $used_add = DB::table('used_coupons')
-                  ->insert([
+                 $used_add = Used_coupon::create([
                     'coupon_id' => $check[0]->id,
                     'user_id' => $user_id
                      ]);
@@ -77,7 +73,7 @@ class CartController extends Controller
                   $discount = $check[0]->discount;
 
                    if($type == 'Percent'){
-                     $amt = $discount*$amount/100;
+                      $amt = $discount*$amount/100;
                       $newTotal = $amount-$amt;
                       }else{
 
@@ -99,7 +95,7 @@ class CartController extends Controller
                   $cart = new Cart($oldCart);
 
                   $id = Auth::User()->id;
-            	  $data =  Used_coupon::with('coupon')->where('user_id',$id)->get();
+            	    $data =  Used_coupon::with('coupon')->where('user_id',$id)->get();
                     foreach ($data as $key => $value) {
                         $ids[] = $value->coupon_id;
 
@@ -121,21 +117,6 @@ class CartController extends Controller
                   return redirect()->back()->with('message', 'Wrong Coupon code you entered!');
 
           }
-
-
-
-
-
-
-
-
-
-
-
-
-      // print_r($type);
-     //  print_r($discount);
-
 
 
 
@@ -190,15 +171,15 @@ class CartController extends Controller
   }
   public function getCart(){
           if(Auth::guest()) {
-         return redirect('login')->with('message', 'Please Login !');
-       }
+          return redirect('login')->with('message', 'Please Login !');
+          }
 
-  	if(!Session::has('cart')){
-  		return view('Frontend.cart',['products'=>null]);
+       	if(!Session::has('cart')){
+  		  return view('Frontend.cart',['products'=>null]);
   	}
-     $oldCart = Session::get('cart');
-     $cart = new Cart($oldCart);
-      $coupons = Coupon::all();
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        $coupons = Coupon::all();
 
      return view('Frontend.cart',['products'=>$cart->items, 'totalPrice'=>$cart->totalPrice,'shipTotalPrice'=>$cart->shipTotalPrice,'total'=>null,'coupons'=>$coupons]);
 
@@ -321,7 +302,7 @@ class CartController extends Controller
                     $cartdetails->product_image=$item['image'];
                     $cartdetails->quantity=$item['qty'];
                     $cartdetails->price=$item['price'];
-                    $cartdetails->category=$item['item']['category']['category_id'];
+                    $cartdetails->category=$item['item']['category'][0]['id'];
                     $cartdetails->save();
 
                     $product = productattributesassoc::where('product_id',$item['item']['id'])->get();

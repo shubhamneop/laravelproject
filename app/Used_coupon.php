@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Used_coupon extends Model
 {
+   protected $fillable = ['coupon_id','user_id'];
     public function coupon(){
 
       return $this->belongsTo('App\Coupon');

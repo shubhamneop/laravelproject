@@ -84,11 +84,9 @@ class ProductController extends Controller
                   $prodductimage->image_path = $profile_image_url;
                   $prodductimage->save();
                }
-           $cat = new Productcategory;
-           $cat->product_id=$product->id;
-           $cat->category_id=$request->input('subcategories');
-           $cat->save();
 
+
+            $product->category()->attach($request->input('subcategories'));
 
           $assoc = new Productattributesassoc;
 
@@ -158,9 +156,7 @@ class ProductController extends Controller
                      $prodductimage->save();
                        }
                     }
-                      $category =  Productcategory::where('product_id',$product->id);
-                      $dataupdate = array( 'category_id' => $request->get('subcategories'));
-                      $category->update($dataupdate);
+                        $product->category()->attach($request->input('subcategories'));
 
                       $attribute =  Productattributesassoc::where('product_id',$product->id);
                      $dataupdate = array(
@@ -190,8 +186,7 @@ class ProductController extends Controller
 
       public function subcategory($id)
     {
-        $subcategory = DB::table("cats")
-                    ->where("p_id",$id)
+        $subcategory = Category::where("p_id",$id)
                     ->get();
         return json_encode($subcategory);
     }

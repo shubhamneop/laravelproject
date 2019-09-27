@@ -34,12 +34,12 @@
 
 <script type="text/javascript">
    $(document).ready(function() {
-      
+
         $('select[name="category"]').on('change', function() {
-            var stateID = $(this).val();
-            if(stateID) {
+            var CategoryId = $(this).val();
+            if(CategoryId) {
                 $.ajax({
-                    url: '/myform/ajax/'+stateID,
+                    url: '/getsubcategory/'+CategoryId,
                     type: "GET",
                     dataType: "json",
                     success:function(data) {

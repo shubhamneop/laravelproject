@@ -9,35 +9,36 @@ class Product extends Model
 {
 
 
- protected $fillable=['name','description','price'];
- use SoftDeletes;
+  protected $fillable=['name','description','price'];
 
- protected $dates = ['deleted_at'];
+  use SoftDeletes;
 
-public function productimage(){
+  protected $dates = ['deleted_at'];
+
+  public function productimage(){
 
 
-   return $this->hasOne('App\Productimage');
+    return $this->hasOne('App\Productimage');
 
       }
 
 
 
 
-public function category()
-{
-    return $this->hasone('App\Productcategory','product_id');
-}
-public function attribute()
-{
+  public function category()
+   {
+    return $this->belongsToMany('App\Category','productcategories');
+   }
+  public function attribute()
+   {
     return $this->hasOne('App\Productattributesassoc');
-}
-public function image()
-{
+   }
+  public function image()
+   {
     return $this->hasMany('App\Productimage','product_id');
-}
+   }
 
-public function wishlist(){
+   public function wishlist(){
        return $this->hasMany('App\wishlist');
     }
 

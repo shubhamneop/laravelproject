@@ -48,8 +48,8 @@ Route::get('add/{id}','CartController@getAddByOne');
 Route::get('remove/{id}','CartController@getRemoveItem');
 
 Route::post('coupon','CartController@checkCoupon');
-Route::get('productCat','FrontendController@proCat');
-Route::get('categories/{id}','FrontendController@productCat');
+Route::get('productbysubcategory','FrontendController@productBySubcategory');
+Route::get('categories/{id}','FrontendController@productCattegory');
 Route::get('check_out','CartController@getChekout');
 
 Route::post('saveaddress','AddressesController@saveaddress');

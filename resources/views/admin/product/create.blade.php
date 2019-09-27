@@ -29,10 +29,10 @@
    $(document).ready(function() {
 
         $('select[name="category"]').on('change', function() {
-            var stateID = $(this).val();
-            if(stateID) {
+            var categoryID = $(this).val();
+            if(categoryID) {
                 $.ajax({
-                    url: '/myform/ajax/'+stateID,
+                    url: '/getsubcategory/'+categoryID,
                     type: "GET",
                     dataType: "json",
                     success:function(data) {
