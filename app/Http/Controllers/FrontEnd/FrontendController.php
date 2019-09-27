@@ -27,10 +27,11 @@ class FrontendController extends Controller
 {
 	public function index(Request $request){
           $keyword = $request->get('search');
+					$perPage=6;
 				  if (!empty($keyword)) {
 
 						$products = Product::where('name','LIKE',"%$keyword%")
-						                     ->orwhere('description','LIKE',"%$keyword%")->get();
+						                     ->orwhere('description','LIKE',"%$keyword%")->paginate($perPage);
 						$category =  Category::where('p_id',0)->get();
 						$subcategory = Category::where('p_id','!=',0)->get();
 
@@ -40,7 +41,7 @@ class FrontendController extends Controller
 			                  ->get();
 					}else{
             $category =  Category::where('p_id',0)->get();
-            $products = Product::all();
+            $products = Product::paginate($perPage);
 				    $subcategory = Category::where('p_id','!=',0)->get();
 
             $banner = Banner::all();
@@ -72,11 +73,11 @@ class FrontendController extends Controller
     public function productCattegory(Request $request){
 
        $id = $request->id;
-
+      $perPage=5;
 			 $products = Product::whereHas('category',function($q) use($id)
 			 {
 			 $q->where('category_id',$id);
-			 })->with('image')->get();
+			 })->with('image')->paginate($perPage);
        $category =  Category::where('p_id',0)->get();
 			 $subcategory = Category::where('p_id','!=',0)->get();
        $banner = Banner::all();
@@ -129,15 +130,15 @@ class FrontendController extends Controller
 					]);
 					$email = $request->input('email');
 					$orderid = $request->input('orderid');
-					$user = User::whereemail($email)->first();
-	               $id = $user->id;
-         	$userdata = User_order::where('user_id',$id)->where('order_nos',$orderid)->first();
-          if ($userdata==null) {
-           return view('Frontend.track',['data' => $userdata])->with('success','Please enter valid details');
-          }
-					$oid =$userdata->order_id;
+           $orders =Order_detail::whereHas('user', function ($query) use($email) {
+                                    $query->where('email',$email);
+                                   })->where('order_no',$orderid)
+                                     ->first();
 
-					$orders = Order_detail::whereid($oid)->first();
+          if ($orders==null) {
+           return view('Frontend.track',['data' => $orders])->with('success','Please enter valid details');
+          }
+
           $order = unserialize($orders->cart);
 
 

@@ -1,6 +1,10 @@
 @extends('Frontend.masterfrontend')
 
 @section('content')
+@if($totalQty<=0)
+<h2>Buy  Some Stuff
+</h2>
+@else
 <form action="{{url('paypal')}}" name="checkout" id="checkout"  method="post" data-parsley-validate>
 
  <section id="cart_items">
@@ -254,7 +258,7 @@
    </div>
   </section>
 
-
+@endif
 
 @endsection
 

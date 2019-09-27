@@ -1,4 +1,4 @@
-@foreach($productss as $product)
+@foreach($productss as  $product)
 <div class="tab-pane fade active in"  >
   <div class="col-sm-3">
     <div class="product-image-wrapper">

@@ -185,14 +185,15 @@
 
 						@endforeach
 
-
 					</div><!--features_items-->
-
+					<div class="row">
+					{!! $products->render() !!}
+					</div>
 					<div class="category-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs product_subcategory">
-								@foreach($subcategory as $child)
-                  <li class="" data-id="{{$child->id}}"><a href="#{{$child->category_name}}" id="{{$child->id}}" data-toggle="tab">{{$child->category_name}}</a></li>
+								@foreach($subcategory as $key => $child)
+                  <li class="{{$key == 0 ? 'active' : '' }}" data-id="{{$child->id}}"><a href="#{{$child->category_name}}" id="{{$child->id}}" data-toggle="tab">{{$child->category_name}}</a></li>
 								@endforeach
 
 							</ul>

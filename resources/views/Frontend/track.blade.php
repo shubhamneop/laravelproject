@@ -59,7 +59,7 @@
            @else
           <div class="container" style="margin-bottom:100px;" >
             <div class="row text-center alert alert-info">
-             <div class="col-md-4"><h3>Order No:  {{$data->id}}</h3> </div>
+             <div class="col-md-4"><h3>Order No:  {{$data->order_no}}</h3> </div>
              <div class="col-md-4">
                @foreach($order->items as $item)
                 <h3>   	<img src="{{asset('product/' .$item['image'])}}" alt=""  width="30px" height="30px" />

@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Session;
 
 class Cart
 {
@@ -75,16 +75,21 @@ class Cart
            }
     }
      public function removeItem($id){
-     	$this->totalQty -= $this->items[$id]['qty'];
+     	$this->totalQty--;
          $this->shipTotalPrice -=$this->totalPrice;
      	$this->totalPrice -= $this->items[$id]['price'];
-  
+       if($this->totalQty<=0){
+         Session::forget('cart');
+       }else{
         if($this->totalPrice<500){
             $this->shipTotalPrice = $this->totalPrice+50;
            }else{
             $this->shipTotalPrice= $this->totalPrice;
            }
+        }   
      	unset($this->items[$id]);
+
+
      }
 
 

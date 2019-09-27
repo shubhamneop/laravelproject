@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
 
-@foreach(App\coupon::all() as $coupon)
+@foreach(App\Coupon::all() as $coupon)
   $('#coupon{{$coupon->id}}').on('change', function(){
   	var apply = document.getElementById("clear");
    if ( $(this).is(':checked') ) {
