@@ -34,12 +34,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function orders(){
-
-        return $this->hasMany('App\User_order','user_id');
-    }
     public function orderDetails(){
-        return $this->hasMany('App\Order_detail','user_id');
+        return $this->belongsToMany('App\Order_detail','user_orders','user_id','order_id');
     }
 
 

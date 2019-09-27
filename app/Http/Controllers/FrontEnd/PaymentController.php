@@ -106,13 +106,9 @@ class PaymentController extends Controller
 
        $order->save();
 
-       $userorder = new User_order();
+       $user = Auth::User();
+       $user->orderDetails()->attach(['order_id'=>$order->id],['order_nos'=>$order->order_no]);
 
-       $userorder->user_id = $id;
-       $userorder->order_id = $order->id;
-       $userorder->order_nos = $order->order_no;
-
-       $userorder->save();
 
        $order = Order_detail::find($order->id);
 

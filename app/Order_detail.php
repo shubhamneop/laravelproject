@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order_detail extends Model
 {
 
+  protected $table = 'order_details';
+
 
     protected $fillable = ['cart', 'address_id', 'total', 'status', 'payment_id', 'payment_mode', 'user_id'];
     use SoftDeletes;
@@ -15,13 +17,10 @@ class Order_detail extends Model
     protected $dates = ['deleted_at'];
   public function user(){
 
-    	return $this->belongsTo('App\User');
+    	return $this->belongsToMany('App\User','user_orders','order_id','user_id');
     }
 
-    public function order(){
-
-    	return $this->belongsTo('App\User_order');
-    }
+  
      public function address(){
        return $this->belongsTo('App\Address','address_id');
      }

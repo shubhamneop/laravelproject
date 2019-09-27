@@ -224,6 +224,7 @@ class CartController extends Controller
 
 
 
+
      if(!Session::has('cart')){
       return view('Frontend.cart',['products'=>null]);
     }
@@ -280,12 +281,10 @@ class CartController extends Controller
           $order->coupon_id= $coupon->id;
         }
        $order->save();
+           $user = Auth::User();
+           $user->orderDetails()->attach(['order_id'=>$order->id],['order_nos'=>$order->order_no]);
 
-       $userorder = new User_order();
-       $userorder->user_id = $id;
-       $userorder->order_id = $order->id;
-       $userorder->order_nos = $order->order_no;
-       $userorder->save();
+
 
 
 
