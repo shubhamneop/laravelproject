@@ -87,11 +87,16 @@ class UserloginController extends Controller
 
    public function store(RegisterRequest $request){
 
-
+     DB::beginTransaction();
+     try{
             $input =$request->all();
             $input['password']= Hash::make($input['password']);
             $users = User::create($input);
             $users->assignRole('customer');
+            DB::commit();
+          }catch(Exception $e){
+            DB::rollback();
+          }
             $user = array(
                'name'=>$request->input('name'),
                'lastname'=>$request->input('lastname'),

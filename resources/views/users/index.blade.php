@@ -20,6 +20,8 @@
                   <button type="button" class="close" data-dismiss="alert">×</button>
                       <p>{{$message}}</p>
                 </div>
+                <?php Session::forget('success');?>
+
              @endif
 
 

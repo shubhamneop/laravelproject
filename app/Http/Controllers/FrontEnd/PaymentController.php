@@ -18,6 +18,7 @@ use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
 use Auth;
+use DB;
 use App\Cart;
 use App\User_order;
 use App\productattributesassoc;
@@ -57,6 +58,8 @@ class PaymentController extends Controller
     {
 
 
+   DB::beginTransaction();
+     try{
           if(!Session::has('cart')){
              return view('Frontend.cart',['products'=>null]);
                  }
@@ -138,7 +141,11 @@ class PaymentController extends Controller
                        );
                      $productid->update($dataupdate);
                 }
+              DB::commit();
 
+            }catch(Exception $e){
+              DB::rollback();
+            }
 
 
         $payer = new Payer();
@@ -172,9 +179,11 @@ class PaymentController extends Controller
         } catch (\PayPal\Exception\PPConnectionException $ex) {
             if (\Config::get('app.debug')) {
                 \Session::put('error', 'Connection timeout');
+                DB::rollback();
                 return Redirect::to('payonfo');
             } else {
                 \Session::put('error', 'Some error occur, sorry for inconvenient');
+                  DB::rollback();
                 return Redirect::to('payonfo');
             }
         }
@@ -192,7 +201,8 @@ class PaymentController extends Controller
         }
         \Session::put('error', 'Unknown error occurred');
         return Redirect::to('payonfo');
-    }
+
+  }
     public function getPaymentStatus()
     {
         /** Get the payment ID before session clear **/
@@ -203,9 +213,9 @@ class PaymentController extends Controller
             \Session::put('error', 'Payment failed');
              $OId = Order_detail::latest()->first();
             $id = $OId->id;
-            $delete = Order_detail::find($id);
-
-            $delete->delete();
+            $cartdetails = Cartdetail::where('order_id',$id)->delete();
+            $orderdelete = Order_detail::find($id);
+            $orderdelete->delete();
 
             return Redirect::to('payonfo');
         }
@@ -241,9 +251,8 @@ class PaymentController extends Controller
            $OId = Order_detail::latest()->first();
             $id = $OId->id;
             $delete = Order_detail::find($id);
-            dd($delete);
+          
             $delete->delete();
-
            return Redirect::to('payonfo');
     }
 

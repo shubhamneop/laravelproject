@@ -137,7 +137,7 @@
 						<div class="search_box pull-right">
 							  <form method="GET" action="{{ url('/') }}" accept-charset="UTF-8"  role="search">
 						    	<input type="text" name="search" placeholder="Search"/>
-									<span class="" style="margin-left:-41px;height: 64px">
+									<span class="" style="margin-left:-39px;height: 64px">
                       <button class="btn btn-info" type="submit">
                           <i class="fa fa-search"></i>
                       </button>

@@ -223,28 +223,28 @@ class CartController extends Controller
   public function saveorder(AddressRequest $request){
 
 
+  DB::beginTransaction();
+   try{
+       if(!Session::has('cart')){
+       return view('Frontend.cart',['products'=>null]);
+         }
+       $oldCart = Session::get('cart');
+       $cart = new Cart($oldCart);
 
+       $coupons = Coupon::all();
 
-     if(!Session::has('cart')){
-      return view('Frontend.cart',['products'=>null]);
-    }
-     $oldCart = Session::get('cart');
-     $cart = new Cart($oldCart);
+       $totalPrice = $cart->totalPrice;
+       $newTotal = $request->input('amount');
+        $shipTotalPrice = 0;
+        if($totalPrice>500){
+          $shipTotalPrice = $totalPrice+50;
 
-      $coupons = Coupon::all();
+        }
+       $addressId = $request->input('address');
 
-      $totalPrice = $cart->totalPrice;
-      $newTotal = $request->input('amount');
-       $shipTotalPrice = 0;
-       if($totalPrice>500){
-         $shipTotalPrice = $totalPrice+50;
-
-       }
-      $addressId = $request->input('address');
-
-       if($addressId==null){
+        if($addressId==null){
          $userid = Auth::User()->id;
-        $data = new Address;
+         $data = new Address;
 
         $data->fullname = $request->input('fullname');
         $data->address1 = $request->input('address1');
@@ -289,7 +289,7 @@ class CartController extends Controller
 
 
 
-       $order = Order_detail::find($order->id);
+          $order = Order_detail::find($order->id);
 
           $orders = unserialize($order->cart);
 
@@ -321,8 +321,16 @@ class CartController extends Controller
         Mail::to($email)->send(new Orderdetails($orders,$order));
         $mail = Configuration::find(1);
         Mail::to($mail->value)->send(new Orderdetails($orders,$order));
-        Session::put('success', 'Order Placed Successfully');
+        Session::put('success', 'Order Placed Successfully !');
         Session::forget('cart');
+        DB::commit();
+     }
+      catch(Exception $e){
+           Session::put('success', 'Order Failed !');
+           DB::rollback();
+           throw $e;
+
+     }
       return redirect('payonfo');
 
 

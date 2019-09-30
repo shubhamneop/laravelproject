@@ -57,7 +57,8 @@ class UserController extends Controller
         $email = $request->input('email');
         $password = Hash::make($request->input('password'));
         $status=$request->input('status');
-
+    DB::beginTransaction();
+    try{
       $user = new user();
 
       $user->name=$firstname;
@@ -71,10 +72,15 @@ class UserController extends Controller
           // $input['password']= Hash::make($input['password']);
           // $user = User::create($input);
           $user->assignRole($request->input('roles'));
+            Session::put('success','User created successfully');
+          DB::commit();
+        }catch(Exception $e){
+          Session::put('success','User creation failed');
+          DB::rollback();
+        }
 
+       return redirect()->route('users.index');
 
-       return redirect()->route('users.index')
-           ->with('success','User created successfully');
    }
    public function edit(User $users){
 
@@ -86,25 +92,28 @@ class UserController extends Controller
    }
     public function update(UserUpdateRequest $request, User $users)
     {
-
-        $input = $request->all();
-        if(!empty($input['password'])){
-            $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = array_except($input,array('password'));
-        }
-
-
-
-        $users->update($input);
-        DB::table('model_has_roles')->where('model_id',$users->id)->delete();
+      DB::beginTransaction();
+      try{
+            $input = $request->all();
+            if(!empty($input['password'])){
+               $input['password'] = Hash::make($input['password']);
+             }else{
+               $input = array_except($input,array('password'));
+             }
+             $users->update($input);
+              DB::table('model_has_roles')->where('model_id',$users->id)->delete();
 
 
-        $users->assignRole($request->input('roles'));
+              $users->assignRole($request->input('roles'));
+              Session::put('success','User updated successfully');
+            DB::commit();
+          }catch(Exception $e){
+            Session::put('success','User updation failed');
+            DB::rollback();
+          }
 
+        return redirect()->route('users.index');
 
-        return redirect()->route('users.index')
-            ->with('success','User updated successfully');
     }
     public function show(User $users){
 

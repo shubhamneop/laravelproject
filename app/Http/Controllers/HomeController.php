@@ -35,7 +35,7 @@ class HomeController extends Controller
             ->elementLabel("Total Orders")
             ->dimensions(500, 350)
             ->responsive(true)
-            ->colors(['red', 'green', 'blue', 'yellow', 'orange', 'cyan', 'magenta'])
+            ->colors(['#ff6347','#ff0000', '#3cb371', '#0000ff','#fa4807' ,'#faf607','#0778fa', '#68fa07', '#3407fa','#07e6fa','#13fa07','#ee07fa','#fa075c','#fa0707'])
             ->groupByMonth(date('Y'), true);
 
             $categorysale = Cartdetail::with('categoryname','order_detail')->select('category', DB::raw('count(*) as total'))
@@ -45,13 +45,13 @@ class HomeController extends Controller
                       $category[]= $value->categoryname->category_name;
                       $totalproduct[] = $value->total;
                       }
-
+                    $category =  array_map('strtoupper',$category);
               $donut = Charts::create('donut', 'highcharts')
                     ->title('Category Wise Purchase')
                        ->labels($category)
                        ->values($totalproduct)
                        ->dimensions(500, 350)
-                       ->colors(['red', 'green', 'blue','orange' ,'yellow', 'cyan', 'magenta'])
+                       ->colors(['#ff6347','#ff0000', '#3cb371', '#0000ff','#fa4807' ,'#faf607','#0778fa', '#68fa07', '#3407fa','#07e6fa','#13fa07','#ee07fa','#fa075c','#fa0707'])
                        ->responsive(true);
 
           $pie = Charts::database(Cartdetail::with('categoryname')->get(),'pie','highcharts')
@@ -59,7 +59,7 @@ class HomeController extends Controller
            ->elementLabel("Total products")
           ->dimensions(500, 350)
           ->responsive(true)
-          ->colors(['red', 'green', 'blue','orange' ,'yellow', 'cyan', 'magenta'])
+          ->colors(['red', 'green', 'blue','orange' ,'yellow','DodgerBlue', 'cyan', 'magenta','MediumSeaGreen'])
           ->groupBy('category');
 
          $usercount = User::count();
