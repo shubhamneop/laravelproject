@@ -25,7 +25,7 @@ class MailUpdateRequest extends FormRequest
     {
         return [
           'name'=>'required',
-          'value'=> 'required|email|unique:configurations,value,'.$this->configuration,
+          'value'=> 'required|email|unique:configurations,value,'.$this->configuration->id,
         ];
     }
 }

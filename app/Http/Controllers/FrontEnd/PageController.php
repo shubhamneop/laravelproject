@@ -86,7 +86,9 @@ class PageController extends Controller
 
     public function showpage($slug)
     {
-       $pages = Page::where('slug',$slug)->get();
+
+       $pages = Page::slug($slug)->statusActive()->get();
+      
          foreach ($pages as $page) {
             $status= $page->status;
          }
@@ -121,7 +123,7 @@ class PageController extends Controller
     {
       $input = $request->all();
       $input['status'] = $request->input('status');
-       
+
        $page->update($input);
        return redirect('admin/pages')->with('success','Content updated successfully');
     }

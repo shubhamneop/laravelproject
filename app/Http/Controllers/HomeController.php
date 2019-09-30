@@ -51,7 +51,7 @@ class HomeController extends Controller
                        ->labels($category)
                        ->values($totalproduct)
                        ->dimensions(500, 350)
-                       ->colors(['#ff6347','#ff0000', '#3cb371', '#0000ff','#fa4807' ,'#faf607','#0778fa', '#68fa07', '#3407fa','#07e6fa','#13fa07','#ee07fa','#fa075c','#fa0707'])
+                       ->colors(['#87e012','#ff6347','#ff0000', '#3cb371', '#0000ff','#fa4807' ,'#faf607','#0778fa', '#68fa07', '#3407fa','#07e6fa','#13fa07','#ee07fa','#fa075c','#fa0707','#262626','#262626','#65016e'])
                        ->responsive(true);
 
           $pie = Charts::database(Cartdetail::with('categoryname')->get(),'pie','highcharts')

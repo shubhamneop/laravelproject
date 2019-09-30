@@ -33,6 +33,8 @@ class CategoryController extends Controller
 
          $categories = Category::orderBy('id','DESC')->paginate(5);
          $allcategories= Category::pluck('category_name','p_id')->all();
+
+
        }
     return view('admin.categories.index',compact('categories','allcategories','parents'))->with('i', ($request->input('page', 1) - 1) * 5);;
 
@@ -41,7 +43,7 @@ class CategoryController extends Controller
   }
   public function create(){
 
-  	$allCategories= Category::where('p_id',0)->pluck('category_name','id')->all();
+  	$allCategories= Category::parentcategory()->pluck('category_name','id')->all();
   	return view('admin.categories.create',compact('allCategories'));
   }
    public function store(CategoryRequest $request){
@@ -65,7 +67,7 @@ class CategoryController extends Controller
 
 
      // $categories = cat::with('parent')->findOrFail($id);
-     $allCategories= Category::where('p_id',0)->get();
+     $allCategories= Category::parentcategory()->get();
      return view('admin.categories.edit',compact('category','allCategories'));
 
    }

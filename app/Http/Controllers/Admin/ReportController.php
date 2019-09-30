@@ -181,7 +181,7 @@ class ReportController extends Controller
     }
 
 
-       $subcategory = Category::where('p_id','!=',0)->get();
+       $subcategory = Category::subCategory()->get();
 
       return view('admin.reports.sales.index',compact('sales','subcategory'))->with('i', ($request->input('page', 1) - 1) * 5);
     }

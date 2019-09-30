@@ -32,17 +32,17 @@ class FrontendController extends Controller
 
 						$products = Product::where('name','LIKE',"%$keyword%")
 						                     ->orwhere('description','LIKE',"%$keyword%")->paginate($perPage);
-						$category =  Category::where('p_id',0)->get();
-						$subcategory = Category::where('p_id','!=',0)->get();
+						$category =  Category::parentcategory()->get();
+						$subcategory = Category::subCategory()->get();
 
 						$banner = Banner::all();
 						$categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
 			                  ->groupBy('category_id')
 			                  ->get();
 					}else{
-            $category =  Category::where('p_id',0)->get();
+            $category =  Category::parentcategory()->get();
             $products = Product::paginate($perPage);
-				    $subcategory = Category::where('p_id','!=',0)->get();
+				    $subcategory = Category::subCategory()->get();
 
             $banner = Banner::all();
 				  	$categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
@@ -57,7 +57,7 @@ class FrontendController extends Controller
 
    public function details($id){
 
-        $category =  Category::where('p_id',0)->get();
+        $category =  Category::parentcategory()->get();
         $demo = Category::with('childs','parent')->get();
         $productsDetails = Product::with('image','attribute','category')->findOrFail($id);
 				$categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
@@ -78,8 +78,8 @@ class FrontendController extends Controller
 			 {
 			 $q->where('category_id',$id);
 			 })->with('image')->paginate($perPage);
-       $category =  Category::where('p_id',0)->get();
-			 $subcategory = Category::where('p_id','!=',0)->get();
+       $category =  Category::parentcategory()->get();
+			 $subcategory = Category::subCategory()->get();
        $banner = Banner::all();
 			 $categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
 									 ->groupBy('category_id')
@@ -98,8 +98,8 @@ class FrontendController extends Controller
 	             	    $q->where('category_id',$id);
 	              	 })->with('image')->get();
 			     	$products = Product::all();
-			    	$subcategory = Category::where('p_id','!=',0)->get();
-            $category =  Category::where('p_id',0)->get();
+			    	$subcategory = Category::subCategory()->get();
+            $category =  Category::parentcategory()->get();
 
         return view('Frontend.demo',compact('productss', json_decode($productss, true),'category','products','subcategory'));
 

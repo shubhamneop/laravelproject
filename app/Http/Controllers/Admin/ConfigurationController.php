@@ -101,12 +101,10 @@ class ConfigurationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(MailUpdateRequest $request, $id)
+    public function update(MailUpdateRequest $request, Configuration $configuration)
     {
 
         $requestData = $request->all();
-
-        $configuration = Configuration::findOrFail($id);
         $configuration->update($requestData);
 
         return redirect('admin/configurations')->with('success', 'configuration updated!');

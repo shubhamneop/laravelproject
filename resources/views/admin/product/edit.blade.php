@@ -13,7 +13,7 @@
                             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                         </a>
                       </div>
-
+                    
 
 
                         <form id="product-form" method="POST" action="{{ url('/admin/product/' . $product->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">

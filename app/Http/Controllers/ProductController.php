@@ -51,7 +51,7 @@ class ProductController extends Controller
 
  public function create(){
     $product = null;
-      $categories = Category::where('p_id',0)->get();
+      $categories = Category::parentcategory()->get();
  	return view('admin.product.create',compact('categories','product'));
     }
 
@@ -107,7 +107,7 @@ class ProductController extends Controller
 
 
 
-           $categories = Category::where('p_id',0)->get();
+           $categories = Category::parentcategory()->get();
 
 
 	   return view('admin.product.edit',compact('product','categories'));

@@ -103,7 +103,7 @@ class CartController extends Controller
             			 	$coupons = Coupon::whereNotIn('id',$ids)
             			                    ->get();
 
-                 return view('Frontend.checkout',['products'=>$cart->items, 'totalPrice'=>$cart->totalPrice, 'total'=>$newTotal,'coupons'=>$coupons,'data'=>$data,'shipTotalPrice'=>$shipTotalPrice,'addresses'=>$addresses]);
+                 return view('Frontend.checkout',['products'=>$cart->items,'totalQty'=>$cart->totalQty, 'totalPrice'=>$cart->totalPrice, 'total'=>$newTotal,'coupons'=>$coupons,'data'=>$data,'shipTotalPrice'=>$shipTotalPrice,'addresses'=>$addresses]);
 
              }else{
 

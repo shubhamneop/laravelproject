@@ -251,7 +251,7 @@ class PaymentController extends Controller
            $OId = Order_detail::latest()->first();
             $id = $OId->id;
             $delete = Order_detail::find($id);
-          
+
             $delete->delete();
            return Redirect::to('payonfo');
     }

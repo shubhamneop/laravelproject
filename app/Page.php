@@ -11,4 +11,17 @@ class Page extends Model
   use SoftDeletes;
 
   protected $dates = ['deleted_at'];
+
+  public function scopeSlug($query,$slug){
+    return $query->where('slug',$slug);
+  }
+  public function scopeStatusActive($query){
+    return $query->where('status','active');
+  }
+
+  public function scopeStatusInctive($query){
+    return $query->where('status','inactive');
+  }
+
+
 }
