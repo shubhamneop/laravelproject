@@ -23,9 +23,9 @@
 			<div class="checkout-options">
 
 
-				<ul class="nav">
+				<ul class="nav user_address">
 					@foreach($addresses as $address)
-					<li>
+					<li data-id="{{$address->id}}">
 				<label style="background: #F0F0E9;">	<input type="radio" value="{{$address->id}}" name="address" id="address{{$address->id}}">Name: {{$address->fullname}},Address: {{$address->address1}},{{$address->address2}},zipcode: {{$address->zipcode}},PhoneNo: {{$address->phoneno}},MobieNo: {{$address->mobileno}}</label>
 					</li> <br><br>
 					@endforeach
@@ -207,7 +207,7 @@
 					<div class="col-md-3" style="float: left;">
 					   <form action="{{url('coupon')}}" method="post">
                         {{ csrf_field() }}
-                        <input type="text" id="text" name="coupon"  placeholder="Applycode..." value="{{request('coupon')}}" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
+                        <input type="text" id="couponcode" name="coupon"  placeholder="Applycode..." value="{{request('coupon')}}" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
                             @if($message = Session::get('message'))
 
                                <div class="alert alert-danger">
@@ -223,12 +223,13 @@
                        </form>
                    </div>
 
-                     <div class="col-md-5" style="float: left;">
+                     <div class="col-md-5 coupon_code" style="float: left;">
+
                        @if(!empty($coupons))
                                  <label class="label label-success">  Available Coupons </label> <br><br>
                         @foreach($coupons as $v)
                          <span class="badge" style="color:black;margin:1px;display:inline;">
-                         <input type="radio" name="coupon" id="coupon{{$v->id}}" value="{{$v->code}}">
+                         <input type="radio" class="coupon_code" name="coupon" id="coupon{{$v->id}}" value="{{$v->code}}" data-id="{{$v->code}}">
                       {{ $v->code  }}</span> &nbsp;
                         @endforeach
                       @endif
@@ -268,7 +269,7 @@
 
 
 
-@include('Frontend.cartjs')
+@include('Frontend.layouts.cartjs')
 
 
 @endsection

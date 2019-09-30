@@ -2,24 +2,21 @@
 
 $(document).ready(function(){
 
-@foreach(App\Coupon::all() as $coupon)
-  $('#coupon{{$coupon->id}}').on('change', function(){
-  	var apply = document.getElementById("clear");
+  $('.coupon_code').click(function(e){
    if ( $(this).is(':checked') ) {
-      $('#text').val($(this).val());
-       var coupon = $("#coupon{{$coupon->id}}").val();
-
+      $('#couponcode').val($(this).val());
+       var coupon = $("#coupon").val();
    }
    else{ $('#text').val(""); }
-});
+  });
 
-@endforeach
+
 
 
 $('#clear').on('change', function(){
 		var apply = document.getElementById("clear");
     apply.style.display = "none";
-});
+ });
 
 
 
@@ -39,36 +36,20 @@ function myFunction() {
 
 
 
-@foreach(App\Address::all() as $add)
-  $('#address{{$add->id}}').on('change', function(){
-
-   if ( $(this).is(':checked') ) {
-       var id = $("#address{{$add->id}}").val();
-
+  $('ul.user_address li').click(function(e){
+       var id = $(this).attr("data-id");
          $.ajax({
          type:'get',
           dataType:'html',
           url:'/address/'+id,
-
-                 success:function(responce){
-                  /*
-                    $('form[name="address"]').empty();
-                        $.each(data, function(key, value) {
-                            $('form[name="address').append('<input type="text" value="'+ value.fullname +'">','<input type="text" value="'+ value.address1 +'">');
-                        });  */
-
-                console.log(responce);
-              $("#addressData").html(responce);
-
-
+           success:function(responce){
+            console.log(responce);
+             $("#addressData").html(responce);
            }
         });
 
-          }
-
-
        });
-@endforeach
+
 
 
 $('#Paypal').on('change',function(){

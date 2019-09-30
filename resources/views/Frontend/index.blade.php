@@ -317,6 +317,6 @@
 
 @section('script')
 
-@include('Frontend.productjs')
+@include('Frontend.layouts.productjs')
 
 @endsection
