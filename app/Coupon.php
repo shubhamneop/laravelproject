@@ -27,10 +27,17 @@ class Coupon extends Model
      * @var array
      */
     protected $fillable = ['title','code','type', 'discount'];
+
+    /**
+    *SoftDeletes declaration
+    */
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
+      /**
+      *Relation with used_coupon model
+      */
     public function usedcoupon(){
       return $this->hasMany('App\Used_coupon','coupon_id');
     }

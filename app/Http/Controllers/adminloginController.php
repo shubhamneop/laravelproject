@@ -22,10 +22,15 @@ protected $redirectTo = 'admin';
 
 
     }
-
+    /**
+    *Login the registered admin user
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\Response
+    */
     public function login(LoginRequest $request){
 
-       
+
 
            $userdata = array(
              'email'=>$request->input('email'),
@@ -47,6 +52,7 @@ protected $redirectTo = 'admin';
 
     }
 
+     //Destroy the session of login user
     public function logout(){
         auth::logout();
            return Redirect::to('admin');

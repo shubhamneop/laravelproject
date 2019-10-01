@@ -30,10 +30,13 @@ class ProductController extends Controller
 
 
 
-
- public function index(Request $request){
-
-
+     /**
+      * Display a listing of the resource.
+      *
+      * @param \Illuminate\Http\Request $request
+      * @return \Illuminate\View\View
+      */
+   public function index(Request $request){
 
            $keyword = $request->get('search');
            $perPage = 4;
@@ -49,14 +52,25 @@ class ProductController extends Controller
 
    }
 
- public function create(){
-    $product = null;
-      $categories = Category::parentcategory()->get();
- 	return view('admin.product.create',compact('categories','product'));
+   /**
+    * Show the form for creating a new resource.
+    *
+    * @return \Illuminate\View\View
+    */
+  public function create(){
+       $product = null;
+       $categories = Category::parentcategory()->get();
+ 	  return view('admin.product.create',compact('categories','product'));
     }
 
- public function store(ProductRequest $request)
- {
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+  public function store(ProductRequest $request) {
 
 
          $product = new Product;
@@ -98,35 +112,41 @@ class ProductController extends Controller
 
            return redirect('admin/product')->with('success','product added successfully');
 
-
-
   }
 
-
-        public function edit(Product $product){
-
-
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  model $product
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit(Product $product) {
            $categories = Category::parentcategory()->get();
-
-
-	   return view('admin.product.edit',compact('product','categories'));
-
-
+	      return view('admin.product.edit',compact('product','categories'));
         }
 
-        public function show(Product $product){
-
+     /**
+     * Display the specified resource.
+     *
+     * @param model $product
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show(Product $product) {
 
 	 return view('admin.product.show',compact('product','image'));
-
-
         }
 
-
-        public function update(ProductUpdateRequest $request, Product $product){
-
-
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param  model $product
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+  public function update(ProductUpdateRequest $request, Product $product){
 
               $input = $request->all();
 
@@ -170,8 +190,13 @@ class ProductController extends Controller
 
         }
 
-
-       public function destroy($id){
+     /**
+      * Remove the specified resource from storage.
+      *
+      * @param int $id
+      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+      */
+   public function destroy($id){
          Productimage::where('product_id',$id)->delete();
          Productcategory::where('product_id',$id)->delete();
          Productattributesassoc::where('product_id',$id)->delete();
@@ -183,9 +208,13 @@ class ProductController extends Controller
 
      }
 
-
-      public function subcategory($id)
-    {
+   /**
+   *Load subcategory on create and edit form of product
+   *
+   * @param int $id
+   * @return json_encode
+   */
+  public function subcategory($id) {
         $subcategory = Category::where("p_id",$id)
                     ->get();
         return json_encode($subcategory);

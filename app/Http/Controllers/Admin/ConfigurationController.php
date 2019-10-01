@@ -11,11 +11,9 @@ use Illuminate\Http\Request;
 
 class ConfigurationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
+    /*
+    *Authorized the user with permission
+    */
     function __construct(){
         $this->middleware('permission:config-list');
         $this->middleware('permission:config-create', ['only' => ['create', 'store']]);
@@ -24,6 +22,11 @@ class ConfigurationController extends Controller
 
      }
 
+     /**
+      * Display a listing of the resource.
+      * @param \Illuminate\Http\Request  $request
+      * @return \Illuminate\View\View
+      */
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -70,7 +73,7 @@ class ConfigurationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param \Illuminate\Database\Eloquent\Model $configuration
      *
      * @return \Illuminate\View\View
      */
@@ -82,7 +85,7 @@ class ConfigurationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param \Illuminate\Database\Eloquent\Model $configuration
      *
      * @return \Illuminate\View\View
      */
@@ -97,7 +100,8 @@ class ConfigurationController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     *
+     * @param \Illuminate\Database\Eloquent\Model $configuration
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -113,7 +117,7 @@ class ConfigurationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Database\Eloquent\Model $configuration
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -121,6 +125,6 @@ class ConfigurationController extends Controller
     {
         $configuration->delete();
         return redirect('admin/configurations')->with('success', 'configuration deleted!');
-        //return redirect('admin/configurations')->with('flash_message', 'configuration deleted!');
+
     }
 }

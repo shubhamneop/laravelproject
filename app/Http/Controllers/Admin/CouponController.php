@@ -11,12 +11,8 @@ use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
 
+     //Authorized user with permission middleware
       function __construct(){
         $this->middleware('permission:coupon-list');
         $this->middleware('permission:coupon-create', ['only' => ['create', 'store']]);
@@ -25,7 +21,12 @@ class CouponController extends Controller
 
      }
 
-
+     /**
+      * Display a listing of the resource.
+      *
+      * @param \Illuminate\Http\Request $request
+      * @return \Illuminate\View\View
+      */
 
     public function index(Request $request)
     {
@@ -86,21 +87,19 @@ class CouponController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Illuminate\Database\Eloquent\Model $coupon
      *
      * @return \Illuminate\View\View
      */
     public function show(Coupon $coupon)
     {
-        // $coupon = coupon::findOrFail($id);
-
         return view('admin.coupons.show', compact('coupon'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Illuminate\Database\Eloquent\Model $coupon
      *
      * @return \Illuminate\View\View
      */
@@ -115,7 +114,8 @@ class CouponController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     *
+     * @param Illuminate\Database\Eloquent\Model $coupon
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -133,7 +133,7 @@ class CouponController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Illuminate\Database\Eloquent\Model $coupon
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

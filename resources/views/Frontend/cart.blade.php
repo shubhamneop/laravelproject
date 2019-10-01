@@ -1,6 +1,9 @@
 @extends('Frontend.masterfrontend')
 
 @section('content')
+@if($totalQty<=0)
+<center><h2>Buy  Some Stuff</h2></center>
+@else
 
 
 	<section id="cart_items">
@@ -97,7 +100,8 @@
 		</div>
 		@else
 
-							@endif
+		@endif
+	@endif
 	</section><!--/#do_action-->
 </div>
 	@endsection
@@ -106,7 +110,7 @@
 @section('script')
 
 
-@include('Frontend.cartjs')
+@include('Frontend.layouts.cartjs')
 
 
 @endsection

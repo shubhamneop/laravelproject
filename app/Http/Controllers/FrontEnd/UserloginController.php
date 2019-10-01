@@ -33,7 +33,12 @@ class UserloginController extends Controller
 
 
     }
-
+    /**
+    *Login the registered user
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\Response
+    */
     public function login(LoginRequest $request){
 
 
@@ -53,14 +58,20 @@ class UserloginController extends Controller
            }
 
     }
-
+     /**
+     *Destroy the session of login user
+     */
     public function logout(){
         auth::logout();
            return Redirect::to('/');
        }
-
-    public function socialLogin($social)
-          {
+      /**
+      *register user through Social media handle
+      *
+      *@param $social
+      *@return Response
+      */
+    public function socialLogin($social) {
        return Socialite::driver($social)->redirect();
              }
    /**
@@ -80,12 +91,14 @@ class UserloginController extends Controller
        }
    }
 
-
-
-
-
-
-   public function store(RegisterRequest $request){
+   /**
+    * Store a newly created resource in storage.
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+    */
+   public function store(RegisterRequest $request) {
 
      DB::beginTransaction();
      try{
@@ -116,11 +129,6 @@ class UserloginController extends Controller
            }else{
              return view('Frontend.login');
           }
-
-
-
-
-
 
    }
 

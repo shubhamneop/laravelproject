@@ -22,7 +22,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application dashboard with charts and counts.
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,14 +31,14 @@ class HomeController extends Controller
           $orders = Order_detail::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))
               ->get();
          $chart = Charts::database($orders, 'bar', 'highcharts')
-            ->title("Monthly Order Placed")
-            ->elementLabel("Total Orders")
-            ->dimensions(500, 350)
-            ->responsive(true)
-            ->colors(['#ff6347','#ff0000', '#3cb371', '#0000ff','#fa4807' ,'#faf607','#0778fa', '#68fa07', '#3407fa','#07e6fa','#13fa07','#ee07fa','#fa075c','#fa0707'])
-            ->groupByMonth(date('Y'), true);
+                  ->title("Monthly Order Placed")
+                  ->elementLabel("Total Orders")
+                  ->dimensions(500, 350)
+                  ->responsive(true)
+                  ->colors(['#ff6347','#ff0000', '#3cb371', '#0000ff','#fa4807' ,'#faf607','#0778fa', '#68fa07', '#3407fa','#07e6fa','#13fa07','#ee07fa','#fa075c','#fa0707'])
+                  ->groupByMonth(date('Y'), true);
 
-            $categorysale = Cartdetail::with('categoryname','order_detail')->select('category', DB::raw('count(*) as total'))
+         $categorysale = Cartdetail::with('categoryname','order_detail')->select('category', DB::raw('count(*) as total'))
                         ->groupBy('category')
                         ->get();
                       foreach ($categorysale as  $value) {
@@ -47,20 +47,12 @@ class HomeController extends Controller
                       }
                     $category =  array_map('strtoupper',$category);
               $donut = Charts::create('donut', 'highcharts')
-                    ->title('Category Wise Purchase')
+                       ->title('Category Wise Purchase')
                        ->labels($category)
                        ->values($totalproduct)
                        ->dimensions(500, 350)
                        ->colors(['#87e012','#ff6347','#ff0000', '#3cb371', '#0000ff','#fa4807' ,'#faf607','#0778fa', '#68fa07', '#3407fa','#07e6fa','#13fa07','#ee07fa','#fa075c','#fa0707','#262626','#262626','#65016e'])
                        ->responsive(true);
-
-          $pie = Charts::database(Cartdetail::with('categoryname')->get(),'pie','highcharts')
-           ->title("Order Placed")
-           ->elementLabel("Total products")
-          ->dimensions(500, 350)
-          ->responsive(true)
-          ->colors(['red', 'green', 'blue','orange' ,'yellow','DodgerBlue', 'cyan', 'magenta','MediumSeaGreen'])
-          ->groupBy('category');
 
          $usercount = User::count();
          $ordercount = Order_detail::count();

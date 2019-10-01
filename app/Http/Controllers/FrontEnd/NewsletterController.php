@@ -8,7 +8,12 @@ use Newsletter;
 
 class NewsletterController extends Controller
 {
-
+     /**
+     *Enrole user to Newsletter
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(Request $request)
     {
         if ( ! Newsletter::isSubscribed($request->email) )

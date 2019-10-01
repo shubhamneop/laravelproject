@@ -18,7 +18,7 @@
             </li>
          </ul> -->
 				 <div>
-				 	<img src="{{asset('User_profile/' .$profile->profile_image)}}" alt="" width="110px" height="110px" style="border: 3px solid #d2d6de; border-radius: 50px;padding:3px; position: relative;top:70px;left: 138px;margin-bottom:5px; "/>
+				 	<img src="{{asset('User_profile/' .$profile->profile_image)}}" alt="User Profile" width="110px" height="110px" style="border: 3px solid #d2d6de; border-radius: 50px;padding:3px; position: relative;top:70px;left: 138px;margin-bottom:5px; "/>
 					  <h3 style="font-size: 21px;margin-top: 5px;text-align: center;font-family: 'Source Sans Pro',sans-serif;position: relative;top: 70px;    left: 18px">{{$profile->name}} {{$profile->lastname}} </h3>
             <form id="imageupload" action="{{url('imageupload')}}" enctype="multipart/form-data" method="post">
 							 {{csrf_field()}}

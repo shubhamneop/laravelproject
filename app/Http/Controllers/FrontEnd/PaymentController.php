@@ -54,8 +54,18 @@ class PaymentController extends Controller
         );
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
-     public function payWithpaypal(AddressRequest $request)
-    {
+
+
+    /**
+    *Store order data in orderDetails and Cartdetail table when payment_mode PayPal
+    *
+    * @param Session $cart
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+    */
+ public function payWithpaypal(AddressRequest $request) {
 
 
    DB::beginTransaction();
@@ -202,8 +212,15 @@ class PaymentController extends Controller
         \Session::put('error', 'Unknown error occurred');
         return Redirect::to('payonfo');
 
-  }
-    public function getPaymentStatus()
+    }
+
+    /**
+    * Return payment status and payment_id
+    *
+    *
+    * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+    */
+  public function getPaymentStatus()
     {
         /** Get the payment ID before session clear **/
         $payment_id = Session::get('paypal_payment_id');

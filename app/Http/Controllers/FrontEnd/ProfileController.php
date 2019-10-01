@@ -15,6 +15,12 @@ use Hash;
 
 class ProfileController extends Controller
 {
+     /**
+     *Display user details
+     *
+     * @param Auth $user
+     * @return \Illuminate\View\View
+     */
      public function index(){
          $id = Auth::User()->id;
            $profile = User::all()->find($id);
@@ -23,6 +29,13 @@ class ProfileController extends Controller
 
      }
 
+     /**
+      * Update the specified resource in storage.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param Auth $user
+      * @return \Illuminate\Http\Response
+      */
      public function update(UpdateProfileRequest $request){
 
 
@@ -40,7 +53,13 @@ class ProfileController extends Controller
           return redirect()->back()->with('success','Profile Updated');
 
      }
-
+     /**
+      * Update the profile_image in storage.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param Auth $user
+      * @return \Illuminate\Http\Response
+      */
      public function updateimage(UpdateImageRequest $request){
 
 
@@ -73,6 +92,13 @@ class ProfileController extends Controller
         return redirect()->back()->with('success','Profile Updated');
      }
 
+     /**
+      * Update the password  resource in storage.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param Auth $user
+      * @return \Illuminate\Http\Response
+      */
     public function changePassword(ChangePasswordRequest $request){
 
 

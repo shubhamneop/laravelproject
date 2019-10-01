@@ -2,8 +2,7 @@
 
 @section('content')
 @if($totalQty<=0)
-<h2>Buy  Some Stuff
-</h2>
+<center><h2>Buy  Some Stuff</h2></center>
 @else
 <form action="{{url('paypal')}}" name="checkout" id="checkout"  method="post" data-parsley-validate>
 

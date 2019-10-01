@@ -12,7 +12,8 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\view\view
      */
     public function index(Request $request)
     {
@@ -59,24 +60,17 @@ class PageController extends Controller
           $page->content=$request->input('content');
           $page->status=$request->input('status');
           $page->save();
-
-
-
-
-
        return redirect('admin/pages')->with('success','Page created successfully');
     }
 
 
-    public function getRouteKeyName()
-    {
-     return 'slug';
-     }
+
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Illuminate\Database\Eloquent\Model $page
      * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\view
      */
      public function show(Page $page)
      {
@@ -84,11 +78,18 @@ class PageController extends Controller
         return view('admin.pages.show',compact('page'));
      }
 
+     /**
+      * Display the specified resource.
+      *
+      * @param string $slug
+      * @return \Illuminate\Http\Response
+      * @return \Illuminate\View\view
+      */
     public function showpage($slug)
     {
 
        $pages = Page::slug($slug)->statusActive()->get();
-      
+
          foreach ($pages as $page) {
             $status= $page->status;
          }
@@ -103,8 +104,9 @@ class PageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Illuminate\Database\Eloquent\Model $page
      * @return \Illuminate\Http\Response
+     * @return |Illuminate\View\View
      */
     public function edit(Page $page)
     {
@@ -116,7 +118,7 @@ class PageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Illuminate\Database\Eloquent\Model $page
      * @return \Illuminate\Http\Response
      */
     public function update(PageUpdateRequest $request, Page $page)
@@ -131,7 +133,7 @@ class PageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Illuminate\Database\Eloquent\Model $page
      * @return \Illuminate\Http\Response
      */
     public function destroy(Page $page)

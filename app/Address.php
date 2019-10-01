@@ -28,15 +28,22 @@ class Address extends Model
      */
     protected $fillable = ['address1', 'address2', 'zipcode', 'country', 'state', 'phoneno', 'mobileno', 'user_id'];
 
+     //soft detele function
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
+     /**
+     * Relation with user model
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
+    /**
+    * Relation with Order_detail model
+    */
     public function orderaddress(){
       return $this->belongsTo('App\Order_detail');
     }

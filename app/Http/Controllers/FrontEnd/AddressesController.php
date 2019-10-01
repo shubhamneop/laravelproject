@@ -19,6 +19,8 @@ class AddressesController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
@@ -106,7 +108,7 @@ class AddressesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Database\Elequent\Model $address
      *
      * @return \Illuminate\View\View
      */
@@ -120,15 +122,12 @@ class AddressesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Database\Elequent\Model $address
      *
      * @return \Illuminate\View\View
      */
     public function edit(Address $address)
     {
-        //   $userid = Auth::User()->id;
-        // $address = Address::findOrFail($id);
-
         return view('Frontend.addresses.edit', compact('address'));
     }
 
@@ -136,7 +135,8 @@ class AddressesController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     *
+     * @param  \Illuminate\Database\Elequent\Model $address
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -157,7 +157,7 @@ class AddressesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Database\Elequent\Model $address
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -168,6 +168,13 @@ class AddressesController extends Controller
         return redirect('addresses')->with('flash_message', 'Address deleted!');
     }
 
+    /**
+    *Display the address on checkout blade when address is selected
+    *
+    * @param int $id
+    *
+    * @return \Illuminate\View\View
+    */
    public function getAddress($id){
 
     if(Auth::check()){

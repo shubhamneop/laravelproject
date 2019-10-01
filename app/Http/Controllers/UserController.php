@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 use App\User;
 use DB;
 use Hash;
+use Session;
 class UserController extends Controller
 {
 
@@ -23,7 +24,12 @@ class UserController extends Controller
 
     }
 
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Responce
+     */
     public function index(Request $request){
         $keyword = $request->get('search');
         $perPage = 5;
@@ -36,18 +42,27 @@ class UserController extends Controller
             $data = User::latest()->paginate($perPage);
         }
 
-     //   $data = User::orderBy('id','desc')->paginate(2);
         return view('users.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);;
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Model $roles
+     * @return \Illuminate\View\View
+     */
     public function  create(){
            $roles = Role::pluck('name', 'name')->all();
         return view('users.create',compact('roles'));
     }
-    public function  create2(){
-        $roles = Role::pluck('name', 'name')->all();
-     return view('users.new2',compact('roles'));
- }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
    public function store(UserRequest $request){
 
 
@@ -82,6 +97,15 @@ class UserController extends Controller
        return redirect()->route('users.index');
 
    }
+
+
+       /**
+        * Show the form for editing the specified resource.
+        *
+        * @param  model $user
+        *
+        * @return \Illuminate\View\View
+        */
    public function edit(User $users){
 
         $roles = Role::pluck('name','name')->all();
@@ -90,6 +114,15 @@ class UserController extends Controller
         return view('users.edit',compact('users','roles','userRole'));
 
    }
+
+   /**
+    * Update the specified resource in storage.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @param  model $user
+    *
+    * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+    */
     public function update(UserUpdateRequest $request, User $users)
     {
       DB::beginTransaction();
@@ -115,10 +148,25 @@ class UserController extends Controller
         return redirect()->route('users.index');
 
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param model $user
+     *
+     * @return \Illuminate\View\View
+     */
     public function show(User $users){
 
         return view('users.show',compact('users'));
     }
+
+    /**
+     * Rmove the specified resource.
+     *
+     * @param model $user
+     *
+     * @return \Illuminate\View\View
+     */
     public function destroy(User $users)
     {
          $users->delete();

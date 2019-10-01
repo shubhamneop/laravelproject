@@ -33,7 +33,7 @@
                   <img src="{{asset('User_profile/' .Auth::user()->profile_image)}}" class="user-image" alt="User Image"><br>
 
                 <p>
-                   {{Auth::user()->name}}
+                   {{Auth::user()->name}}  - {{Auth::user()->roles[0]->name}}
                   <small>Member since Nov. 2012</small>
                   </p>
               </li>

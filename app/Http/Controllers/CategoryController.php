@@ -21,7 +21,12 @@ class CategoryController extends Controller
 
      }
 
-
+     /**
+      * Display a listing of the resource.
+      *
+      * @param \Illuminate\Http\Request $request
+      * @return \Illuminate\View\View
+      */
   public function index(Request $request){
         $keyword = $request->get('search');
         $perPage = 25;
@@ -41,11 +46,25 @@ class CategoryController extends Controller
 
 
   }
+
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\View\View
+   */
   public function create(){
 
   	$allCategories= Category::parentcategory()->pluck('category_name','id')->all();
   	return view('admin.categories.create',compact('allCategories'));
   }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param \Illuminate\Http\Request $request
+   *
+   * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+   */
    public function store(CategoryRequest $request){
 
         $input = $request->all();
@@ -55,14 +74,27 @@ class CategoryController extends Controller
 
 
    }
-   public function show(Category $category){
 
-      // $categories = cat::with('childs','parent')->find($id);
+   /**
+     * Display the specified resource.
+     *
+     * @param Illuminate\Database\Eloquent\Model $category
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show(Category $category){
 
      return view('admin.categories.show',compact('category'));
 
    }
 
+   /**
+    * Show the form for editing the specified resource.
+    *
+    * @param  model $banner
+    *
+    * @return \Illuminate\View\View
+    */
    public function edit(Category $category){
 
 
@@ -73,17 +105,29 @@ class CategoryController extends Controller
    }
 
 
-   public function update(CategoryUpdateRequest $request, Category $category)
-    {
-
-
-            $input = $request->all();
+     /**
+      * Update the specified resource in storage.
+      *
+      * @param \Illuminate\Http\Request $request
+      * @param  model $category
+      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+      */
+    public function update(CategoryUpdateRequest $request, Category $category)
+     {
+        $input = $request->all();
         $input['p_id'] = empty($input['p_id']) ? 0 : $input['p_id'];
-        // $category = Category::findOrFail($id);
         $category->update($input);
 
         return redirect('admin/categories')->with('success', 'Category updated!');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param model $category
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function destroy(Request $request, Category $category){
 
               $category->delete();

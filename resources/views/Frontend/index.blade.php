@@ -317,6 +317,6 @@
 
 @section('script')
 
-@include('Frontend.layouts.productjs')
+@include('Frontend.layouts.cartjs')
 
 @endsection

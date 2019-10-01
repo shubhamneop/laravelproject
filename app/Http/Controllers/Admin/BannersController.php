@@ -12,10 +12,10 @@ use App\Http\Requests\BannerUpdateRequest;
 class BannersController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
+    *
+    *Autherized user with permission
+    *
+    */
     function __construct(){
         $this->middleware('permission:banner-list');
         $this->middleware('permission:banner-create', ['only' => ['create', 'store']]);
@@ -23,7 +23,12 @@ class BannersController extends Controller
         $this->middleware('permission:banner-delete', ['only' => ['destroy']]);
 
      }
-
+     /**
+      * Display a listing of the resource.
+      *
+      * @param \Illuminate\Http\Request $request 
+      * @return \Illuminate\View\View
+      */
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -74,7 +79,7 @@ class BannersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param model $banner
      *
      * @return \Illuminate\View\View
      */
@@ -86,7 +91,7 @@ class BannersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  model $banner
      *
      * @return \Illuminate\View\View
      */
@@ -100,7 +105,7 @@ class BannersController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  model $banner
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -121,7 +126,7 @@ class BannersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param model $banner
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

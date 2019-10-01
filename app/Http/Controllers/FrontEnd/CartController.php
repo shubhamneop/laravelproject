@@ -36,12 +36,13 @@ class CartController extends Controller
        }
       }
 
-  public function index(){
-
-  	return view('Frontend.cart.index');
-  }
-
-
+    /**
+    *check applied coupon availabe for user or not return discount value
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return \Illuminate\View\View
+   */
   public function checkCoupon(Request $request){
 
 
@@ -124,7 +125,13 @@ class CartController extends Controller
 
 
   }
-
+   /**
+   * Add specified product into shopping cart
+   *
+   * @param int $id
+   *
+   * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+   */
   public function getAddToCart(Request $request ,$id){
           if(Auth::guest()) {
              return redirect('login')->with('message', 'Please Login !');
@@ -143,8 +150,13 @@ class CartController extends Controller
 
   }
 
-
-
+  /**
+  * Decrease quantity of specified product into shopping cart
+  *
+  * @param int $id
+  *
+  * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+  */
   public function getReduceByOne($id){
   	   $oldCart = Session::has('cart') ? Session::get('cart') : null;
        $cart = new Cart($oldCart);
@@ -153,6 +165,14 @@ class CartController extends Controller
 
          return redirect()->back();
   }
+
+  /**
+  * Increase quantity product into shopping cart
+  *
+  * @param int $id
+  *
+  * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+  */
   public function getAddByOne($id){
   	   $oldCart = Session::has('cart') ? Session::get('cart') : null;
        $cart = new Cart($oldCart);
@@ -161,6 +181,14 @@ class CartController extends Controller
 
          return redirect()->back();
   }
+
+  /**
+  * Remove specified product into shopping cart
+  *
+  * @param int $id
+  *
+  * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+  */
   public function getRemoveItem($id){
   	   $oldCart = Session::has('cart') ? Session::get('cart') : null;
        $cart = new Cart($oldCart);
@@ -169,6 +197,14 @@ class CartController extends Controller
 
         return redirect()->back();
   }
+
+  /**
+  *Display cart product on cart view
+  *
+  * @param Session $cart
+  *
+  * @return \Illuminate\View\view
+  */
   public function getCart(){
           if(Auth::guest()) {
           return redirect('login')->with('message', 'Please Login !');
@@ -181,13 +217,22 @@ class CartController extends Controller
         $cart = new Cart($oldCart);
         $coupons = Coupon::all();
 
-     return view('Frontend.cart',['products'=>$cart->items, 'totalPrice'=>$cart->totalPrice,'shipTotalPrice'=>$cart->shipTotalPrice,'total'=>null,'coupons'=>$coupons]);
+     return view('Frontend.cart',['products'=>$cart->items,'totalQty'=>$cart->totalQty,'totalPrice'=>$cart->totalPrice,'shipTotalPrice'=>$cart->shipTotalPrice,'total'=>null,'coupons'=>$coupons]);
 
 
 
 
   }
 
+  /**
+  *Display cart product on checkout view with address and coupon code
+  *
+  * @param Session $cart
+  *
+  * @param Auth $user
+  *
+  * @return \Illuminate\View\view
+  */
   public function getChekout(){
       if(Auth::check()){
             $id = Auth::User()->id;
@@ -220,7 +265,16 @@ class CartController extends Controller
 
   }
 
-  public function saveorder(AddressRequest $request){
+  /**
+  *Store order data in orderDetails and Cartdetail table when payment_mode COD
+  *
+  * @param Session $cart
+  *
+  * @param \Illuminate\Http\Request $request
+  *
+  * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+  */
+  public function saveorder(AddressRequest $request) {
 
 
   DB::beginTransaction();
@@ -337,7 +391,10 @@ class CartController extends Controller
 
   }
 
-  public function removecoupon(){
+  /**
+  *Remove Applied coupon on checkout option
+  */
+  public function removecoupon() {
      $coupon = Used_coupon::with('coupon','user')->orderBy('id','DESC')->first();
      Used_coupon::where('id',$coupon->id)->delete();
      return redirect('check_out');

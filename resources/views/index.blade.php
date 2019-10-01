@@ -121,6 +121,5 @@
 
 {!! Charts::scripts() !!}
 {!! $chart->script() !!}
-{!! $pie->script() !!}
 {!! $donut->script() !!}
 @endsection

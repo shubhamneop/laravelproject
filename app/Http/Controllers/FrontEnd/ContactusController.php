@@ -16,7 +16,9 @@ class ContactusController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http|Request $request
+     *
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -37,19 +39,10 @@ class ContactusController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(ContactusRequest $request)
@@ -65,12 +58,12 @@ class ContactusController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Database\Elequent\Model $contactus
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Contactus $contactus)
     {
-      // $contact = Contactus::findOrFail($id);
 
       return view('admin.contactus.show',compact('contactus'));
     }
@@ -78,12 +71,11 @@ class ContactusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param \Illuminate\Database\Elequent\Model $contactus
      * @return \Illuminate\Http\Response
      */
     public function edit(Contactus $contactus)
     {
-      // $contact = Contactus::findOrFail($id);
        return view('admin.contactus.edit',compact('contactus'));
     }
 
@@ -91,14 +83,13 @@ class ContactusController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Database\Elequent\Model $contactus
      * @return \Illuminate\Http\Response
      */
     public function update(ContactusRequest $request, Contactus $contactus)
     {
 
-         $input = $request->all();
-         // $message = Contactus::find($id);
+           $input = $request->all();
            $contactus->update($input);
            $message = $contactus;
 
@@ -110,7 +101,7 @@ class ContactusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Database\Elequent\Model $contactus
      * @return \Illuminate\Http\Response
      */
     public function destroy(Contactus $contactus)

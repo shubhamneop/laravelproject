@@ -25,7 +25,9 @@ class ReportController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -45,6 +47,8 @@ class ReportController extends Controller
 
       }else{
        if ('1970-01-01'!=($start)) {
+         $start = $start.' '.'00:00:00';
+         $end = $end.' '.'23:59:58';
              $users = User::whereHas('roles' , function($q){
               $q->where('name', 'customer');
             })->whereBetween('created_at',[$start,$end])
@@ -67,7 +71,8 @@ class ReportController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {      $user = User::find($id);
@@ -80,40 +85,14 @@ class ReportController extends Controller
 
     }
 
+  
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * @param  \Illuminate\Http\Request $request
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function allCoupon(Request $request){
 
            $keyword = $request->get('search');
@@ -136,6 +115,13 @@ class ReportController extends Controller
     return view('admin.reports.coupons.index',compact('coupons'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\View\View
+     */
     public function sales(Request $request){
         $id = $request->get('category_id');
 
