@@ -15,7 +15,7 @@
 	     </div>
       <div class="signup-form" style="position: relative;left: 311px;"><!--sign up form-->
       <h2 style="position: relative;left: 170px;">Track Order!</h2>
-         <form action="{{url('trackorder')}}" method="post">
+      {!!Form::open(array('url'=>'trackorder','method'=>'post'))!!}
             {{csrf_field()}}
 
 
@@ -23,8 +23,7 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
                             <label for="email" class="col-md-2 control-label">E-Mail Address</label>
                             <div class="col-md-3">
-
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                               {!!Form::email('email',old('email'),['class'=>'form-control','id'=>'email','required'=>'required','placeholder'=>'your@mail.com'])!!}
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -35,8 +34,8 @@
                         <div class="form-group{{ $errors->has('orderid') ? ' has-error' : '' }} row">
                           <label for="orderid" class="col-md-2 control-label">Order Id </label>
                           <div class="col-md-3">
+                            {!!Form::text('orderid',old('orderid'),['class'=>'form-control','id'=>'orderid','required'=>'required','placeholder'=>'Eg. OD00_12454'])!!}
 
-                              <input id="orderid" type="text" class="form-control" name="orderid" value="{{ old('orderid') }}" required autofocus>
 
                               @if ($errors->has('orderid'))
                                   <span class="help-block">
@@ -50,7 +49,7 @@
 
 
            <button type="submit" class="btn btn-default"  style="position: relative;left: 150px;">Track</button>
-         </form>
+         {!!Form::close()!!}
        </div><!--/sign up form-->
 
 
