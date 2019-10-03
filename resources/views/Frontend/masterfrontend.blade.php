@@ -11,7 +11,7 @@
           </div>
         </section>
         @include('Frontend.layouts.footer')
-
+        @include('Frontend.layouts.script')
         @yield('script')
     </body>
 </html>

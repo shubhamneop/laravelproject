@@ -105,12 +105,3 @@
 	</section><!--/#do_action-->
 </div>
 	@endsection
-
-
-@section('script')
-
-
-@include('Frontend.layouts.cartjs')
-
-
-@endsection

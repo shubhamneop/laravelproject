@@ -15,33 +15,36 @@
 	    			<div class="contact-form">
 	    				<h2 class="title text-center">Get In Touch</h2>
 	    				<div class="status alert alert-success" style="display: none"></div>
-				    	<form id="main-contact-form" action="{{url('contactus')}}" class="contact-form row" name="contact-form" method="post" data-parsley-validate>
+							{!!Form::open(array('url'=>'contactus','class'=>'contact-form row','method'=>'post','name'=>'contact-form','id'=>'main-contact-form','data-parsley-validate'))!!}
 								{{csrf_field()}}
 				            <div class="form-group col-md-6">
-				                <input type="text" name="name" class="form-control"  required="required"  placeholder="Name" data-parsley-pattern="/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i" data-parsley-trigger="change">
+											{!!Form::text('name',null,['class'=>'form-control','placeholder'=>'Eg. abc xyz','required'=>'required','data-parsley-pattern'=>'/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i','data-parsley-trigger'=>'change'])!!}
 												  <span style="color: red">{{ $errors->first('name') }}</span>
 				            </div>
 										<div class="form-group col-md-6">
-											 <input type="text" name="contactno" class="form-control" required="required" placeholder="Contact No" data-parsley-required data-parsley-type="number" data-parsley-pattern="/^\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$/">
+											{!!Form::text('contactno',null,['class'=>'form-control','placeholder'=>'Eg. 9876543210','required'=>'required','data-parsley-type'=>'number','data-parsley-pattern'=>'/^\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$/','data-parsley-trigger'=>'change'])!!}
+
 											   <span style="color: red">{{ $errors->first('contactno') }}</span>
 									 </div>
 				            <div class="form-group col-md-12">
-				                <input type="email" name="email" class="form-control" required="required" placeholder="Email" data-parsley-required>
+											{!!Form::email('email',null,['class'=>'form-control','placeholder'=>'Eg. example@demain.com','required'=>'required','data-parsley-type'=>'email'])!!}
+
 												  <span style="color: red">{{ $errors->first('email') }}</span>
 				            </div>
 
 				            <div class="form-group col-md-12">
-				                <input type="text" name="subject" class="form-control" required="required" placeholder="Subject">
+											{!!Form::text('subject',null,['class'=>'form-control','placeholder'=>'Eg. some problem statement','required'=>'required'])!!}
+
 												  <span style="color: red">{{ $errors->first('subject') }}</span>
 				            </div>
 				            <div class="form-group col-md-12">
-				                <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
+											{!!Form::textarea('message',null,['class'=>'form-control','id'=>'message','required'=>'required','placeholder'=>'Drop your Message','rowa'=>'8'])!!}
 												  <span style="color: red">{{ $errors->first('message') }}</span>
 				            </div>
 				            <div class="form-group col-md-12">
-				                <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
+											{!! Form::button('submit',['class'=>'btn btn-primary pull-right'])!!}
 				            </div>
-				        </form>
+				        {!!Form::close()!!}
 	    			</div>
 	    		</div>
 	    		<div class="col-sm-4">

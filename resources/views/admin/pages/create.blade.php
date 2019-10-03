@@ -17,26 +17,28 @@
            </div>
      </div>
       <div class="row">
-        <form id='page-form' method="POST" action="{{url('/admin/pages')}}" accept-charset="UTF-8" enctype="multipart/form-data">
+        {!!Form::open(array('url'=>'admin/pages','method'=>'post','id'=>'page-form','enctype'=>'multipart/form-data'))!!}
            {{csrf_field()}}
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-              <label for="title" class="control-label">{{ 'Name' }}</label>
-              <input type="text" class="form-control" name="name"  id="name" value="{{old('name')}}" required>
+              {!!Form::label('Name')!!}
+              {!! Form::text('name',old("name"),['id'=>'name','class'=>'form-control','required'=>'required','placeholder'=>'Eg. Example page'])!!}
                   {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
-              <label for="title" class="control-label">{{ 'title' }}</label>
-              <input type="text" class="form-control" name="title" id="title" value="{{old('title')}}" required>
+              {!!Form::label('Title')!!}
+              {!! Form::text('title',old("title"),['id'=>'title','class'=>'form-control','required'=>'required','placeholder'=>'Eg. Example page title'])!!}
+
                   {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('slug') ? 'has-error' : ''}}">
-              <label for="title" class="control-label">{{ 'slug' }}</label>
-              <input type="text" class="form-control" name="slug" id="slug" value="{{old('slug')}}" required>
+              {!!Form::label('Slug')!!}
+              {!! Form::text('slug',old("slug"),['id'=>'slug','class'=>'form-control','required'=>'required','placeholder'=>'Eg. example-page '])!!}
+
                  {!! $errors->first('slug', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
@@ -45,7 +47,7 @@
 
               <div class="box box-info">
                 <div class="box-header">
-                   <label for="title" class="control-label">{{ 'content' }}</label>
+                  {!!Form::label('content') !!}
                   <!-- tools box -->
                   <div class="pull-right box-tools">
                     <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"
@@ -59,10 +61,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body pad">
-
-                        <textarea id="content" name="content" rows="10" cols="80">
-
-                        </textarea>
+                       {!!Form::textarea('content',null,['id'=>'content','row'=>'10','cols'=>80])!!}
 
                 </div>
               </div>
@@ -71,21 +70,21 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             <div class="form-group {{ $errors->has('extras') ? 'has-error' : ''}}">
-              <label for="title" class="control-label">{{ 'status' }}</label>
+              {!!Form::label('Status') !!}
                  <div class="radio">
-                  <label class="label label-success">  <input type="radio" name="status"  value="active"> Active</label>
+                  <label class="label label-success"> {!! Form::radio("status","active",true, ["class" => "form-group" ]) !!}  Active</label>
                 </div>
                 <div class="radio">
-                 <label class="label label-danger">    <input type="radio" name="status" value="inactive">Inactive</label>
+                 <label class="label label-danger">  {!! Form::radio("status","inactive",false, ["class" => "form-group" ]) !!} Inactive</label>
                </div>
 
                  {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
-             <input type="submit" id="submit" value="Publish" class="btn btn-success">
+            {!! Form::button('Publish',['id'=>'submit','class'=>'btn btn-success'])!!}
           </div>
-        </form>
+        {!!Form::close()!!}
       </div>
 
 

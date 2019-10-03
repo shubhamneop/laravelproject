@@ -100,7 +100,8 @@ class CategoryController extends Controller
 
      // $categories = cat::with('parent')->findOrFail($id);
      $allCategories= Category::parentcategory()->get();
-     return view('admin.categories.edit',compact('category','allCategories'));
+    
+     return view('admin.categories.edit',compact('parent','category','allCategories'));
 
    }
 

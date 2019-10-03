@@ -37,17 +37,14 @@
                       <p>{{$message}}</p>
                </div>
             @endif
-						<form id="profile" action="{{url('profileupdate')}}" enctype="multipart/form-data"  method="post" data-parsley-validate>
+						{!! Form::open(array('url'=>'profileupdate','method'=>'post','enctype'=>'multipart/form-data','data-parsley-validate'))!!}
 							 {{csrf_field()}}
 
                              <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} row">
                                <label for="name" class="col-md-2 control-label">Name</label>
                                <div class="col-md-6">
-                               @if(!empty($name))
-                                   <input id="name" type="text" class="form-control" name="name" value="{{$name}}" data-parsley-required data-parsley-pattern="^[a-zA-Z]+$" autofocus>
-                               @else
-                                   <input id="name" type="text" class="form-control" name="name" value="{{ $profile->name }}" data-parsley-required data-parsley-pattern="^[a-zA-Z]+$" autofocus>
-                               @endif
+																 {!! Form::text('name',$profile->name,['class'=>'form-control','id'=>'name','data-parsley-required','data-parsley-pattern'=>'^[a-zA-Z]+$'])!!}
+
                                    @if ($errors->has('name'))
                                        <span class="help-block">
                                            <strong>{{ $errors->first('name') }}</strong>
@@ -58,11 +55,8 @@
 													 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} row">
 														 <label for="name" class="col-md-2 control-label">Lastname</label>
 														 <div class="col-md-6">
-														 @if(!empty($lasname))
-																 <input id="lasname" type="text" class="form-control" name="lastname" value="{{$lastname}}" data-parsley-required data-parsley-pattern="^[a-zA-Z]+$" autofocus>
-														 @else
-																 <input id="lasname" type="text" class="form-control" name="lastname" value="{{ $profile->lastname }}" data-parsley-required data-parsley-pattern="^[a-zA-Z]+$" autofocus>
-														 @endif
+                                {!! Form::text('lastname',$profile->lastname,['class'=>'form-control','id'=>'lastname','data-parsley-required','data-parsley-pattern'=>'^[a-zA-Z]+$'])!!}
+
 																 @if ($errors->has('lastname'))
 																		 <span class="help-block">
 																				 <strong>{{ $errors->first('lastname') }}</strong>
@@ -75,11 +69,8 @@
                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
                                <label for="email" class="col-md-2 control-label">E-Mail Address</label>
                                <div class="col-md-6">
-                                   @if(!empty($email))
-                                   <input id="email" type="email" class="form-control" name="email" value="{{$email}}" data-parsley-required>
-                                   @else
-                                   <input id="email" type="email" class="form-control" name="email" value="{{ $profile->email }}" data-parsley-required>
-                                   @endif
+
+																	 {!! Form::email('email',$profile->email,['id'=>'email','class'=>'form-control','data-parsley-required'])!!}
                                    @if ($errors->has('email'))
                                        <span class="help-block">
                                            <strong>{{ $errors->first('email') }}</strong>
@@ -87,45 +78,10 @@
                                    @endif
                                </div>
                            </div>
-													 <!-- <div class="form-group row">
-	                             <label for="profile" class="col-md-2 col-form-label text-md-right">Profile</label>
 
-	                             <div class="col-md-6">
-	                                 <input id="profile" type="file" class="form-control @error('profile') is-invalid @enderror" name="profile" required>
+												{{ Form::button('<i class="fa fa-edit"></i>Update', ['class' => 'btn  btn-default', 'type' => 'submit']) }}
 
-	                                @if ($errors->has('profile'))
-	                                     <span class="help-block">
-	                                            <strong>{{ $errors->first('profile') }}</strong>
-	                                        </span>
-	                                  @endif
-
-	                             </div>
-	                         </div> -->
-
-                        <!-- <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                               @if ($errors->has('password'))
-                                    <span class="help-block">
-                                           <strong>{{ $errors->first('password') }}</strong>
-                                       </span>
-                                 @endif
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div> -->
-							<button type="submit" class="btn btn-default"><i class="fa fa-edit"></i>Update</button>
-						</form>
+						{!!Form::close() !!}
 
 
 					</div><!--/sign up form-->

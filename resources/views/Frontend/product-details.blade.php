@@ -122,6 +122,7 @@
 							</div>
 
 						</div>
+
 						<div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
 								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
@@ -136,20 +137,26 @@
 									<a href="{{url('add-to-cart/'.$productsDetails->id)}}" class="btn btn-fefault cart" disabled><i class="fa fa-close"></i>
 										Add to cart</a>
 										@else
-										<a href="{{url('add-to-cart/'.$productsDetails->id)}}" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>
-											Add to cart</a>
+										 	@if(in_array($productsDetails->id,$cartvalue))
+											<a href="{{url('add-to-cart/'.$productsDetails->id)}}" class="btn btn-fefault cart" disabled><i class="fa  fa-check-square-o"></i>
+												Alreay in cart</a>
+											@else
+										   <a href="{{url('add-to-cart/'.$productsDetails->id)}}" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>
+											   Add to cart</a>
+											@endif
 										@endif
 								</span>
 							  	@if($productsDetails->attribute->quantity<=0)
 							    <p><b>Availability:</b> Out of Stock</p>
 								  @else
-								 <p><b>Availability:</b> In Stock</p>
+								 <p><b>Availability:</b> Only {{$productsDetails->attribute->quantity}} availabe in Stock</p>
 								 @endif
 								<p><b>Condition:</b> New</p>
 								<p><b>Brand:</b> E-SHOPPER</p>
 								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 							</div><!--/product-information-->
 						</div>
+
 					</div>
 					 <div class="category-tab shop-details-tab"><!--category-tab-->
 						<div class="col-sm-12">
@@ -225,7 +232,7 @@
 
 
 @section('script')
-@include('Frontend.productjs')
+@include('Frontend.layouts.cartjs')
 
 
 @endsection

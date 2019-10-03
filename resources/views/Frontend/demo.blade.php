@@ -13,10 +13,14 @@
                <a href="{{url('add-to-cart/'.$product->id)}}" class=" btn btn-default" disabled><i class="fa fa-close"></i>
             Out of Stock</a>
            @else
+           @if(in_array($product->id,$cartvalue))
+              <a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-fefault add-to-cart" disabled><i class="fa  fa-check-square-o"></i>
+              Already in cart</a>
+            @else
              <a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-default"><i class="fa fa-shopping-cart"></i>
                Add to cart</a>
            @endif
-
+          @endif
         </div>
 
       </div>

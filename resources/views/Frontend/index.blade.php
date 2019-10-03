@@ -118,12 +118,12 @@
 						</div><!--/brands_products-->
 
 						<div class="price-range"><!--price-range-->
-							<h2>Price Range</h2>
+							<!-- <h2>Price Range</h2>
 							<div class="well text-center">
 
 								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
 								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-							</div>
+							</div> -->
 						</div><!--/price-range-->
 
 						<div class="shipping text-center"><!--shipping-->
@@ -143,6 +143,7 @@
 
 
 
+
 						@foreach($products as $product)
 
 						<div class="col-sm-4">
@@ -157,8 +158,13 @@
 									  @if($product->attribute->quantity<=0)
 									 <a href="" class="btn btn-default add-to-cart" disabled><i class="fa fa-close"></i>Out of Stock</a>
                     @else
-									 <a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                    @endif
+									  @if(in_array($product->id,$cartvalue))
+									     	<a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-fefault cart" disabled><i class="fa  fa-check-square-o"></i>
+										   	Already in cart</a>
+									   	@else
+									    <a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                      @endif
+										@endif
 								 </div>
 								 <div class="product-overlay">
 									 <div class="overlay-content">
@@ -168,7 +174,12 @@
 										 @if($product->attribute->quantity<=0)
 										<a href="" class="btn btn-default add-to-cart" disabled><i class="fa fa-close"></i>Out of Stock</a>
 										 @else
+										@if(in_array($product->id,$cartvalue))
+											 <a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-fefault add-to-cart" disabled><i class="fa  fa-check-square-o"></i>
+											 Already in cart</a>
+										 @else
 										<a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										 @endif
 										 @endif
 										 <a href="{{url('productdetails/'.$product->id)}}" class="btn btn-default cart"><i class="fa fa-plus-square"></i>Product Details</a>
 									 </div>
@@ -214,87 +225,46 @@
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
 								<div class="item active">
+									@foreach($randomproduct as $product)
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="{{asset('frontend/images/home/recommend1.jpg')}}" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
+													@foreach($product->image as $image)
+			 									 @endforeach
+			 									 <img src="{{asset('product/' .$image->image_path)}}" alt="" width="268pc" height="134px"/>
+													<h2><i class="fa fa-inr"></i>  {{ $product->price }}</h2>
+													<p>{{ strtoupper($product->name)}}</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="{{asset('frontend/images/home/recommend2.jpg')}}" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
+                  @endforeach
 
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="{{asset('frontend/images/home/recommend3.jpg')}}" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-
-											</div>
-										</div>
-									</div>
 								</div>
 								<div class="item">
+									@foreach($randomproduct as $product)
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="{{asset('frontend/images/home/recommend1.jpg')}}" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
+													@foreach($product->image as $image)
+												 @endforeach
+												 <img src="{{asset('product/' .$image->image_path)}}" alt="" width="268pc" height="134px"/>
+												 <h2><i class="fa fa-inr"></i>  {{ $product->price }}</h2>
+												 <p>{{ strtoupper($product->name)}}</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="{{asset('frontend/images/home/recommend2.jpg')}}" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
+									@endforeach
 
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="{{asset('frontend/images/home/recommend3.jpg')}}" alt="" />
-													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-
-											</div>
-										</div>
-									</div>
 								</div>
+
 							</div>
 							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
 								<i class="fa fa-angle-left"></i>
@@ -311,12 +281,5 @@
 
 
 
-
-@endsection
-
-
-@section('script')
-
-@include('Frontend.layouts.cartjs')
 
 @endsection

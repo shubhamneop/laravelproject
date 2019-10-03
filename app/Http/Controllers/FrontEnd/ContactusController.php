@@ -86,7 +86,7 @@ class ContactusController extends Controller
      * @param \Illuminate\Database\Elequent\Model $contactus
      * @return \Illuminate\Http\Response
      */
-    public function update(ContactusRequest $request, Contactus $contactus)
+    public function update(Request $request, Contactus $contactus)
     {
 
            $input = $request->all();

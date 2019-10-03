@@ -12,8 +12,7 @@
      <section class="content">
 
 
-
-                        <form id="order-form" method="post" action="{{ url('/admin/order/' . $order->id) }}"  accept-charset="UTF-8" enctype="multipart/form-data">
+                      {!!Form::open(array('url'=>['/admin/order',$order->id],'id'=>'order-form','enctype'=>'multipart/form-data','method'=>'post'))!!}
                              {{method_field('PATCH')}}
                             {{ csrf_field() }}
                                <div class="row">
@@ -39,18 +38,15 @@
                                  <div class="col-xs-12 col-sm-12 col-md-12 form-group">
                                  <div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
                                      <label for="type" class="control-label">{{ 'Status' }}</label>
-                                     <select class="form-control" name="status" data-parsley-required>
-                                        @foreach($enumoption as $option)
-                                          <option value="{{$option}}"@if($order->status==$option) selected="selected" @endif >{{$option}}</option>
-                                        @endforeach
-                                     </select>
+                                        {!! Form::select('status',$enumoption,$status,['class' => 'form-control']) !!}
+                                  
 
                                      {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
                                  </div>
                                  <input type="submit" class="btn btn-primary" value="Submit">
                                  </div>
                                </div>
-                        </form>
+                        {!!Form::close()!!}
 
 
         </section>

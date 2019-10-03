@@ -20,6 +20,7 @@ Route::get('/', function () {return view('welcome');});
 Route::get('Error',function(){return view('error.403');})->name('error.403');
 //Route::get('admin',function (){return view('login');})->name('adminlogin');
 Route::get('path',function (){return view('master');});
+
 // users routes
 Route::get('admin/users','UserController@index')->name('users.index');
 Route::post('users','UserController@store')->name('users.store');
@@ -53,21 +54,28 @@ Route::group(['middleware'=>['auth']],function (){
 });
 */
 
-
+//configurations route
 Route::resource('admin/configurations', 'Admin\\ConfigurationController')->middleware('role:admin');
 
+//Banners Route
 Route::resource('admin/banners', 'Admin\\BannersController')->middleware('role:admin');
 
+//Category Route
 Route::resource('admin/categories','CategoryController');
 
+//Product Route
 Route::resource('admin/product','ProductController');
 
+//Coupons Route
 Route::resource('admin/coupons', 'Admin\\CouponController');
 
+//Order management route
 Route::resource('admin/order','Admin\\OrderController');
 
+//Contactus routes
 Route::resource('admin/contactus', 'FrontEnd\\ContactusController');
 
+//Page route
 Route::resource('admin/pages','FrontEnd\\PageController');
 
 //gererate reports
@@ -82,3 +90,10 @@ Auth::routes();
 
 
 Route::get('getsubcategory/{id}','ProductController@subcategory');
+
+
+Route::get('randomdata',function(){
+   $data= App\Product::all()->random(3);
+   return $data;
+
+});

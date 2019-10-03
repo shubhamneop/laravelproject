@@ -1,26 +1,35 @@
-              
+
                    @foreach($data as $value)
                    <div class="col-xs-6 clearfix">
                    <div class="form-one" style="width: 350%;">
-								<form action="{{url('paypal')}}" method="post">
+                     {!!Form::open(array('url'=>'paypal','method'=>'post'))!!}
                                      {{ csrf_field() }}
-									<input type="text" name="fullname" placeholder="Full Name *"value="{{$value->fullname}}" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">								
-									<input type="text" name="address1" placeholder="Address 1 *" value="{{$value->address1}}"style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<input type="text"  name="address2"  placeholder="Address 2"value="{{$value->address2}}" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-								
-							
-							
-							
-									<input type="text" name="zipcode" placeholder="Zip / Postal Code *"value="{{$value->zipcode}}"style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<input type="text" name="country" placeholder=" Country*"value="{{$value->country}}"style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<input type="text" name="state" placeholder=" State / Province / Region*" value="{{$value->state}}"style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-								
-									<input type="text" name="phoneno" placeholder="Alternate NO *"value="{{$value->phoneno}}" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<input type="text" name="mobileno" placeholder="Mobile Phone"value="{{$value->mobileno}}" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									
+                     {!!Form::label('Fullname')!!}
+                     {!!Form::text('fullname',$value->fullname,['placeholder'=>'Eg. ABC XYZ','class'=>'address-form'])!!}
+                     {!!Form::label('Address1')!!}
 
-									
-								</form>
+                     {!!Form::text('address1',$value->address1,['placeholder'=>'Eg. ABC street','class'=>'address-form'])!!}
+                     {!!Form::label('Address 2')!!}
+
+                     {!!Form::text('address2',$value->address2,['placeholder'=>'Eg.  xy path ','class'=>'address-form'])!!}
+                     {!!Form::label('Zipcode')!!}
+
+                     {!!Form::text('zipcode',$value->zipcode,['placeholder'=>'Eg. 432 564','class'=>'address-form'])!!}
+                     {!!Form::label('Country')!!}
+
+                     {!!Form::text('country',$value->country,['placeholder'=>'Eg. India','class'=>'address-form'])!!}
+                     {!!Form::label('State')!!}
+
+                     {!!Form::text('state',$value->state,['placeholder'=>'Eg. Maharashtra','class'=>'address-form'])!!}
+                     {!!Form::label('PhoneNo')!!}
+
+                     {!!Form::text('phoneno',$value->phoneno,['placeholder'=>'Eg. 123456 ','class'=>'address-form'])!!}
+                     {!!Form::label('MobieNo')!!}
+
+                     {!!Form::text('mobileno',$value->mobileno,['placeholder'=>'Eg. 9876543210','class'=>'address-form'])!!}
+
+
+								{!!Form::close()!!}
 							</div>
-					</div>		          
+					</div>
                 @endforeach

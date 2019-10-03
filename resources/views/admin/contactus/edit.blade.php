@@ -16,46 +16,39 @@
 
 
                        <br><br>
-                        <form id="demo-form" method="POST" action="{{ url('/admin/contactus/' . $contactus->id) }}"  accept-charset="UTF-8" enctype="multipart/form-data" data-parsley-validate>
+                       {!! Form::open(array('url'=>['/admin/contactus', $contactus->id],'method'=>'post'))!!}
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
                             <div class="form-group col-md-6">
-                               <input type="text" name="name" class="form-control"  value="{{$contactus->name}}" placeholder="Name"  data-parsley-pattern="/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i" >
-                                 <span style="color: red">{{ $errors->first('name') }}</span>
+                               <label class="form-control" >{{$contactus->name}}</label>
+
                            </div>
                            <div class="form-group col-md-6">
-                              <input type="text" name="contactno" class="form-control"  value="{{$contactus->contactno}}" placeholder="Contact No"  data-parsley-type="number" data-parsley-pattern="/^\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$/" >
-                                <span style="color: red">{{ $errors->first('contactno') }}</span>
+                             <label class="form-control" >{{$contactus->contactno}}</label>
                           </div>
                            <div class="form-group col-md-12">
-                               <input type="email" name="email" class="form-control"  value="{{$contactus->email}}" placeholder="Email"  >
-                                 <span style="color: red">{{ $errors->first('email') }}</span>
+                             <label class="form-control" >{{$contactus->email}}</label>
+
                            </div>
 
                            <div class="form-group col-md-12">
-                               <input type="text" name="subject" class="form-control"  value="{{$contactus->subject}}" placeholder="Subject" >
-                                 <span style="color: red">{{ $errors->first('subject') }}</span>
+                             <label class="form-control" >{{$contactus->subject}}</label>
                            </div>
                            <div class="form-group col-md-12">
-                               <input name="message" id="message"  class="form-control" value="{{$contactus->message}}" rows="8" placeholder="Your Message Here" >
-                                 <span style="color: red">{{ $errors->first('message') }}</span>
+                             <label class="form-control" >{{$contactus->message }}</label>
                            </div>
                            <div class="form-group col-md-12">
                              <label>Add note</label>
-                               <textarea name="note" id="note" required="required" class="form-control" value="{{$contactus->note}}" rows="8" placeholder="Add Note Here"> </textarea>
+                             {!! Form::textarea('note', null, ['id' => 'note', 'rows' => 4, 'cols' => 54,'class'=>'form-control' ]) !!}
                                  <span style="color: red">{{ $errors->first('note') }}</span>
                            </div>
                            <div class="form-group col-md-12">
                                <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
                            </div>
-                        </form>
+                        {!!Form::close()!!}
 
 
-<script type="text/javascript">
-$(function () {
-    $('#demo-form').parsley();
-});
-</script>
+
                     </div>
                 </div>
             </div>

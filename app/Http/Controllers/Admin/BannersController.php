@@ -8,9 +8,11 @@ use App\Banner;
 use Illuminate\Http\Request;
 use App\Http\Requests\BannerRequest;
 use App\Http\Requests\BannerUpdateRequest;
+use App\Traits\StoreImageTrait;
 
 class BannersController extends Controller
 {
+   use StoreImageTrait;
     /**
     *
     *Autherized user with permission
@@ -26,7 +28,7 @@ class BannersController extends Controller
      /**
       * Display a listing of the resource.
       *
-      * @param \Illuminate\Http\Request $request 
+      * @param \Illuminate\Http\Request $request
       * @return \Illuminate\View\View
       */
     public function index(Request $request)
@@ -67,10 +69,11 @@ class BannersController extends Controller
 
 
         $requestData = $request->all();
-        if ($request->hasFile('bannername')) {
-            $requestData['bannername'] = $request->file('bannername')
-                ->store('banner', 'public');
-        }
+        $requestData['bannername'] = $this->verifyAndStoreImage($request, 'bannername', 'banner');
+        // if ($request->hasFile('bannername')) {
+        //     $requestData['bannername'] = $request->file('bannername')
+        //         ->store('banner', 'public');
+        // }
         Banner::create($requestData);
 
         return redirect('admin/banners')->with('success', 'banner added!');
@@ -113,10 +116,7 @@ class BannersController extends Controller
     {
 
         $requestData = $request->all();
-        if ($request->hasFile('bannername')) {
-            $requestData['bannername'] = $request->file('bannername')
-                ->store('banner', 'public');
-        }
+        $requestData['bannername'] = $this->verifyAndStoreImage($request, 'bannername', 'banner');
 
         $banner->update($requestData);
 

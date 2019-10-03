@@ -14,8 +14,8 @@
              </div>
           </div>
 
+                {!!Form::open(array('url'=>'/admin/categories','method'=>'post','id'=>'category-form','enctype'=>'multipart/form-data','data-parsley-validate'))!!}
 
-                       <form id="category-form" method="POST" action="{{ url('/admin/categories') }}" accept-charset="UTF-8"  enctype="multipart/form-data" data-parsley-validate>
 
                             {{ csrf_field() }}
 
@@ -51,19 +51,14 @@
 
 
 								<div class="form-group">
-
-									 <input class="btn btn-success" type="submit" value="Create" name="Create">
+                 {!!Form::button('Create',['class'=>'btn btn-success','type'=>'submit'])!!}
 
 								</div>
 
 
-				  			</form>
+				  			{!!Form::close()!!}
     </section>
 
 
  </div>
-@endsection
-@section('script')
-
-
 @endsection

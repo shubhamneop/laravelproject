@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-success">Submit</button>
+                  {{ Form::button('Update', ['class' => 'btn  btn-primary', 'type' => 'submit']) }}
                 </div>
             </div>
             {!! Form::close() !!}

@@ -17,18 +17,19 @@
 
 
 
-
-                           <form id="category-form" method="POST" action="{{ url('/admin/categories/' .$category->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">
+                       {!!Form::open(array('url'=>['/admin/categories',$category->id],'method'=>'post','enctype'=>'multipart/form-data','id'=>'category-form'))!!}
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 
 
 									<div class="form-group {{ $errors->has('value') ? 'has-error' : ''}}">
-                                    <label for="value" class="control-label">{{ 'Name' }}</label>
-                                    <input class="form-control" name="category_name" type="text" id="value" value="{{$category->category_name}}"
-                                    data-parsley-required-message = "Category name is required"
-                                     data-parsley-trigger="change"
-                                     data-parsley-pattern ="/^[a-zA-Z]*$/"   >
+                                    {!! Form::label('Name:') !!}
+                                    {!!Form::text('category_name',$category->category_name,['class'=>'form-control',
+                                    'data-parsley-required-message'=>'Category name is required',
+                                    'data-parsley-trigger'=>'change',
+                                    'data-parsley-pattern'=>'/^[a-zA-Z]*$/'
+                                    ])!!}
+                                    
 
    								<span class="text-danger">{{ $errors->first('category_name') }}</span>
 
@@ -62,7 +63,7 @@
 								</div>
 
 
-				  			</form>
+				  			{!!Form::close()!!}
     </section>
 
 

@@ -57,17 +57,16 @@
 
 
 
-        <form action="{{ route('login')}}" method="post">
+        {!!Form::open(array('route'=>'login','method'=>'post'))!!}
             <div class="form-group has-feedback">
                 {{csrf_field()}}
-
-                <input type="email" name="email" class="form-control" placeholder="Email">
+                {!! Form::email('email',null,array('placeholder'=>'Eg. admin@domain.com','class'=>'form-control'))!!}
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 <span style="color: red">{{ $errors->first('email') }}</span>
 
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+              	{!! Form::password('password',array('placeholder'=>'Password','class'=>'form-control')) !!}
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 <span style="color: red">{{ $errors->first('password') }}</span>
             </div>
@@ -81,7 +80,8 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                  {{ Form::button('Sign In', ['class' => 'btn  btn-primary btn-block btn-flat', 'type' => 'submit']) }}
+
                 </div>
                 <!-- /.col -->
             </div>

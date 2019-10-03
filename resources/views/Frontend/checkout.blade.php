@@ -64,26 +64,23 @@
 							<div class="form-one" id="addressData">
 
 									       {{ csrf_field() }}
-									<input type="text" name="fullname" placeholder="Full Name *" required data-parsley-pattern="/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i" data-parsley-trigger="change" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<span style="color: red">{{ $errors->first('fullname') }}</span>
+                         {!!Form::label('Fullname')!!}
+                         {!!Form::text('fullname',null,['placeholder'=>'Eg. ABC XYZ','class'=>'address-form','required'=>'required','data-parsley-pattern'=>'/^[a-zA-Z]+([-_\s]{1}[a-zA-Z]+)*$/i','data-parsley-trigger'=>'change'])!!}
+                         {!!Form::label('Address1')!!}
+                         {!!Form::text('address1',null,['placeholder'=>'Eg. ABC street','class'=>'address-form','required'=>'required'])!!}
+                         {!!Form::label('Address 2')!!}
+                         {!!Form::text('address2',null,['placeholder'=>'Eg.  xy path ','class'=>'address-form'])!!}
+                         {!!Form::label('Zipcode')!!}
+                         {!!Form::text('zipcode',null,['placeholder'=>'Eg. 432 564','class'=>'address-form','required'=>'required','data-parsley-type'=>'number','data-parsley-pattern'=>'/^\d{6}$/','data-parsley-trigger'=>'change'])!!}
+                         {!!Form::label('Country')!!}
+                         {!!Form::text('country',null,['placeholder'=>'Eg. India','class'=>'address-form','required'=>'required'])!!}
+                         {!!Form::label('State')!!}
+                         {!!Form::text('state',null,['placeholder'=>'Eg. Maharashtra','class'=>'address-form','required'=>'required'])!!}
+                         {!!Form::label('PhoneNo')!!}
+                         {!!Form::text('phoneno',null,['placeholder'=>'Eg. 123456 ','class'=>'address-form'])!!}
+                         {!!Form::label('MobieNo')!!}
+                         {!!Form::text('mobileno',null,['placeholder'=>'Eg. 9876543210','class'=>'address-form','required'=>'required','data-parsley-type'=>'number','data-parsley-pattern'=>'/^\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$/','data-parsley-trigger'=>'change'])!!}
 
-									<input type="text" name="address1" placeholder="Address 1 *" required style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<span style="color: red">{{ $errors->first('address1') }}</span>
-
-									<input type="text"name="address2" placeholder="Address 2"  style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-                	<input type="text" name="zipcode" placeholder="Zip / Postal Code *" required required data-parsley-type="number" data-parsley-pattern="/^\d{6}$/" data-parsley-trigger="change"style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<span style="color: red">{{ $errors->first('zipcode') }}</span>
-
-									<input type="text" name="country" placeholder=" Country*" required style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<span style="color: red">{{ $errors->first('country') }}</span>
-
-									<input type="text" name="state" placeholder="State / Province / Region*" required style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<span style="color: red">{{ $errors->first('state') }}</span>
-
-
-									<input type="text" name="phoneno" placeholder="Phone *"  style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<input type="text" name="mobileno" placeholder="Mobile Phone" required data-parsley-type="number" data-parsley-pattern="/^\(?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$/" data-parsley-trigger="change" style=" background: #F0F0E9;border: 0;color: #696763; padding: 5px;margin:10px; width: 100%;height: 40px; border-radius: 0; resize: no;">
-									<span style="color: red">{{ $errors->first('mobileno') }}</span>
 
 
 
@@ -259,16 +256,5 @@
   </section>
 
 @endif
-
-@endsection
-
-
-@section('script')
-
-
-
-
-@include('Frontend.layouts.cartjs')
-
 
 @endsection
