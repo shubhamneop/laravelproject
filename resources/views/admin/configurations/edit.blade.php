@@ -11,19 +11,18 @@
                <a href="{{ url('/admin/configurations') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
             </div>
 
+            {!! Form::model($configuration, [
+                 'method' => 'PATCH',
+                 'url' => ['/admin/configurations', $configuration->id],
+                 'data-parsley-validate',
+                 'files' => true
+             ]) !!}
 
-                        <form id="configuration-form" method="POST" action="{{ url('/admin/configurations/' . $configuration->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data" data-parsley-validate>
-                            {{ method_field('PATCH') }}
-                            {{ csrf_field() }}
-                            <div class="row">
-                            @include ('admin.configurations.form', ['formMode' => 'edit'])
-                          </div>
-                        </form>
+             @include ('admin.configurations.form', ['formMode' => 'edit'])
+
+             {!! Form::close() !!}
+                        
 
         </section>
     </div>
-@endsection
-@section('script')
-
-
 @endsection

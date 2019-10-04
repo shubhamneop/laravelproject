@@ -13,7 +13,7 @@
                             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                         </a>
                       </div>
-                    
+
 
 
                         <form id="product-form" method="POST" action="{{ url('/admin/product/' . $product->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">
@@ -29,48 +29,4 @@
             </div>
         </section>
     </div>
-@endsection
-@section('script')
-
-<script type="text/javascript">
-   $(document).ready(function() {
-
-        $('select[name="category"]').on('change', function() {
-            var CategoryId = $(this).val();
-            if(CategoryId) {
-                $.ajax({
-                    url: '/getsubcategory/'+CategoryId,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-
-                        $('select[name="subcategories"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="subcategories"]').append('<option value="'+ value.id +'">'+ value.category_name +'</option>');
-                        });
-
-
-                    }
-                });
-            }else{
-                $('select[name="subcategories"]').empty();
-            }
-        });
-
-     $(".btn-success").click(function(){
-         var html = $(".clone").html();
-         $(".increment").after(html);
-     });
-
-     $("body").on("click",".btn-danger",function(){
-         $(this).parents(".control-group").remove();
-     });
-
-
-
-
-    });
-
-
-</script>
 @endsection

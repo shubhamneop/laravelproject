@@ -15,22 +15,12 @@
                  </div>
              </div>
           </div>
+            {!! Form::open(['url' => '/admin/configurations', 'data-parsley-validate', 'files' => true]) !!}
 
+                 @include ('admin.configurations.form', ['formMode' => 'create'])
 
-
-
-                        <form method="POST" action="{{ url('/admin/configurations') }}" accept-charset="UTF-8"  enctype="multipart/form-data" data-parsley-validate>
-
-                            {{ csrf_field() }}
-                            <div class="row">
-                            @include ('admin.configurations.form', ['formMode' => 'create'])
-                          </div>
-                        </form>
-
-
-
-
-
+             {!! Form::close() !!}
+                      
      </section>
   </div>
 @endsection

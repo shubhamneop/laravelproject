@@ -13,23 +13,12 @@
                     </div>
                 </div>
             </div>
-            <form id="banner-form" method="POST" action="{{ url('/admin/banners/' . $banner->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">
-               {{ method_field('PATCH') }}
-               {{ csrf_field() }}
-                 <div class="row">
+            {!!Form::model($banner,['method'=>'PATCH','url'=>['admin/banners',$banner->id],'data-parsley-validate','file'=>true])!!}
+
                 @include ('admin.banners.form', ['formMode' => 'edit'])
 
-                </div>
-            </form>
+           {!!Form::close()!!}
 
         </section>
     </div>
-@endsection
-@section('script')
-<script>
-$(document).ready(function(){
-  $('#banner-form').parsley();
-});
-</script>
-
 @endsection

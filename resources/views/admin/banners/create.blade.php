@@ -14,23 +14,15 @@
                           </div>
                        </div>
                      </div>
-                        <form id="banner-form" method="POST" action="{{ url('/admin/banners') }}" accept-charset="UTF-8" class="" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                              <div class="row">
-                            @include ('admin.banners.form', ['formMode' => 'create'])
-                               </div>
-                        </form>
+                     {!! Form::open(['url' => '/admin/banners','data-parsley-validate', 'files' => true]) !!}
+
+                     @include ('admin.banners.form', ['formMode' => 'create'])
+
+                        {!! Form::close() !!}
+
 
 
 
         </section>
     </div>
-@endsection
-@section('script')
- <script>
-  $(document).ready(function(){
-    $('#banner-form').parsley();
-  });
- </script>
-
 @endsection

@@ -43,7 +43,7 @@
                                  <span style="color: red">{{ $errors->first('note') }}</span>
                            </div>
                            <div class="form-group col-md-12">
-                               <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
+                             {!!Form::button('Update',['class'=>'btn btn-primary pull-right','type'=>'submit'])!!}
                            </div>
                         {!!Form::close()!!}
 

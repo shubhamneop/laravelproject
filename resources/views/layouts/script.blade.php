@@ -35,3 +35,47 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
 <!-- DataTables -->
+
+
+<!-- category by ajax in prodcut edit and create -->
+<script type="text/javascript">
+   $(document).ready(function() {
+
+        $('select[name="category"]').on('change', function() {
+            var categoryID = $(this).val();
+            if(categoryID) {
+                $.ajax({
+                    url: '/getsubcategory/'+categoryID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+
+                        $('select[name="subcategories"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="subcategories"]').append('<option value="'+ value.id +'">'+ value.category_name +'</option>');
+                        });
+
+
+                    }
+                });
+            }else{
+                $('select[name="subcategories"]').empty();
+            }
+        });
+
+
+
+     $(".btn-success").click(function(){
+         var html = $(".clone").html();
+         $(".increment").after(html);
+     });
+
+     $("body").on("click",".btn-danger",function(){
+         $(this).parents(".control-group").remove();
+     });
+
+
+    });
+
+
+</script>

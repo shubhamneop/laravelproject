@@ -16,26 +16,13 @@
 
 
 
-                        <form id="coupon-form" method="POST" action="{{ url('/admin/coupons/' . $coupon->id) }}"  accept-charset="UTF-8" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
-                            {{ csrf_field() }}
-                               <div class="row">
-                            @include ('admin.coupons.form', ['formMode' => 'edit'])
-                               </div>
-                        </form>
+          {!! Form::model($coupon, ['method' => 'PATCH','url' => ['/admin/coupons', $coupon->id],'data-parsley-validate','files' => true]) !!}
+
+                          @include ('admin.coupons.form', ['formMode' => 'edit'])
+
+          {!! Form::close() !!}
 
 
-        </section>
+    </section>
       </div>
-@endsection
-@section('script')
-  <script type="text/javascript">
-      $(document).ready(function() {
-           $("#coupon-form").parsley();
-               });
-  </script>
-
-  <script src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
-<script src="http://parsleyjs.org/dist/parsley.js"></script>
 @endsection

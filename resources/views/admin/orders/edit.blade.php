@@ -12,7 +12,7 @@
      <section class="content">
 
 
-                      {!!Form::open(array('url'=>['/admin/order',$order->id],'id'=>'order-form','enctype'=>'multipart/form-data','method'=>'post'))!!}
+                      {!!Form::open(array('url'=>['/admin/order',$order->id],'id'=>'order-form','method'=>'post','files' => true))!!}
                              {{method_field('PATCH')}}
                             {{ csrf_field() }}
                                <div class="row">
@@ -39,11 +39,11 @@
                                  <div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
                                      <label for="type" class="control-label">{{ 'Status' }}</label>
                                         {!! Form::select('status',$enumoption,$status,['class' => 'form-control']) !!}
-                                  
+
 
                                      {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
                                  </div>
-                                 <input type="submit" class="btn btn-primary" value="Submit">
+                                 {!! Form::button('Submit',['class'=>'btn btn-primary','type'=>'submit'])!!}
                                  </div>
                                </div>
                         {!!Form::close()!!}
@@ -51,15 +51,4 @@
 
         </section>
       </div>
-@endsection
-@section('script')
-  <script type="text/javascript">
-      $(document).ready(function() {
-           $("#coupon-form").parsley();
-               });
-  </script>
-
-  <script src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
-<script src="http://parsleyjs.org/dist/parsley.js"></script>
 @endsection

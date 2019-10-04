@@ -8,13 +8,13 @@
                         </div>
 
                         <div class="login-form" style="width: 550px;position:relative;left:25%;right: 25%;">
-
-                          <form method="POST" action="{{ url('/addresses') }}" accept-charset="UTF-8"  enctype="multipart/form-data" data-parsley-validate>
+                             {!! Form::open(['url' => 'addresses', 'class' => 'form-horizontal','data-parsley-validate','files' => true]) !!}
                              {{ csrf_field() }}
 
                              @include ('Frontend.addresses.form', ['formMode' => 'create'])
 
-                          </form>
+                             {!! Form::close() !!}
+
                        </div>
 
                 </div>

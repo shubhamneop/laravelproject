@@ -17,7 +17,7 @@
 
 
 
-                       {!!Form::open(array('url'=>['/admin/categories',$category->id],'method'=>'post','enctype'=>'multipart/form-data','id'=>'category-form'))!!}
+                       {!!Form::open(array('url'=>['/admin/categories',$category->id],'method'=>'post','data-parsley-validate','enctype'=>'multipart/form-data','id'=>'category-form'))!!}
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 
@@ -26,10 +26,11 @@
                                     {!! Form::label('Name:') !!}
                                     {!!Form::text('category_name',$category->category_name,['class'=>'form-control',
                                     'data-parsley-required-message'=>'Category name is required',
+                                    'required'=>'required',
                                     'data-parsley-trigger'=>'change',
                                     'data-parsley-pattern'=>'/^[a-zA-Z]*$/'
                                     ])!!}
-                                    
+
 
    								<span class="text-danger">{{ $errors->first('category_name') }}</span>
 
@@ -39,17 +40,12 @@
 								<div class="form-group {{ $errors->has('parent_id') ? 'has-error' : '' }}">
 
 									{!! Form::label('Category:') !!}
-                  <select class="form-control" name="p_id" data-parsley-required>
-                       <option value="">select category</option>
-                     @foreach($allCategories as $option)
-                         @if($category->p_id==0)
-                          <option value="{{$option->id}}">{{$option->category_name}}</option>
-                          @else
-                         <option value="{{$option->id}}"@if($category->parent->id==$option->id) selected="selected" @endif >{{$option->category_name}}</option>
-                          @endif
-                     @endforeach
+                    @if($category->p_id==0)
+                    {!! Form::select('p_id',array_merge(['' => 'Please Select Category'],$allCategories),null,['class' => 'form-control'])!!}
 
-                  </select>
+                    @else
+                    {!! Form::select('p_id',$allCategories,$category->parent->id,['class'=>'form-control'])!!}
+                   @endif
 
 									<span class="text-danger">{{ $errors->first('p_id') }}</span>
 
@@ -57,8 +53,7 @@
 
 
 								<div class="form-group">
-
-									 <input class="btn btn-success" type="submit" value="Create" name="Create">
+                {!! Form::button('Update',['class'=>'btn btn-success','type'=>'submit'])!!}
 
 								</div>
 
@@ -68,12 +63,4 @@
 
 
  </div>
-@endsection
-@section('script')
- <script>
-  $(document).ready(function(){
-    $('#category-form').parsley();
-  });
- </script>
-
 @endsection

@@ -97,10 +97,8 @@ class CategoryController extends Controller
     */
    public function edit(Category $category){
 
+     $allCategories= Category::parentcategory()->pluck('category_name','id')->all();
 
-     // $categories = cat::with('parent')->findOrFail($id);
-     $allCategories= Category::parentcategory()->get();
-    
      return view('admin.categories.edit',compact('parent','category','allCategories'));
 
    }

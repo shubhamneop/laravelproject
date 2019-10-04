@@ -86,8 +86,8 @@
 
   });
 
-      var url = window.location.href;
-      var couponurl = 'http://127.0.0.1:8000/coupon';
+      var url = window.location.pathname;
+      var couponurl = '/coupon';
      if(url==couponurl){
       $("#clear").css("display","block");
       $("#apply").css("display","none");
