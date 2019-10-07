@@ -30,7 +30,7 @@
                                           @endforeach
                                       <td><img src="{{asset('product/' . $image->image_path )}}"  style="width:50px;height:70px;"> </td></tr>
                                     <tr><th>Price</th><td>{{$product->price}}</td></tr>
-                                    <tr><th> Category </th><td> {{ ucfirst($product->category->categories->category_name) }} </td></tr><tr>
+                                    <tr><th> Category </th><td> {{ ucfirst($product->category[0]->category_name) }} </td></tr><tr>
 
                                         <th> Colour </th><td> {{ ucfirst($product->attribute->color) }} </td></tr><tr><th>Quantity</th><td>{{$product->attribute->quantity}}</td></tr>
                                 </tbody>

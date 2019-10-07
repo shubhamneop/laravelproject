@@ -67,20 +67,8 @@ class CouponController extends Controller
     public function store(CouponRequest $request)
     {
 
-
-        $input = new Coupon;
-        $input->title = $request->input('title');
-        $input->code = $request->input('code');
-        $input->type = $request->input('type');
-
-
-        $input->discount =$request->input('discount') ;
-
-        $input->save();
-
-
-
-
+        Coupon::create($request->toArray());
+  
         return redirect('admin/coupons')->with('success', 'coupon added!');
     }
 

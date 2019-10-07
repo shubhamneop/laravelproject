@@ -69,7 +69,7 @@
       <td> {{$item['item']['name']}}</td>
       <td> {{$item['qty']}}</td>
       <td>{{$item['price']}}</td>
-			<td>{{$order->user->name}}</td>
+			<td>{{$order->address['fullname']}}</td>
 
 		</tr>
 

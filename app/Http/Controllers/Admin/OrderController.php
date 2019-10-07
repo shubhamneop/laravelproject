@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Order_detail;
 use App\Cartdetail;
@@ -35,17 +36,11 @@ class OrderController extends Controller
                                    })->orwhere('status', 'LIKE', "%$keyword%")
                                   ->orwhere('order_no','LIKE',"%$keyword%")
                                   ->latest()->paginate($perPage);
-           $orders->transform(function($order,$key){
-           $order->cart = unserialize($order->cart);
-           return $order;
-            });
+
         } else {
 
            $orders = Order_detail::orderBy('id','DESC')->paginate(5);
-           $orders->transform(function($order,$key){
-           $order->cart = unserialize($order->cart);
-           return $order;
-            });
+
        }
           return view('admin.orders.index',compact('orders'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -60,7 +55,7 @@ class OrderController extends Controller
     public function show(Order_detail $order)
     {
 
-         $orders = unserialize($order->cart);
+         $orders = $order->cart;
          return view('admin.orders.show',compact('orders','order'));
     }
 
@@ -74,7 +69,7 @@ class OrderController extends Controller
     {
          $enumoption = General::getEnumValues('order_details','status');
           $status=$order->status;
-         $orders = unserialize($order->cart);
+         $orders = $order->cart;
          return view('admin.orders.edit',compact('status','orders','order','enumoption'));
     }
 
@@ -103,6 +98,20 @@ class OrderController extends Controller
           return redirect('admin/order')->with('success','order status changed');
     }
 
+    public function getcartdata(){
+
+      $order = Order_detail::all();
+        // foreach ($order as $item) {
+        //   echo $item->order_no; echo "  "; echo $item->cart->totalQty; echo "  "; echo $item->cart->totalPrice; echo "  "; echo $item->status; echo "  "; echo $item->created_at; echo "  "; echo $item->address['fullname']; echo "<br>";echo "<br>";
+        // }
+         foreach ($order as $orders) {
+           foreach ($orders->cart->items as  $value) {
+             return $value['item']['name'];
+           }
+         }
+        dd($order[0]->cart);
+
+    }
 
 
 }

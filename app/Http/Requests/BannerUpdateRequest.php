@@ -23,10 +23,8 @@ class BannerUpdateRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
           'name'=>'required|unique:banners,name,'.$this->banner->id,
-          'bannername'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }

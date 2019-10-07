@@ -109,7 +109,7 @@ class PaymentController extends Controller
        }else{
           $order->order_no = 'OD'.($latestOrder->id + 1).'_'.time() ;
        }
-       $order->cart = serialize($cart);
+       $order->cart = $cart;
        $order->address_id =  $addressId;
        $order->total = $request->input('amount');
        $order->payment_mode = $request->input('PaymentMode');
@@ -125,7 +125,7 @@ class PaymentController extends Controller
 
        $order = Order_detail::find($order->id);
 
-          $orders = unserialize($order->cart);
+          $orders = $order->cart;
 
             foreach ($orders->items as $item) {
                  $cartdetails = new Cartdetail;
@@ -255,7 +255,7 @@ class PaymentController extends Controller
                      $user->update($dataupdate);
                      $order = Order_detail::find($OId->id);
 
-                        $orders = unserialize($order->cart);
+                        $orders = $order->cart;
 
                       $email = Auth::User()->email;
                     Mail::to($email)->send(new Orderdetails($orders,$order));

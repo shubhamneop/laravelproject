@@ -55,4 +55,24 @@ class Order_detail extends Model
      public function cartdetail(){
        return $this->hasMany('App\Cartdetail','order_id');
      }
+
+     /**
+      * Set the cart column as serialize
+      *
+      * @param  string  $value
+      * @return void
+     */
+     public function setCartAttribute($value) {
+        $this->attributes['cart'] = serialize($value);
+     }
+
+     /**
+      * get cart column unserialize when retrieved from the database
+      *
+      * @param $value
+      * @return string
+      */
+     public function getCartAttribute($value){
+       return unserialize($value);
+     }
 }

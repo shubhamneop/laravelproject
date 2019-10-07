@@ -198,11 +198,8 @@ class FrontendController extends Controller
              }
 
           $orders = Auth::User()->orderDetails;
-          $orders->transform(function($order,$key){
-          $order->cart = unserialize($order->cart);
-         return $order;
-        });
-       return view('Frontend.order',compact('orders','data'));
+
+       return view('Frontend.order',compact('orders'));
     }
 		/**
 		*Display the order status for given user and orders
@@ -225,7 +222,7 @@ class FrontendController extends Controller
           if ($orders==null) {
            return view('Frontend.track',['data' => $orders])->with('success','Please enter valid details');
           }
-          $order = unserialize($orders->cart);
+          $order = $orders->cart;
 			  return view('Frontend.track',['data' => $orders,'order'=>$order]);
 		 }
 

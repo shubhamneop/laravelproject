@@ -7,7 +7,7 @@
 </div>
 <div class="form-group {{ $errors->has('bannername') ? 'has-error' : ''}}">
     {!! Form::label('bannername', 'Bannername', ['class' => 'control-label']) !!}
-    {!! Form::file('bannername', null, ('' == '') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! Form::file('bannername', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('bannername', '<p class="help-block">:message</p>') !!}
 </div>
 

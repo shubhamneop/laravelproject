@@ -77,15 +77,12 @@ class ReportController extends Controller
     public function show($id)
     {      $user = User::find($id);
           $orders = $user->orderDetails;
-          $orders->transform(function($order,$key){
-          $order->cart = unserialize($order->cart);
-           return $order;
-              });
+        
         return view('admin.reports.customer.show',compact('orders'));
 
     }
 
-  
+
     /**
      * Display the specified resource.
      *

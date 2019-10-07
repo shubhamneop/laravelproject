@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            {!!Form::model($banner,['method'=>'PATCH','url'=>['admin/banners',$banner->id],'data-parsley-validate','file'=>true])!!}
+            {!!Form::model($banner,['method'=>'PATCH','url'=>['admin/banners',$banner->id],'data-parsley-validate','files'=>true])!!}
 
                 @include ('admin.banners.form', ['formMode' => 'edit'])
 

@@ -42,10 +42,7 @@ class PlacedOrders extends Command
     public function handle()
     {
       $orders = Order_detail::whereDate('created_at',DB::raw('CURDATE()'))->get();
-      $orders->transform(function($order,$key){
-       $order->cart = unserialize($order->cart);
-       return $order;
-      });
+    
        Mail::to('admin@demo.com')->send(new OrderDetailsAdmin($orders));
     }
 }

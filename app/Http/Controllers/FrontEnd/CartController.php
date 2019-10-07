@@ -326,7 +326,7 @@ class CartController extends Controller
        }else{
           $order->order_no = 'OD'.($latestOrder->id + 1).'_'.time() ;
        }
-       $order->cart = serialize($cart);
+       $order->cart = $cart;
        $order->address_id =  $addressId;
         $order->total = $request->input('amount');
        $order->status = $status;
@@ -345,7 +345,7 @@ class CartController extends Controller
 
           $order = Order_detail::find($order->id);
 
-          $orders = unserialize($order->cart);
+          $orders = $order->cart;
 
             foreach ($orders->items as $item) {
                  $cartdetails = new Cartdetail;

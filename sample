@@ -13,7 +13,12 @@ public function store(Request $request){
 
     ]);
 
-
+    protected $cartdetails = ['cart'=>'array'];
+  public function getCartAttribute($cart){
+       $cartArray = json_encode($cart);
+        $cartArray = json_decode($cartArray);
+        return $cartArray;
+  }
 
            //$pro = product::create(['name' => $request->input('name'),'description'=>$request->input('description')]);
        $pro = new product;

@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
  */
 trait StoreImageTrait {
 
-  public function verifyAndStoreImage( Request $request, $fieldname = 'image', $directory = 'unknown' ) {
+  public function verifyAndStoreImage(Request $request, $fieldname = 'image', $directory = 'unknown' ) {
 
     if( $request->hasFile($fieldname ) ) {
-
+        
         if (!$request->file($fieldname)->isValid()) {
 
             flash('Invalid Image!')->error()->important();
@@ -19,7 +19,7 @@ trait StoreImageTrait {
             return redirect()->back()->withInput();
 
         }
-          
+
 
         return $request->file($fieldname)->store($directory, 'public');
 
