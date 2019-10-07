@@ -31,4 +31,25 @@ class Contactus extends Model
   use SoftDeletes;
 
   protected $dates = ['deleted_at'];
+
+   /**
+   * Set the user's email .
+   *
+   * @param  string  $value
+   * @return void
+   */
+  public function setEmailAttribute($value)
+   {
+       $this->attributes['email'] = strtolower($value);
+   }
+
+   /**
+    * Get the user's first name.
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function getNameAttribute($value){
+     return ucwords($value);
+   }
 }

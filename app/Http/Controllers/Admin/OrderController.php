@@ -101,12 +101,12 @@ class OrderController extends Controller
     public function getcartdata(){
 
       $order = Order_detail::all();
-        // foreach ($order as $item) {
-        //   echo $item->order_no; echo "  "; echo $item->cart->totalQty; echo "  "; echo $item->cart->totalPrice; echo "  "; echo $item->status; echo "  "; echo $item->created_at; echo "  "; echo $item->address['fullname']; echo "<br>";echo "<br>";
-        // }
+        foreach ($order as $item) {
+          echo $item->order_no; echo "  "; echo $item->total; echo "  "; echo $item->cart->totalPrice; echo "  "; echo $item->status; echo "  "; echo $item->created_at; echo "  "; echo $item->address['fullname']; echo "<br>";echo "<br>";
+        }
          foreach ($order as $orders) {
            foreach ($orders->cart->items as  $value) {
-             return $value['item']['name'];
+             echo  $value['item']['name']; echo " ";
            }
          }
         dd($order[0]->cart);

@@ -32,4 +32,27 @@ class Banner extends Model
 
    protected $dates = ['deleted_at'];
 
+
+   /**
+   * Set the banner name .
+   *
+   * @param  string  $value
+   * @return void
+   */
+   public function setNameAttribute($value)
+   {
+     $this->attributes['name'] = strtolower($value);
+   }
+
+   /**
+   * get the banner name .
+   *
+   * @param  string  $value
+   * @return void
+   */
+   public function getNameAttribute($value)
+   {
+     return ucwords($value);
+   }
+
 }

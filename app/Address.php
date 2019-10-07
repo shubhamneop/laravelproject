@@ -26,7 +26,7 @@ class Address extends Model
      *
      * @var array
      */
-    protected $fillable = ['address1', 'address2', 'zipcode', 'country', 'state', 'phoneno', 'mobileno', 'user_id'];
+    protected $fillable = ['fullname','address1', 'address2', 'zipcode', 'country', 'state', 'phoneno', 'mobileno', 'user_id'];
 
      //soft detele function
     use SoftDeletes;

@@ -18,7 +18,7 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th>Name</th><td>{{ $users->name }}</td>
+                                        <th>Name</th><td>{{ $users->fullname }}</td>
                                     </tr>
                                     <tr><th> Email </th><td> {{ $users->email }} </td></tr>
                                     <tr><th> Role </th>

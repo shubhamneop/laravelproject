@@ -34,7 +34,7 @@ class BannersController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage = 5;
 
         if (!empty($keyword)) {
             $banners = Banner::where('name', 'LIKE', "%$keyword%")
@@ -68,7 +68,7 @@ class BannersController extends Controller
     {
 
 
-        $requestData = $request->all();  echo "<pre>";print_r($requestData);exit;
+        $requestData = $request->all();
         $requestData['bannername'] = $this->verifyAndStoreImage($request, 'bannername', 'banner');
         // if ($request->hasFile('bannername')) {
         //     $requestData['bannername'] = $request->file('bannername')
@@ -119,7 +119,7 @@ class BannersController extends Controller
          $requestData['bannername'] = $this->verifyAndStoreImage($request,'bannername','banner');
 
         $banner->update($requestData);
-     
+
         return redirect('admin/banners')->with('success', 'banner updated!');
     }
 

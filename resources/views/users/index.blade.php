@@ -55,7 +55,7 @@
                 @foreach ($data as $key => $user)
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <td>{{ ucfirst($user->name) }}</td>
+                        <td>{{ ucfirst($user->fullname) }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
                             @if(!empty($user->getRoleNames()))

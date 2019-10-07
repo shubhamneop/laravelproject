@@ -34,5 +34,25 @@ class Cartdetail extends Model
     return $this->belongsTo('App\Order_detail','id');
   }
 
+  /**
+  * Set the cart product name .
+  *
+  * @param  string  $value
+  * @return void
+  */
+  public function setProductNameAttribute($value)
+  {
+    $this->attributes['product_name'] = strtolower($value);
+  }
+
+  /**
+  * Get the cart product name .
+  *
+  * @param  string  $value
+  * @return void
+  */
+  public function getProductNameAttribute($value){
+    return strtoupper($value);
+  }
 
 }

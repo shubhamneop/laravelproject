@@ -50,7 +50,7 @@
              <tr>
                  <td>{{$loop->iteration}}</td>
                    <td>  <img src="{{asset('product/' .$item->product_image)}}" alt="product image" width="60px" height="60px" /></td>
-                 <td>{{strtoupper($item->product_name)}}</td>
+                 <td>{{$item->product_name}}</td>
                  <td>{{$item->price}}</td>
                  <td>{{$item->quantity}}</td>
                  <td>{{$item->categoryname->category_name}}</td>

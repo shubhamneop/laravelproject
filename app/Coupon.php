@@ -41,4 +41,38 @@ class Coupon extends Model
     public function usedcoupon(){
       return $this->hasMany('App\Used_coupon','coupon_id');
     }
+
+    /**
+    * Set the coupons code .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setCodeAttribute($value)
+    {
+        $this->attributes['code'] = strtoupper($value);
+    }
+
+    /**
+    * Set the coupons title .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = strtolower($value);
+    }
+
+    /**
+    * get the coupons title .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function getTitleAttribute($value)
+    {
+        return ucwords($value);
+    }
+
 }

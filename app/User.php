@@ -54,4 +54,25 @@ class User extends Authenticatable
       return $this->hasMany('App\Used_coupon','user_id');
     }
 
+    /**
+    * Set the user's email .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = strtolower($value);
+    }
+
+    /**
+     *Get fullname from user's firstname and lastname
+     *
+     *@return string
+     */
+     public function getFullnameAttribute(){
+       return ucwords("{$this->name} {$this->lastname}");
+     }
+
+
 }

@@ -24,7 +24,7 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th>Title</th><td>{{ ucfirst($coupon->title) }}</td>
+                                        <th>Title</th><td>{{ $coupon->title }}</td>
                                     </tr>
                                     <tr><th> Code </th><td> {{ $coupon->code }} </td></tr>
                                     <th> Type </th><td> {{ $coupon->type }} </td></tr>

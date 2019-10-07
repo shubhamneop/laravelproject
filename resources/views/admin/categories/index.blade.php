@@ -52,7 +52,7 @@
 
                       	 @foreach($categories  as $category)
                       	    <tr> <td>{{ $loop->iteration }}</td>
-                             <td>{{ ucfirst($category->category_name) }} </td>
+                             <td>{{ $category->category_name }} </td>
 
                              <td>
 
@@ -61,7 +61,7 @@
 
                                    -
                                  @else
-                                     {{ucfirst($category->parent->category_name)}}
+                                     {{$category->parent->category_name}}
 
                                  @endif
                               	</td><td>

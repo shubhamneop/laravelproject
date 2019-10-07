@@ -51,7 +51,7 @@
                                 @foreach($coupons as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ucfirst($item->title)}}</td>
+                                        <td>{{$item->title}}</td>
                                         <td>{{ $item->code }}</td>
                                         <td>{{ucfirst($item->type)}}</td>
                                         <td>{{ $item->discount }}</td>

@@ -46,7 +46,7 @@
                                 @foreach($contacts as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ucfirst($item->name)}}</td>
+                                        <td>{{$item->name}}</td>
                                         <td>{{ $item->contactno }}</td>
                                         <td>{{$item->email}}</td>
                                         <td>{{ ucfirst($item->subject) }}</td>

@@ -42,5 +42,16 @@ class Page extends Model
     return $query->where('status','inactive');
   }
 
+  /**
+  * Set the page slug .
+  *
+  * @param  string  $value
+  * @return void
+  */
+ public function setSlugAttribute($value)
+  {
+      $this->attributes['slug'] = strtoupper($value);
+  }
+
 
 }

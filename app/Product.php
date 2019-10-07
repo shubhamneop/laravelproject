@@ -61,6 +61,49 @@ class Product extends Model
        return $this->hasMany('App\wishlist');
     }
 
+    /**
+    * Set the product name .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }
+
+    /**
+    * Get the Product name .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function getNameAttribute($value)
+    {
+          return ucwords($value);
+    }
+
+    /**
+    * Set the product description .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setDescriptionAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }
+
+    /**
+    * Get the Product description .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function getDescriptionAttribute($value)
+    {
+          return ucwords($value);
+    }
 
 
 

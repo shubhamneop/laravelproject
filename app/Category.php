@@ -55,7 +55,7 @@ class Category extends Model
     public function scopeParentcategory($query){
         return $query->where('p_id',0);
      }
-     
+
      /**
      *scope function for p_id not equal to zero
      */
@@ -63,5 +63,25 @@ class Category extends Model
      return $query->where('p_id','!=',0);
    }
 
+   /**
+   * Set the Category name .
+   *
+   * @param  string  $value
+   * @return void
+   */
+  public function setCategoryNameAttribute($value)
+   {
+       $this->attributes['category_name'] = strtolower($value);
+   }
+
+   /**
+   * Get the Category name .
+   *
+   * @param  string  $value
+   * @return void
+   */
+   public function getCategoryNameAttribute($value){
+     return ucfirst($value);
+   }
 
 }
