@@ -48,4 +48,112 @@ class Address extends Model
       return $this->belongsTo('App\Order_detail');
     }
 
+    /**
+    * Set the customer country .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setCountryAttribute($value)
+    {
+        $this->attributes['country'] = strtolower($value);
+    }
+
+    /**
+     * Get the customer country.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function getCountryAttribute($value){
+      return ucwords($value);
+    }
+
+    /**
+    * Set the customer fullname .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setFullnameAttribute($value)
+    {
+        $this->attributes['fullname'] = strtolower($value);
+    }
+
+    /**
+     * Get the customer fullname.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function getFullnameAttribute($value){
+      return ucwords($value);
+    }
+
+    /**
+    * Set the customer state .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setStateAttribute($value)
+    {
+        $this->attributes['fullname'] = strtolower($value);
+    }
+
+    /**
+     * Get the customer state.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function getStateAttribute($value){
+      return ucwords($value);
+    }
+
+    /**
+    * Set the customer address1 .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setAddress1Attribute($value)
+    {
+        $this->attributes['address1'] = strtolower($value);
+    }
+
+    /**
+     * Get the customer address1.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function getAddress1Attribute($value){
+      return ucwords($value);
+    }
+
+    /**
+    * Set the customer address1 .
+    *
+    * @param  string  $value
+    * @return void
+    */
+   public function setAddress2Attribute($value)
+    {
+        $this->attributes['address2'] = strtolower($value);
+    }
+
+    /**
+     * Get the customer address1.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function getAddress2Attribute($value){
+      return ucwords($value);
+    }
+
+
+
+
 }
