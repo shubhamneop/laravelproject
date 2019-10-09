@@ -19,6 +19,8 @@ use PayPal\Api\Details;
 use PayPal\Api\Item;
 use Auth;
 use DB;
+use Event;
+use App\Events\Point;
 use App\Cart;
 use App\User_order;
 use App\productattributesassoc;
@@ -150,6 +152,11 @@ class PaymentController extends Controller
                          'quantity'=> $productquantity,
                        );
                      $productid->update($dataupdate);
+                }
+                if($newTotal>=2000){
+                  $user_id = Auth::User()->id;
+                  $amount = $newTotal;
+                  event(new Point($user_id,$amount));
                 }
               DB::commit();
 

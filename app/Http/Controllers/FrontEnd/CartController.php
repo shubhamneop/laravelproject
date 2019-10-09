@@ -20,6 +20,8 @@ use App\Cartdetail;
 use App\Configuration;
 use App\Productattributesassoc;
 use Redirect;
+use Event;
+use App\Events\Point;
 use DB;
 use Auth;
 use App\Address;
@@ -370,7 +372,11 @@ class CartController extends Controller
                               );
                         $productid->update($dataupdate);
                 }
-
+            if($newTotal>=2000){
+              $user_id = Auth::User()->id;
+              $amount = $newTotal;
+              event(new Point($user_id,$amount));
+            }
         $email = Auth::User()->email;
         Mail::to($email)->send(new Orderdetails($orders,$order));
         $mail = Configuration::find(1);

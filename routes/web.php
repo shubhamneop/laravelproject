@@ -91,11 +91,8 @@ Auth::routes();
 
 Route::get('getsubcategory/{id}','ProductController@subcategory');
 
-Route::get('mutotaor','Admin\\OrderController@getcartdata');
 
 Route::get('mutotaors',function(){
-  return Response::json([
-      'error' => false,
-      'data' => App\Order_detail::get()
-  ], 200);
+  $data = App\User::with('reward')->get();
+  dd($data[17]->reward);
 });

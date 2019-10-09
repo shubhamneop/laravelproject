@@ -44,7 +44,7 @@ class User extends Authenticatable
     *Relation with wishlist model
     */
     public function wishlist(){
-       return $this->hasMany('App\wishlist');
+       return $this->hasMany('App\Wishlist');
     }
 
     /**
@@ -52,6 +52,10 @@ class User extends Authenticatable
     */
     public function usercoupon(){
       return $this->hasMany('App\Used_coupon','user_id');
+    }
+
+    public function reward(){
+      return $this->hasOne('App\RewardsPoint','user_id');
     }
 
     /**

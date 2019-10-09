@@ -166,7 +166,7 @@
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost</td>
-										<td>@if($totalPrice<=500)
+										<td>@if($totalPrice<500)
                   <i class="fa fa-inr"></i>  50
                           @else
                           Free
