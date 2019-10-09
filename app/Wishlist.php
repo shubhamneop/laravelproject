@@ -23,17 +23,17 @@ class Wishlist extends Model
     protected $dates = ['deleted_at'];
 
     /**
-    *Realtion with user model
+    *Relation with users model for wishlist
     */
-    public function user(){
-       return $this->belongsTo('App\User');
+    public function users(){
+      return $this->belongsTo('App\User','user_id');
     }
 
-
-     /**
-     *Relation with product model
-     */
-    public function product(){
-       return $this->belongsTo('App\Product');
+    /**
+    *Relation with product model for wishlists
+    */
+    public function products(){
+      return $this->belongsTo('App\Product','product_id');
     }
+
 }

@@ -44,7 +44,9 @@ class AddressesController extends Controller
                 ->where('user_id',$id)
                 ->latest()->paginate($perPage);
         } else {
-            $addresses = Address::latest()->where('user_id',$id)->paginate($perPage);
+            // $addresses = Address::latest()->where('user_id',$id)->paginate($perPage);
+           $addresses = Auth::user()->useraddress()->paginate($perPage);
+
         }
 
          if(Auth::check()){

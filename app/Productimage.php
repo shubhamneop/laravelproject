@@ -26,7 +26,7 @@ class Productimage extends Model
     */
     public function product()
     {
-    return $this->belongsTo('App\Product','id');
+    return $this->belongsTo('App\Product','product_id');
     }
 
 		use SoftDeletes;

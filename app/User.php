@@ -39,12 +39,15 @@ class User extends Authenticatable
     public function orderDetails(){
         return $this->belongsToMany('App\Order_detail','user_orders','user_id','order_id');
     }
+    // public function orderDetails(){
+    //     return $this->hasMany('App\Order_detail','user_id');
+    // }
 
     /**
     *Relation with wishlist model
     */
-    public function wishlist(){
-       return $this->hasMany('App\wishlist');
+    public function userwishlist(){
+       return $this->belongsToMany('App\Product','wishlists');
     }
 
     /**
@@ -54,6 +57,12 @@ class User extends Authenticatable
       return $this->hasMany('App\Used_coupon','user_id');
     }
 
+    /**
+    *Relation with adddress model
+    */
+    public function useraddress(){
+      return $this->hasMany('App\Address');
+    }
     /**
     * Set the user's email .
     *

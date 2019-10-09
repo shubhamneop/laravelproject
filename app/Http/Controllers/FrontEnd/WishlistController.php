@@ -17,7 +17,7 @@ class WishlistController extends Controller
     public function index()
     {
        $id = Auth::User()->id;
-        $wishlists = Wishlist::with('product')->where('user_id',$id)->select('product_id')->distinct()->get();
+        $wishlists =  Auth::user()->userwishlist;
 
         return view('Frontend.wishlist',compact('wishlists'));
 
@@ -35,17 +35,12 @@ class WishlistController extends Controller
     {      if(Auth::guest()) {
               return redirect('login')->with('message', 'Please Login !');
            }
-          $productid = $request->id;
-          $id = Auth::User()->id;
+          
+          Auth::User()->userwishlist()->attach($request->id);
 
-          $product = new Wishlist;
-          $product->user_id = $id;
-          $product->product_id =  $productid;
-
-          $product->save();
           return redirect()->back();
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -54,9 +49,7 @@ class WishlistController extends Controller
      */
     public function destroy($id)
     {
-           $uid = Auth::User()->id;
-           Wishlist::where('product_id',$id)->where('user_id',$uid)->delete();
-
+           Auth::User()->userwishlist()->detach($id);
          return redirect('wishlist')->with('success','product Removed');
     }
 }

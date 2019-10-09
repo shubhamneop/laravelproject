@@ -22,15 +22,6 @@ class Product extends Model
 
   protected $dates = ['deleted_at'];
 
-  public function productimage(){
-
-
-    return $this->hasOne('App\Productimage');
-
-      }
-
-
-
   /**
   *Relation with category model with pivot productcategories
   */
@@ -58,7 +49,7 @@ class Product extends Model
    *Relation with wishlist model
    */
    public function wishlist(){
-       return $this->hasMany('App\wishlist');
+       return $this->belongsToMany('App\User','wishlists');
     }
 
     /**
