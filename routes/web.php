@@ -90,3 +90,9 @@ Auth::routes();
 
 
 Route::get('getsubcategory/{id}','ProductController@subcategory');
+
+
+Route::get('sampleproduct',function(){
+  $product = App\Product::findOrFail(555);
+   dd($product);
+});

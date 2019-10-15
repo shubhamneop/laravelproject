@@ -154,6 +154,7 @@ return [
            Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
            SamuelTerra22\ReportGenerator\ServiceProvider::class,
            ConsoleTVs\Charts\ChartsServiceProvider::class,
+           Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...
