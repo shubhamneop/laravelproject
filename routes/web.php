@@ -94,5 +94,5 @@ Route::get('getsubcategory/{id}','ProductController@subcategory');
 
 Route::get('mutotaors',function(){
   $data = App\User::with('reward')->get();
-  dd($data[17]->reward);
+  
 });

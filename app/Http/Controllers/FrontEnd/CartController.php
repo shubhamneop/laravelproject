@@ -135,9 +135,7 @@ class CartController extends Controller
    * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
    */
   public function getAddToCart(Request $request ,$id){
-          if(Auth::guest()) {
-             return redirect('login')->with('message', 'Please Login !');
-              }
+
 
        $product = Product::with('image','attribute','category')->find($id);
 
