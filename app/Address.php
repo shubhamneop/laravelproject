@@ -98,7 +98,7 @@ class Address extends Model
     */
    public function setStateAttribute($value)
     {
-        $this->attributes['fullname'] = strtolower($value);
+        $this->attributes['state'] = strtolower($value);
     }
 
     /**

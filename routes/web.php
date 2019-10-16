@@ -96,3 +96,14 @@ Route::get('sampleproduct',function(){
   $product = App\Product::findOrFail(555);
    dd($product);
 });
+
+Route::get('userdata',function(){
+
+  $products = App\Product::whereHas('category',function($q) use($id)
+    {
+      $q->where('category_id',$id);
+      $q->where('p_id',30);
+    })->with('image')->get();
+
+    dd($products);
+});

@@ -9,6 +9,12 @@ class Product extends Model
 {
 
   /**
+   * The database table used by the model.
+   *
+   * @var string
+   */
+    protected $table = 'products';
+  /**
    * Attributes that should be mass-assignable.
    *
    * @var array
@@ -82,7 +88,7 @@ class Product extends Model
     */
    public function setDescriptionAttribute($value)
     {
-        $this->attributes['name'] = strtolower($value);
+        $this->attributes['description'] = strtolower($value);
     }
 
     /**

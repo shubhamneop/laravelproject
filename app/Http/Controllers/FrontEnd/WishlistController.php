@@ -35,7 +35,6 @@ class WishlistController extends Controller
     {      if(Auth::guest()) {
               return redirect('login')->with('message', 'Please Login !');
            }
-          
           Auth::User()->userwishlist()->attach($request->id);
 
           return redirect()->back();

@@ -23,7 +23,7 @@ class ProfileController extends Controller
      */
      public function index(){
          $id = Auth::User()->id;
-           $profile = User::all()->find($id);
+           $profile = User::find($id);
 
          return view('Frontend.Profile.profile',compact('profile'));
 

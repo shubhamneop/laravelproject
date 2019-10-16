@@ -27,6 +27,45 @@ use App\ordersproduct;
 
 class FrontendController extends BaseController
 {
+   public function getCategory(){
+
+     $categories = Category::with('childs')->get();
+
+     return $this->sendResponse($categories,'All Category With Subcategory');
+   }
+   public function getProduct(Request $request) {
+     $id = $request->id;
+     $p_id = $request->p_id;
+     $products = Product::whereHas('category',function($q) use($id,$p_id)
+       {
+         $q->where('category_id',$id);
+         $q->where('p_id',$p_id);
+       })->with('image')->get();
+
+       if(count($products)<=0){
+         return $this->sendError(null,'Products not found');
+       }
+
+       return $this->sendResponse($products,'All Products.');
+
+   }
+
+   public function getProductDetails(Request $request) {
+     $id = $request->id;
+     $productsDetails = Product::with('attribute','image')->find($id);
+
+     if($productsDetails==null){
+       return $this->sendError(null,'Sorry, the product you are looking for could not be found.');
+   }
+  return $this->sendResponse($productsDetails,'Product details');
+
+   }
+
+
+
+
+
+
     public function index(Request $request){
           $keyword = $request->get('search');
   				$perPage=6;
@@ -35,7 +74,7 @@ class FrontendController extends BaseController
   				 	$cart = new Cart($oldCart);
   					$randomproduct = Product::all()->random(3);
   					$products = Product::where('name','LIKE',"%$keyword%")
-  						                     ->orwhere('description','LIKE',"%$keyword%")->paginate($perPage);
+  						                     ->orwhere('description','LIKE',"%$keyword%")->get();
   					$category =  Category::parentcategory()->get();
   					$subcategory = Category::subCategory()->get();
 
@@ -53,7 +92,7 @@ class FrontendController extends BaseController
 
 
   					}else{
-           $products = Product::with('attribute','image','category')->paginate($perPage);
+           $products = Product::with('attribute','image','category')->get();
            $randomproduct = Product::all()->random(3);
            $category =  Category::parentcategory()->get();
            $subcategory = Category::subCategory()->get();
@@ -119,8 +158,8 @@ class FrontendController extends BaseController
     }
 
     public function getOrder(){
-         $user = User::find(32);
-         $orders = $user->orderDetails;
+
+         $orders = Auth::User()->orderDetails;
 
          if(count($orders)<=0){
            return $this->sendError(null,'Customer does not have order.');

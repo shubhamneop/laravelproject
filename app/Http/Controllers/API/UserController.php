@@ -16,8 +16,8 @@ class UserController extends BaseController
       if(Auth::attempt(['email'=>request('email'),'password'=> request('password')])){
 
          $user = Auth::user();
-         $user->createToken('Laravel')-> accessToken;
-        return $this->sendResponse($user, ' Login successfully.');
+          $token = $user->createToken('Laravel')-> accessToken;
+        return $this->sendResponse(['user'=>$user,'token'=>$token], ' Login successfully.');
       }else{
 
         return $this->sendError(null,'Invalid Credentials !');
@@ -46,6 +46,11 @@ class UserController extends BaseController
          return $this->sendResponse($users, 'Account created successfully.');
 
 
+    }
+
+    public function details(){
+      $user = Auth::user();
+      return $this->sendResponse($user,'User details.');
     }
 
 
