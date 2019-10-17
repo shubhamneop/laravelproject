@@ -12,7 +12,7 @@ class Page extends Model
    *
    * @var array
    */
-  protected $fillable = ['name','title','slug','content','extras'];
+  protected $fillable = ['name','title','slug','content','status'];
 
   /**
   *SoftDeletes declaration

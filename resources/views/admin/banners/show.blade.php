@@ -33,7 +33,7 @@
                                     <td> {{ ucfirst($banner->name) }} </td>
                                     </tr>
                                     <tr><th> Banner Image </th>
-                                    <td ><img src="{{asset('/storage/' .$banner->bannername)}}"> </td>
+                                    <td ><img src="{{asset('/storage/' .$banner->bannername)}}" width="500px" height="350px"> </td>
                                     </tr>
                                 </tbody>
                             </table>

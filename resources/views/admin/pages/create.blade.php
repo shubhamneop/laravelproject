@@ -82,7 +82,7 @@
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
-            {!! Form::button('Publish',['id'=>'submit','class'=>'btn btn-success'])!!}
+            {!! Form::button('Publish',['type'=>'submit','class'=>'btn btn-success'])!!}
           </div>
         {!!Form::close()!!}
       </div>

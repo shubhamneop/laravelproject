@@ -45,7 +45,7 @@ class ContactusController extends BaseController
 
     }
 
-    public function Update(Request $request,Contactus $contactus){
+    public function Update(Request $request){
         $validator = Validator::make($request->all(),[
            'note' => 'required',
          ]);
@@ -53,7 +53,10 @@ class ContactusController extends BaseController
          if($validator->fails()){
            return $this->sendError(null,'Note is required');
          }
-
+        $contactus = Contactus::find($request->id);
+        if (is_null($contactus)) {
+             return $this->sendError(null,'Contact not found.');
+         }
          $input = $request->all();
          $contactus->update($input);
          $message = $contactus;
@@ -65,8 +68,23 @@ class ContactusController extends BaseController
 
     }
 
-    public function destroy(Contactus $contactus){
-         $data =  $contactus->delete();
+    public function show(Request $request){
+      if(empty($request->all())){
+        return $this->sendError(null,'Element not found');
+      }
+    $contactus = Contactus::find($request->id);
+    if (is_null($contactus)) {
+         return $this->sendError(null,'Contact not found.');
+     }
+       return $this->sendResponse($contactus,'Contact Information.');
+    }
+
+    public function destroy(Request $request){
+      $contactus = Contactus::find($request->id);
+      if (is_null($contactus)) {
+           return $this->sendError(null,'Contact not found.');
+       }
+      $data =  $contactus->delete();
 
        return $this->sendResponse($data,'contact delete successfully.');
 

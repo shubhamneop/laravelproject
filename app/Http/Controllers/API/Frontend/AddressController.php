@@ -43,7 +43,7 @@ class AddressController extends BaseController
 
     }
 
-    public function update(Request $request){
+    public function update(Request $request,Address $useraddress){
 
       $validator = Validator::make($request->all(),[
          'fullname'=>'required',
@@ -58,7 +58,7 @@ class AddressController extends BaseController
            return $this->sendResponse($validator->errors(), 'Address not created try again');
        }
 
-       $useraddress = Address::find($request->id);
+       
        $userid = Auth::User()->id;
        $address = $request->all();
        $address['user_id']= $userid;
