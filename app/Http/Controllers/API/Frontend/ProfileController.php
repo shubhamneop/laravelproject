@@ -31,7 +31,7 @@ class ProfileController extends BaseController
           return $this->sendError(null,'something went wrong.');
         }
 
-        $user =  User::where('id',Auth::User()->id);
+        $user =  User::find(Auth::User()->id);
         $dataupdate = array(
                     'name'=> $request->input('name'),
                     'lastname'=>$request->input('lastname'),

@@ -51,7 +51,7 @@ class ContactusController extends Controller
         $input = $request->all();
         $contact = Contactus::create($input);
         $mail = Configuration::find(1);
-        Mail::to($mail->value)->send(new NotificationToAdmin($contact));
+        Mail::to($mail->value)->send(new NotificationToAdmin($contact,$request->ip()));
          return redirect()->back();
     }
 
@@ -94,7 +94,7 @@ class ContactusController extends Controller
            $message = $contactus;
 
          $mail = Configuration::find(1);
-         Mail::to($message->email)->send(new Notebyadmin($message));
+         Mail::to($message->email)->send(new Notebyadmin($message,$request->ip()));
          return redirect('admin/contactus')->with('success', 'Note Addred by admin!');
     }
 

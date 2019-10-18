@@ -1,0 +1,26 @@
+{
+    "fields": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "subject",
+            "type": "string"
+        },
+        {
+            "name": "message",
+            "type": "text"
+        }
+    ],
+    "validations": [
+        {
+            "field": "name",
+            "rules": "required|alpha",
+            "field": "subject",
+            "rules": "required|alpha",
+            "field": "message",
+            "rules": "required"
+        }
+    ]
+}

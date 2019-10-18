@@ -17,11 +17,13 @@ use App\Coupon;
 use App\Address;
 use App\Banner;
 use App\Cart;
+use App\Page;
 use App\Mail\Welcome;
 use Illuminate\Support\Facades\Mail;
 use DB;
 use Session;
 use Auth;
+use Validator;
 use App\order;
 use App\ordersproduct;
 
@@ -54,7 +56,7 @@ class FrontendController extends BaseController
      $id = $request->id;
      $productsDetails = Product::with('attribute','image')->find($id);
 
-     if($productsDetails==null){
+     if(is_null($productsDetails)){
        return $this->sendError(null,'Sorry, the product you are looking for could not be found.');
    }
   return $this->sendResponse($productsDetails,'Product details');
@@ -169,10 +171,13 @@ class FrontendController extends BaseController
     }
 
     public function trackorder(Request $request){
-         $this->validate($request,[
+         $validator = Validator::make($request->all(),[
            'email'=>'required|email',
            'orderid'=>'required',
          ]);
+         if($validator->fails()){
+           return $this->sendError(null,'Please enter valid details.');
+         }
          $email = $request->input('email');
          $orderid = $request->input('orderid');
           $orders =Order_detail::whereHas('user', function ($query) use($email) {
@@ -181,12 +186,19 @@ class FrontendController extends BaseController
                                     ->first();
 
          if ($orders==null) {
-           return $this->sendError(null,'Please enter valid details.');
+           return $this->sendError(null,'Order not found.');
          }
-         $order = $orders->cart;
-         return $this->sendResponse(['data' => $orders,'order'=>$order],'Order Status');
+         return $this->sendResponse(['id'=>$orders->order_no,'status'=>$orders->status],'Order Status');
 
 
+    }
+
+    public function pages(Request $request){
+      $pages = Page::where('slug',$request->slug)->get();
+      if (is_null($pages)) {
+           return $this->sendError(null,'Page not found.');
+       }
+       return $this->sendResponse($pages,'Page Information.');
     }
 
 

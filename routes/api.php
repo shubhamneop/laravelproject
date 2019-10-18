@@ -22,12 +22,14 @@ Route::get('productdetails/{id}','API\FrontendController@productdetails');
 Route::get('category/{id}','API\FrontendController@productcatgory');
 Route::post('contacts','API\Frontend\ContactusController@store');
 Route::post('newsletter','API\Frontend\NewsletterController@store');
-
+Route::post('pages','API\FrontendController@pages');
+// Route::post('add-to-cart','API\Frontend\CartController@getAddToCart');
+// Route::get('getcart','API\Frontend\CartController@getCart');
 
 Route::group(['middleware'=>'auth:api'], function(){
 
   Route::resource('useraddress','API\Frontend\AddressController');
-  Route::post('details', 'API\UserController@details');
+  Route::post('userdetails', 'API\UserController@details');
   Route::get('order','API\FrontendController@getOrder');
   Route::post('trackorder','API\FrontendController@trackorder');
   Route::post('address','API\Frontend\AddressController@store');
@@ -87,7 +89,8 @@ Route::group(['middleware'=>'auth:api'], function(){
   Route::patch('admin/roles/update','API\Admin\RoleController@update');
   Route::delete('admin/roles/delete','API\Admin\RoleController@destroy');
 
-
+  Route::post('placeorder','API\Frontend\OrderController@processOrder');
+  Route::post('updateorder','API\Frontend\OrderController@updateOrderStatus');
 
 
 

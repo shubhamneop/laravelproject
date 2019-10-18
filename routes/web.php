@@ -78,6 +78,8 @@ Route::resource('admin/contactus', 'FrontEnd\\ContactusController');
 //Page route
 Route::resource('admin/pages','FrontEnd\\PageController');
 
+Route::resource('admin/email-templates', 'Admin\\EmailTemplatesController');
+
 //gererate reports
 Route::get('admin/reports',function(){return view('admin.reports.index');});
 Route::get('admin/reports/customer','Admin\\ReportController@index');
@@ -99,11 +101,7 @@ Route::get('sampleproduct',function(){
 
 Route::get('userdata',function(){
 
-  $products = App\Product::whereHas('category',function($q) use($id)
-    {
-      $q->where('category_id',$id);
-      $q->where('p_id',30);
-    })->with('image')->get();
+  $products = App\Wishlist::with('products')->whereDate('created_at',DB::raw('CURDATE()'))->get();
 
     dd($products);
 });

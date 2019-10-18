@@ -35,7 +35,7 @@ class ContactusController extends BaseController
           'message'=>'required',
         ]);
         if ($validator->fails()) {
-            return $this->sendError(null, 'Please fill all data');
+            return $this->sendError($validator->errors(), 'Please fill all data');
         }
         $input = $request->all();
         $contact = Contactus::create($input);

@@ -42,7 +42,7 @@ class UsersWishlist extends Command
      */
     public function handle()
     {
-        $wishlists = Wishlist::with('product')->whereDate('created_at',DB::raw('CURDATE()'))->get();
+        $wishlists = Wishlist::with('products')->whereDate('created_at',DB::raw('CURDATE()'))->get();
         Mail::to('admin@demo.com')->send(new Wishlistadmin($wishlists));
 
     }
