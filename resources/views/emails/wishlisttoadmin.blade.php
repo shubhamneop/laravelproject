@@ -63,9 +63,9 @@ table, th, td {
  <tr>
 
       <td>{{$loop->iteration}}</td>
-      <td>{{$wish->user->name}} {{$wish->user->lastname}}</td>
-      <td>{{$wish->product->name}}</td>
-      <td> &#8377;. {{$wish->product->price}}</td>
+      <td>{{$wish->users->name}} {{$wish->users->lastname}}</td>
+      <td>{{$wish->products->name}}</td>
+      <td> &#8377;. {{$wish->products->price}}</td>
 
 
 

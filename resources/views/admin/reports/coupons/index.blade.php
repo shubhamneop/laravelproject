@@ -5,6 +5,8 @@
     <h2>Coupons Report</h2>
   </section>
   <section class="content">
+    <a href="{{url('coupons/xls')}}" class="btn btn-sm btn-success">Excel Report</a>
+    <a href="{{url('coupons/csv')}}" class="btn btn-sm btn-info">CSV Report</a>
     <div class="row" style="float:right;">
     <div class="pull-right col-xs-12">
        <form method="GET" action="{{ url('/admin/reports/coupon') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">

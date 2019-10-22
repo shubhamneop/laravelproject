@@ -155,6 +155,8 @@ return [
            SamuelTerra22\ReportGenerator\ServiceProvider::class,
            ConsoleTVs\Charts\ChartsServiceProvider::class,
            Laravel\Passport\PassportServiceProvider::class,
+           Maatwebsite\Excel\ExcelServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -224,6 +226,9 @@ return [
         'ExcelReport'   => SamuelTerra22\ReportGenerator\Facades\ExcelReportFacade::class,
         'CSVReport'     => SamuelTerra22\ReportGenerator\Facades\CSVReportFacade::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+
 
 
     ],

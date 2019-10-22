@@ -94,14 +94,6 @@ Auth::routes();
 Route::get('getsubcategory/{id}','ProductController@subcategory');
 
 
-Route::get('sampleproduct',function(){
-  $product = App\Product::findOrFail(555);
-   dd($product);
-});
-
-Route::get('userdata',function(){
-
-  $products = App\Wishlist::with('products')->whereDate('created_at',DB::raw('CURDATE()'))->get();
-
-    dd($products);
-});
+Route::get('customer/{type}','Admin\\ReportController@customer');
+Route::get('sales/{type}','Admin\\ReportController@sale');
+Route::get('coupons/{type}','Admin\\ReportController@coupons');

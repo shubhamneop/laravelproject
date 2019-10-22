@@ -1,0 +1,1 @@
+php artisan crud:generate EmailTemplates --fields_from_file="/var/www/html/laravelproject/emailtemplete.json" --view-path=admin --controller-namespace=Admin --route-group=admin --form-helper=laravelcollective

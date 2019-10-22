@@ -27,6 +27,10 @@
       </div>
       <br>
   </div>
+  <a href="{{url('customer/xls')}}" class="btn btn-sm btn-success">Excel Report</a>
+  <a href="{{url('customer/csv')}}" class="btn btn-sm btn-info">CSV Report</a>
+
+
        <table class="table table-bordered">
            <tr>
                <th>#</th>
@@ -60,6 +64,7 @@
                          @endcan
 
                    </td>
+
                </tr>
            @endforeach
        </table>
