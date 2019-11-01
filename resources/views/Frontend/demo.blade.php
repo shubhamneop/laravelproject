@@ -6,7 +6,7 @@
         <div class="productinfo text-center">
           @foreach($product->image as $image)
           @endforeach
-          <img src="{{asset('product/' .$image->image_path)}}" alt="{{strtoupper($product->name)}}" width="208px" height="183px"/>
+          <img src="{{asset($image->url)}}" alt="{{strtoupper($product->name)}}" width="208px" height="183px"/>
            <h2><i class="fa fa-inr"></i>  {{ $product->price }}</h2>
            <p>{{ strtoupper($product->name) }}</p>
            @if($product->attribute->quantity<=0)

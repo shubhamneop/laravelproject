@@ -26,7 +26,7 @@
    @foreach($product->image as $image)
    <div class="col-xs-2 col-sm-2 col-md-2 form-group" >
 
-    <img src="{{asset('/product/' .$image->image_path)}}"  style="width:50px;height:70px;">
+    <img src="{{asset($image->url)}}"  style="width:50px;height:70px;">
   </div>
   @endforeach
 

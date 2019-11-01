@@ -12,6 +12,9 @@
 */
 Route::get('/admin-dash', 'HomeController@index')->middleware('role:admin|inventory manager|order manager|superadmin');
 Route::get('admin',function(){
+  if(Auth::user()){
+    return redirect()->back();
+  }
     return view('login');
 });
 Route::post('admin','adminloginController@login')->name('login');
@@ -100,11 +103,8 @@ Route::get('coupons/{type}/{search?}','Admin\\ReportController@coupons');
 
 
 Route::get('productsearch',function(){
-  $keyword ="mobile";
-   $data = App\Product::where('name','LIKE',"%$keyword%")
-                        ->orwhereHas('category',function($q) use($keyword){
-                            $q->where('category_name','LIKE',"%$keyword%");
-                        })->get();
-
-              return $data;
+  $data = App\Product::with('image')->where('id',2)->get();
+  // dd($data);
+  // $data = App\Productimage::where('product_id',2)->get();
+  return view('mailchimp',compact('data'));
 });

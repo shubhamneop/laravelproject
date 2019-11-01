@@ -78,7 +78,7 @@
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="{{asset('product/' .$image->image_path)}}" alt="" />
+								<img src="{{asset($image->url)}}" alt="" />
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
 
@@ -86,19 +86,19 @@
 								    <div class="carousel-inner">
 									  	<div class="item active">
 									   		@foreach($productsDetails->image as $image)
-											   <a href=""><img src="{{asset('product/' .$image->image_path)}}" alt="" width="85px" height="85px"/></a>
+											   <a href=""><img src="{{asset($image->url)}}" alt="" width="85px" height="85px"/></a>
                                             @endforeach
 
 
 									 	</div>
 									 	<div class="item">
 										  @foreach($productsDetails->image as $image)
-											  <a href=""><img src="{{asset('product/' .$image->image_path)}}" alt="" width="85px" height="85px" /></a>
+											  <a href=""><img src="{{asset($image->url)}}" alt="" width="85px" height="85px" /></a>
                                             @endforeach
 										</div>
 										<div class="item">
 										 @foreach($productsDetails->image as $image)
-											  <a href=""><img src="{{asset('product/' .$image->image_path)}}" alt="" width="85px" height="85px" /></a>
+											  <a href=""><img src="{{asset($image->url)}}" alt="" width="85px" height="85px" /></a>
                                             @endforeach
 										</div>
 

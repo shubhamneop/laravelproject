@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Product;
 use App\Productattributesassoc;
 use App\Productcategory;
@@ -93,9 +94,9 @@ class ProductController extends Controller
                       $profileImageSaveAsName = uniqid() . "-product." .
                            $photo->getClientOriginalExtension();
 
-                      $upload_path = 'product/';
+                      $upload_path = 'product/'.$profileImageSaveAsName;
                       $profile_image_url = $profileImageSaveAsName;
-                      $success = $photo->move($upload_path, $profileImageSaveAsName);
+                      $success = Storage::disk('s3')->put($upload_path, file_get_contents($photo));
 
 
                   $prodductimage = new productimage;
@@ -174,9 +175,10 @@ class ProductController extends Controller
                   foreach ($images as $photo) {
                       $profileImageSaveAsName = uniqid() . "-product." .
                            $photo->getClientOriginalExtension();
-                      $upload_path = 'product/';
+                      $upload_path = 'product/'.$profileImageSaveAsName;
                       $profile_image_url = $profileImageSaveAsName;
-                      $success = $photo->move($upload_path, $profileImageSaveAsName);
+
+                    $success = Storage::disk('s3')->put($upload_path, file_get_contents($photo));
 
                      $img = Productimage::where('product_id',$product->id);
                      $prodductimage = new Productimage;

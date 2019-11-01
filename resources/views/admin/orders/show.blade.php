@@ -22,7 +22,7 @@
                                     @foreach($orders->items as $item)
                                     <tr>
                                         <td>
-                                          <img src="{{asset('product/' .$item['image'])}}" alt="" width="60px" height="60px" /></td>
+                                          <img src="{{('http://laraveldemoimageupload.s3.ap-south-1.amazonaws.com/product/' .$item['image'])}}" alt="" width="60px" height="60px" /></td>
                                         <td> {{strtoupper($item['item']['name'])}}</td>
                                         <td> {{$item['qty']}}</td>
                                         <td>{{$item['price']}}</td>

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Storage;
 
 class Productimage extends Model
 {
@@ -33,7 +34,10 @@ class Productimage extends Model
 
  	 protected $dates = ['deleted_at'];
 
-
+   public function getUrlAttribute()
+    {
+        return Storage::disk('s3')->url('product/'.$this->image_path);
+    }
 
 
 }

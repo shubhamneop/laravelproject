@@ -57,7 +57,7 @@
          @foreach($sales as $item)
              <tr>
                  <td>{{$loop->iteration}}</td>
-                   <td>  <img src="{{asset('product/' .$item->product_image)}}" alt="product image" width="60px" height="60px" /></td>
+                   <td>  <img src="{{('http://laraveldemoimageupload.s3.ap-south-1.amazonaws.com/product/' .$item->product_image)}}" alt="product image" width="60px" height="60px" /></td>
                  <td>{{$item->product_name}}</td>
                  <td>{{$item->price}}</td>
                  <td>{{$item->quantity}}</td>

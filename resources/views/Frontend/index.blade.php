@@ -151,7 +151,7 @@
 								 <div class="productinfo text-center">
                    @foreach($product->image as $image)
 									 @endforeach
-									 <img src="{{asset('product/' .$image->image_path)}}" alt="" width="268px" height="249px"/>
+									 <img src="{{asset($image->url)}}" alt="" width="268px" height="249px"/>
 									 <h2><i class="fa fa-inr"></i>  {{ $product->price }}</h2>
 									 <p>{{ strtoupper($product->name) }}</p>
 									  @if($product->attribute->quantity<=0)
@@ -231,7 +231,7 @@
 												<div class="productinfo text-center">
 													@foreach($product->image as $image)
 			 									 @endforeach
-			 									 <img src="{{asset('product/' .$image->image_path)}}" alt="" width="268pc" height="134px"/>
+			 									 <img src="{{asset($image->url)}}" alt="" width="268pc" height="134px"/>
 													<h2><i class="fa fa-inr"></i>  {{ $product->price }}</h2>
 													<p>{{ strtoupper($product->name)}}</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -251,7 +251,7 @@
 												<div class="productinfo text-center">
 													@foreach($product->image as $image)
 												 @endforeach
-												 <img src="{{asset('product/' .$image->image_path)}}" alt="" width="268pc" height="134px"/>
+												 <img src="{{asset($image->url)}}" alt="" width="268pc" height="134px"/>
 												 <h2><i class="fa fa-inr"></i>  {{ $product->price }}</h2>
 												 <p>{{ strtoupper($product->name)}}</p>
 												 @if($product->attribute->quantity<=0)

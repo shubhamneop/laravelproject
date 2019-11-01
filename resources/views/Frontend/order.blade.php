@@ -12,7 +12,7 @@
            	<ul class="list-group">
            		@foreach($order->cart->items as $item)
            		<li>
-								<img src="{{asset('product/' .$item['image'])}}" alt=""  width="60px" height="60px" />
+								<img src="{{('http://laraveldemoimageupload.s3.ap-south-1.amazonaws.com/product/' .$item['image'])}}" alt=""  width="60px" height="60px" />
 
            			{{$item['item']['name']}} | {{$item['qty']}} Item
 								<span class="badge">
@@ -25,7 +25,7 @@
            	</ul>
            </div>
            <div class="panel-footer">
-              
+
            	<strong>Total Price: {{$order->total}}</strong>
 						 <strong style="float:right;">Status: {{$order->status}}</strong>
            </div>

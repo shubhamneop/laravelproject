@@ -7,7 +7,11 @@ Route::get('order','FrontendController@getOrder');
 
 Route::get('checkout',function(){ return view('Frontend.checkout'); });
 
-Route::get('login',function(){ return view('Frontend.login'); })->name('loginuser');
+Route::get('login',function(){
+   if(Auth::user()){
+     return redirect()->back();
+   }
+  return view('Frontend.login'); })->name('loginuser');
 Route::get('contact',function(){ return view('Frontend.contact-us'); });
 
 Route::get('forgetpassword',function(){ return view('Frontend.email');});

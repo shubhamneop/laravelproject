@@ -122,7 +122,7 @@
 
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="{{asset('product/' .$product['image'])}}" alt="" width="60px" height="60px"></a>
+								<a href=""><img src="{{('http://laraveldemoimageupload.s3.ap-south-1.amazonaws.com/product/'.$product['image'])}}" alt="" width="60px" height="60px"></a>
 
 							</td>
 							<td class="cart_description">
@@ -134,7 +134,7 @@
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button" style="margin-top: 25px;">
-									<a class="cart_quantity_up" href="{{url('add/'.$product['item']['id'])}}"> + </a>
+									<a class="cart_quantity_up" data-id="{{$product['item']['id']}}" href="{{url('add/'.$product['item']['id'])}}" > + </a>
 
 									<input class="cart_quantity_input" type="text"  value="{{$product['qty']}}" autocomplete="off" size="2">
 									<a class="cart_quantity_down" href="{{url('reduce/'.$product['item']['id'])}}"> - </a>
@@ -256,5 +256,48 @@
   </section>
 
 @endif
+
+@endsection
+@section('script')
+<script>
+$(document).ready(function(){
+  $('.cart_quantity_up').click(function(e){
+    var id = $(this).attr("data-id");
+    $.ajax({
+    type:'post',
+     dataType:'html',
+     headers: {
+                   'X-CSRF-Token': token
+              },
+     url:'/add/'+id,
+      success:function(responce){
+       console.log(responce);
+      }
+   });
+      alert(id);
+  });
+  //
+  // $('.cart_quantity_down').click(function(e){
+  //     alert('down');
+  // });
+  // $('#apply').click(function(e){
+  //   var id = $("#couponcode").val();
+  //   $.ajax({
+  //   type:'Post',
+  //    dataType:'html',
+  //    url:'/coupon/',
+  //    data:{
+	// 						code: $('#coupon_code').val()
+	// 					},
+  //     success:function(responce){
+  //      console.log(responce);
+  //     }
+  //  });
+  //     alert(id);
+  // });
+
+});
+
+</script>
 
 @endsection

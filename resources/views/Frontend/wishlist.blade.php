@@ -10,7 +10,7 @@
   			</div><!--/breadcrums-->
 
          <h3 style="color: #777;padding-bottom: 6px;text-align: -webkit-center;text-align:-moz-center;">My Wishlist</h3>
-    
+
          <div>
 
    				 <table class="table table-condensed">
@@ -30,7 +30,7 @@
    							<td>
                   @foreach($wish->image as $image)
                   @endforeach
-                   <a href="{{url('productdetails/'.$wish->id)}}"><img src="{{asset('product/' .$image->image_path)}}" alt="" width="70px" height="70px" /></a>
+                   <a href="{{url('productdetails/'.$wish->id)}}"><img src="{{asset($image->url)}}" alt="" width="70px" height="70px" /></a>
 
    							</td>
 

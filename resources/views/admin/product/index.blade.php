@@ -72,7 +72,7 @@
                                @foreach($product->image as $image)
 
                                @endforeach
-                             <td><img src="{{asset('product/' . $image->image_path )}}"  style="width:50px;height:70px;"></td>
+                             <td><img src="{{asset($image->url )}}"  style="width:50px;height:70px;"></td>
 
                              <td> @if(isset($product->category[0]))
                                {{ucfirst($product->category[0]->category_name)}}</td>
