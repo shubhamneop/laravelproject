@@ -16,15 +16,14 @@
 
 				@foreach($banner as $key => $slider)
 			<div class="item {{$key == 0 ? 'active' : '' }}">
-				<div class="col-sm-6">
+				<!-- <div class="col-sm-6">
 					<h1><span>E</span>-SHOPPER</h1>
 					<h2>Free E-Commerce Template</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 					<button type="button" class="btn btn-default get">Get it now</button>
-				</div>
-				<div class="col-sm-6">
-					<img src="{{asset('/storage/' .$slider->bannername)}}" class="girl img-responsive" alt="" />
-					<img src="{{asset('frontend/images/home/pricing.png')}}"  class="pricing" alt="" />
+				</div> -->
+				<div class="col-sm-12">
+					<img src="{{asset('/storage/' .$slider->bannername)}}" class="girl img-responsive" alt=""/>
 				</div>
 			</div>
 				@endforeach
@@ -66,7 +65,7 @@
 									<h4 class="panel-title">
 
 										<a data-toggle="collapse" data-parent="#accordian" id="#{{$item->id}}"  href="#{{$item->id}}">{{$item->category_name}}
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											<span class=" pull-right"><i class="fa fa-plus"></i></span>
 
 										</a>
 
@@ -181,14 +180,14 @@
 										<a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										 @endif
 										 @endif
-										 <a href="{{url('productdetails/'.$product->id)}}" class="btn btn-default cart"><i class="fa fa-plus-square"></i>Product Details</a>
 									 </div>
 								 </div>
 						 </div>
 						 <div class="choose">
 							 <ul class="nav nav-pills nav-justified">
 								 <li><a href="{{url('add-to-wishlist/'.$product->id)}}"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-								 <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+								 <li> <a href="{{url('productdetails/'.$product->id)}}"><i class="fa fa-plus-square"></i>Product Details</a>
+
 							 </ul>
 						 </div>
 					 </div>
@@ -245,7 +244,7 @@
 
 								</div>
 								<div class="item">
-									@foreach($randomproduct as $product)
+									@foreach($randomproduct1 as $product)
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
@@ -255,7 +254,16 @@
 												 <img src="{{asset('product/' .$image->image_path)}}" alt="" width="268pc" height="134px"/>
 												 <h2><i class="fa fa-inr"></i>  {{ $product->price }}</h2>
 												 <p>{{ strtoupper($product->name)}}</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												 @if($product->attribute->quantity<=0)
+											 <a href="" class="btn btn-default add-to-cart" disabled><i class="fa fa-close"></i>Out of Stock</a>
+												@else
+											 @if(in_array($product->id,$cartvalue))
+													<a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-fefault add-to-cart" disabled><i class="fa  fa-check-square-o"></i>
+													Already in cart</a>
+												@else
+											 <a href="{{url('add-to-cart/'.$product->id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												@endif
+												@endif
 												</div>
 
 											</div>

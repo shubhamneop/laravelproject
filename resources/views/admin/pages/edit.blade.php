@@ -71,17 +71,30 @@
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
-            <div class="form-group {{ $errors->has('extras') ? 'has-error' : ''}}">
-              {!!Form::label('Status') !!}
-                 <div class="radio">
-                  <label class="label label-success"> {!! Form::radio("status","active",true, ["class" => "form-group" ]) !!}  Active</label>
-                </div>
-                <div class="radio">
-                 <label class="label label-danger">  {!! Form::radio("status","inactive",false, ["class" => "form-group" ]) !!} Inactive</label>
-               </div>
-
-                 {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
+            @if($page->status==1)
+            <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
+                {!! Form::label('status', 'Status', ['class' => 'control-label']) !!}
+                <div class="checkbox">
+                <label>{!! Form::radio('status', '1', true) !!} Active</label>
             </div>
+            <div class="checkbox">
+                <label>{!! Form::radio('status', '0') !!} Inactive</label>
+            </div>
+                {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
+            </div>
+             @else
+             <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
+                 {!! Form::label('status', 'Status', ['class' => 'control-label']) !!}
+                 <div class="checkbox">
+                 <label>{!! Form::radio('status', '1') !!} Active</label>
+             </div>
+             <div class="checkbox">
+                 <label>{!! Form::radio('status', '0', true) !!} Inactive</label>
+             </div>
+                 {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
+             </div>
+           @endif
+        
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 form-group">
             {!! Form::button('Publish',['id'=>'submit','class'=>'btn btn-success','type'=>'submit'])!!}

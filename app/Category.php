@@ -14,7 +14,7 @@ class Category extends Model
     *
     * @var array
     */
-    public $fillable = ['category_name','p_id'];
+    public $fillable = ['category_name','p_id','status'];
 
     use SoftDeletes;
 
@@ -62,6 +62,24 @@ class Category extends Model
     public function scopeSubCategory($query){
      return $query->where('p_id','!=',0);
    }
+
+   /**
+   *scope function for status equal to one
+   */
+ public function scopeActivecategory($query){
+     return $query->where('status',1);
+  }
+
+  /**
+  *scope function for status equal to one
+  */
+public function scopeInactivecategory($query){
+    return $query->where('status',0);
+ }
+
+
+
+
 
    /**
    * Set the Category name .

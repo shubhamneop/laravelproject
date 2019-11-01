@@ -50,7 +50,17 @@
 									<span class="text-danger">{{ $errors->first('p_id') }}</span>
 
 								</div>
+                <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
+                  {!! Form::label('Status:') !!}<br>
+                  @if($category->status==1)
+                   {{ Form::radio('status', 'Active' , true) }} Active
+                   {{ Form::radio('status', 'Inactive' , false) }} Inactive
 
+                   @else
+                   {{ Form::radio('status', 'Active' , false) }} Active
+                   {{ Form::radio('status', 'Inactive' , true) }} Inactive
+                 @endif
+                </div>
 
 								<div class="form-group">
                 {!! Form::button('Update',['class'=>'btn btn-success','type'=>'submit'])!!}

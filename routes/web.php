@@ -94,6 +94,17 @@ Auth::routes();
 Route::get('getsubcategory/{id}','ProductController@subcategory');
 
 
-Route::get('customer/{type}','Admin\\ReportController@customer');
-Route::get('sales/{type}','Admin\\ReportController@sale');
-Route::get('coupons/{type}','Admin\\ReportController@coupons');
+Route::get('customer/{type}/{search?}','Admin\\ReportController@customer');
+Route::get('sales/{type}/{search?}','Admin\\ReportController@sale');
+Route::get('coupons/{type}/{search?}','Admin\\ReportController@coupons');
+
+
+Route::get('productsearch',function(){
+  $keyword ="mobile";
+   $data = App\Product::where('name','LIKE',"%$keyword%")
+                        ->orwhereHas('category',function($q) use($keyword){
+                            $q->where('category_name','LIKE',"%$keyword%");
+                        })->get();
+
+              return $data;
+});

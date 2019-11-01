@@ -25,7 +25,7 @@ class BannerRequest extends FormRequest
     {
         return [
           'name'=>'required|unique:banners,name',
-          'bannername'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+          'bannername'=>'required|image|mimes:jpeg,png,jpg,gif,svg'
         ];
     }
 }

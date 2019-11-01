@@ -9,7 +9,7 @@
         <section class="content">
              <div class="pull-right">
                <a href="{{ url('/admin/configurations') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-            </div>
+            </div><br>
 
             {!! Form::model($configuration, [
                  'method' => 'PATCH',
@@ -21,7 +21,7 @@
              @include ('admin.configurations.form', ['formMode' => 'edit'])
 
              {!! Form::close() !!}
-                        
+
 
         </section>
     </div>

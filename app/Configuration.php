@@ -26,7 +26,7 @@ class Configuration extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'value'];
+    protected $fillable = ['name', 'value','status'];
 
     use SoftDeletes;
 

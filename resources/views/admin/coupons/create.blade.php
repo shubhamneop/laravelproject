@@ -8,7 +8,7 @@
      <section class="content">
            <div class="pull-right">
              <a href="{{ url('/admin/coupons') }}" title="Back"><button class="btn btn-info btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-           </div>
+           </div><br><br>
          {!! Form::open(['url' => '/admin/coupons', 'data-parsley-validate', 'files' => true]) !!}
 
              @include ('admin.coupons.form', ['formMode' => 'create'])

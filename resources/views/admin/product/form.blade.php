@@ -122,6 +122,28 @@
 </div>
 </div>
 
+@if($formMode=='edit')
+
+<div class="col-xs-12 col-sm-12 col-md-12">
+   <div class="form-group">
+     <input type="radio" id="status" name="status" value="Active" {{ ($product->status=="1")? "checked" : "" }} >Active</label>
+
+     <input type="radio"  id="status" name="status" value="Inactive"  {{ ($product->status=="0")? "checked" : "" }} >Inactive</label>
+
+
+  </div>
+  </div>
+  @else
+<div class="col-xs-12 col-sm-12 col-md-12">
+   <div class="form-group">
+     <input type="radio" id="status" name="status" value="Active" checked >Active</label>
+
+     <input type="radio"  id="status" name="status" value="Inactive">Inactive</label>
+
+  </div>
+</div>
+@endif
+
  <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">

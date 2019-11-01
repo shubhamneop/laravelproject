@@ -19,7 +19,7 @@ class Product extends Model
    *
    * @var array
    */
-  protected $fillable=['name','description','price'];
+  protected $fillable=['name','description','price','status'];
 
   /**
   *SoftDeletes declaration
@@ -102,6 +102,19 @@ class Product extends Model
           return ucwords($value);
     }
 
+    /**
+    *scope function for status equal to one
+    */
+  public function scopeActiveproduct($query){
+      return $query->where('status',1);
+   }
+
+   /**
+   *scope function for status equal to one
+   */
+ public function scopeInactiveproduct($query){
+     return $query->where('status',0);
+  }
 
 
 }

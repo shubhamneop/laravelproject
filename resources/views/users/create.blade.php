@@ -108,15 +108,7 @@
 
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Status:</strong>
-                        {!! Form::radio('status', '1',true) !!}
-                        {!! Form::radio('status','0', false) !!}
-                        <span style="color: red">{{ $errors->first('status') }}</span>
 
-                    </div>
-                </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                              {!! Form::Label('Roles', 'Roles:') !!}
@@ -124,6 +116,15 @@
                          <span style="color: red">{{ $errors->first('roles') }}</span>
 
                      </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Status:</strong><br>
+                        {!! Form::radio('status', '1',true) !!} Active
+                        {!! Form::radio('status','0', false) !!} Inactive
+                        <span style="color: red">{{ $errors->first('status') }}</span>
+
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                   {{ Form::button('Submit', ['class' => 'btn  btn-primary', 'type' => 'submit']) }}

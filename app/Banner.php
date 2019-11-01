@@ -26,7 +26,7 @@ class Banner extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'bannername'];
+    protected $fillable = ['name', 'bannername','status'];
 
     use SoftDeletes;
 
@@ -54,5 +54,20 @@ class Banner extends Model
    {
      return ucwords($value);
    }
+
+   /**
+   *scope function for status equal to one
+   */
+ public function scopeActivebanner($query){
+     return $query->where('status',1);
+  }
+
+  /**
+  *scope function for status equal to one
+  */
+public function scopeInactivebanner($query){
+    return $query->where('status',0);
+ }
+
 
 }

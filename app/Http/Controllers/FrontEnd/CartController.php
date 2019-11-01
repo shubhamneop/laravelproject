@@ -101,7 +101,7 @@ class CartController extends Controller
                         $ids[] = $value->coupon_id;
 
                         }
-            			 	$coupons = Coupon::whereNotIn('id',$ids)
+            			 	$coupons = Coupon::Activecoupon()->whereNotIn('id',$ids)
             			                    ->get();
 
                  return view('Frontend.checkout',['products'=>$cart->items,'totalQty'=>$cart->totalQty, 'totalPrice'=>$cart->totalPrice, 'total'=>$newTotal,'coupons'=>$coupons,'data'=>$data,'shipTotalPrice'=>$shipTotalPrice,'addresses'=>$addresses]);
@@ -215,7 +215,7 @@ class CartController extends Controller
   	}
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-        $coupons = Coupon::all();
+        $coupons = Coupon::Activecoupon()->get();
 
      return view('Frontend.cart',['products'=>$cart->items,'totalQty'=>$cart->totalQty,'totalPrice'=>$cart->totalPrice,'shipTotalPrice'=>$cart->shipTotalPrice,'total'=>null,'coupons'=>$coupons]);
 
@@ -252,12 +252,12 @@ class CartController extends Controller
 
          if(count($data)<=0)
             {
-              $coupons = Coupon::all();
+              $coupons = Coupon::Activecoupon()->get();
             }else{
               foreach ($data as $key => $value) {
                   $ids[] = $value->coupon_id;
                   }
-              $coupons =   Coupon::whereNotIn('id',$ids)->get();
+              $coupons =   Coupon::Activecoupon()->whereNotIn('id',$ids)->get();
             }
 
 

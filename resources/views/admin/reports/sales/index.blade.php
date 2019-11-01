@@ -6,9 +6,14 @@
 
     </section>
      <section class="content">
+       @if(app('request')->input('search'))
+           <a href="{{ url('sales/xls',app('request')->input('search')) }}"><button class="btn btn-sm btn-success">Excel Report</button></a>
+           <a href="{{ url('sales/csv',app('request')->input('search')) }}"><button class="btn btn-sm btn-info">CSV Report</button></a>
+
+     @else
        <a href="{{url('sales/xls')}}" class="btn btn-sm btn-success">Excel Report</a>
        <a href="{{url('sales/csv')}}" class="btn btn-sm btn-info">CSV Report</a>
-
+    @endif
        <div class="row" style="float:right;">
          <div class="pull-right col-xs-12" >
             <form method="GET" action="{{ url('/admin/reports/sales') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">

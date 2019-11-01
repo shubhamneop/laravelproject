@@ -59,7 +59,7 @@
 
 
                       <tr>
-                      <th>#</th><th>Product</th><th>Description</th><th>Image</th><th>Category</th><th>Price</th><th>Colour</th><th>Quantity</th><th>Action</th>
+                      <th>#</th><th>Product</th><th>Description</th><th>Image</th><th>Category</th><th>Price</th><th>Colour</th><th>Quantity</th><th>Status</th><th>Action</th>
                       </tr>
 
 
@@ -73,12 +73,23 @@
 
                                @endforeach
                              <td><img src="{{asset('product/' . $image->image_path )}}"  style="width:50px;height:70px;"></td>
-                             <td>{{ucfirst($product->category[0]->category_name)}}</td>
+
+                             <td> @if(isset($product->category[0]))
+                               {{ucfirst($product->category[0]->category_name)}}</td>
+
+                                   @else
+                                   -
+                                   @endif
                              <td>{{$product->price}}</td>
                              <td>{{ucfirst($product->attribute->color)}}</td>
                              <td>{{$product->attribute->quantity}}</td>
 
-
+                             <td>@if($product->status == 1)
+                                 <span class="btn btn-success">  Active </span>
+                                 @else
+                                 <span class="btn btn-danger">  Inactive </span>
+                                 @endif
+                              </td>
 
 
 

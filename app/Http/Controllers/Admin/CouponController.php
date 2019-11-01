@@ -68,7 +68,7 @@ class CouponController extends Controller
     {
 
         Coupon::create($request->toArray());
-  
+
         return redirect('admin/coupons')->with('success', 'coupon added!');
     }
 

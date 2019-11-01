@@ -14,13 +14,13 @@
               <a href="{{ url('/admin/configurations') }}" title="Back"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden=""></i> Back</button></a>
                  </div>
              </div>
-          </div>
+          </div><br>
             {!! Form::open(['url' => '/admin/configurations', 'data-parsley-validate', 'files' => true]) !!}
 
                  @include ('admin.configurations.form', ['formMode' => 'create'])
 
              {!! Form::close() !!}
-                      
+
      </section>
   </div>
 @endsection

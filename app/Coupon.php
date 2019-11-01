@@ -26,7 +26,7 @@ class Coupon extends Model
      *
      * @var array
      */
-    protected $fillable = ['title','code','type', 'discount'];
+    protected $fillable = ['title','code','type', 'discount','status'];
 
     /**
     *SoftDeletes declaration
@@ -74,5 +74,19 @@ class Coupon extends Model
     {
         return ucwords($value);
     }
+
+    /**
+    *set scope for active coupons
+    */
+  public function scopeActivecoupon($query){
+    return $query->where('status',1);
+  }
+
+  /**
+  *set scope for active coupons
+  */
+public function scopeInactivecoupon($query){
+  return $query->where('status',0);
+}
 
 }

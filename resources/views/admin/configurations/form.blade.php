@@ -8,7 +8,16 @@
     {!! Form::email('value', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required','data-parsley-type'=>'email','data-parsley-trigger'=>'change'] : ['class' => 'form-control','required'=>'required','data-parsley-type'=>'email','data-parsley-trigger'=>'change']) !!}
     {!! $errors->first('value', '<p class="help-block">:message</p>') !!}
 </div>
-
+<div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
+    {!! Form::label('status', 'Status', ['class' => 'control-label']) !!}
+    <div class="checkbox">
+    <label>{!! Form::radio('status', '1', true) !!} Active</label>
+</div>
+<div class="checkbox">
+    <label>{!! Form::radio('status', '0') !!} Inactive</label>
+</div>
+    {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
+</div>
 
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Update' : 'Create', ['class' => 'btn btn-success']) !!}

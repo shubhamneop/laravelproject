@@ -59,7 +59,7 @@ class ProductController extends Controller
     */
   public function create(){
        $product = null;
-       $categories = Category::parentcategory()->get();
+       $categories = Category::parentcategory()->Activecategory()->get();
  	  return view('admin.product.create',compact('categories','product'));
     }
 
@@ -77,7 +77,12 @@ class ProductController extends Controller
          $product->name=$request->input('name');
          $product->description= $request->input('description');
          $product->price= $request->input('price');
-         
+         if($request->status == 'Inactive'){
+         $product->status = 0;
+         }else{
+           $product->status = 1;
+         }
+
          $product->save();
          $id= $product->id;
 
@@ -122,7 +127,7 @@ class ProductController extends Controller
      * @return \Illuminate\View\View
      */
     public function edit(Product $product) {
-           $categories = Category::parentcategory()->get();
+           $categories = Category::parentcategory()->Activecategory()->get();
 	      return view('admin.product.edit',compact('product','categories'));
         }
 
@@ -149,7 +154,11 @@ class ProductController extends Controller
   public function update(ProductUpdateRequest $request, Product $product){
 
               $input = $request->all();
-
+              if($request->status == 'Inactive'){
+                $input['status'] = 0;
+              }else{
+                $input['status'] = 1;
+              }
               $product->update($input);
 
                   if($request->hasFile('image_path')){

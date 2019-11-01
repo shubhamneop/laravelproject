@@ -171,12 +171,21 @@ class ReportController extends Controller
       return view('admin.reports.sales.index',compact('sales','subcategory'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-      public function customer($type)
+      public function customer($type,$search=NULL)
       	{
+
+          if($search){
+            $data = User::whereHas('roles' , function($q){
+              $q->where('name', 'customer');
+            })->select('name','lastname','email', 'created_at AS Registered_at')->where('email','LIKE',"%$search%")
+              ->orwhere('name','LIKE',"%$search%")
+              ->orwhere('lastname','LIKE',"%$search%")->orderBy('id','DESC')->get();
+          }else{
+
       		$data = User::whereHas('roles' , function($q){
            $q->where('name', 'customer');
          })->select('name','lastname','email', 'created_at AS Registered_at')->orderBy('id','DESC')->get();
-
+       }
       		return Excel::create('Customer_report', function($excel) use ($data) {
       			$excel->sheet('mySheet', function($sheet) use ($data)
       	        {
@@ -185,9 +194,19 @@ class ReportController extends Controller
       		})->download($type);
       	}
 
-        public function sale($type){
+        public function sale($type,$search=NULL){
+          if($search){
+            $data = Cartdetail::join('cats','cats.id','=','cartdetails.category')
+                  ->select('cartdetails.id','cartdetails.product_name','cartdetails.quantity','cartdetails.price','cats.category_name','cartdetails.created_at AS Placed_At')
+                  ->where('cartdetails.product_name','LIKE',"%$search%") 
+                  ->get();
+
+          }else {
+
           $data = Cartdetail::join('cats','cats.id','=','cartdetails.category')
                 ->select('cartdetails.id','cartdetails.product_name','cartdetails.quantity','cartdetails.price','cats.category_name','cartdetails.created_at AS Placed_At')->get();
+
+          }
           return Excel::create('Sales_report', function($excel) use ($data) {
       			$excel->sheet('mySheet', function($sheet) use ($data)
       	        {
@@ -197,13 +216,21 @@ class ReportController extends Controller
         }
 
 
-        public function coupons($type){
-          // $coupons = Used_coupon::with('coupon','user','order_detail')->where('coupon_id','!=',0)->orderBy('id','DESC')->get();
-
+        public function coupons($type,$search=NULL){
+          if($search){
+            $data = Used_coupon::join('coupons','coupons.id','=','used_coupons.coupon_id')
+                               ->join('users','users.id','used_coupons.user_id')
+                               ->join('order_details','order_details.coupon_id','used_coupons.id')
+                  ->select('used_coupons.id','coupons.code','coupons.discount','coupons.type','users.name','order_details.order_no')
+                  ->where('users.email','LIKE',"%$search%")
+                  ->orwhere('coupons.code','LIKE',"$search")
+                  ->get();
+          }else{
           $data = Used_coupon::join('coupons','coupons.id','=','used_coupons.coupon_id')
                              ->join('users','users.id','used_coupons.user_id')
                              ->join('order_details','order_details.coupon_id','used_coupons.id')
                 ->select('used_coupons.id','coupons.code','coupons.discount','coupons.type','users.name','order_details.order_no')->get();
+           }
           return Excel::create('Coupons_report', function($excel) use ($data) {
             $excel->sheet('mySheet', function($sheet) use ($data)
                 {

@@ -41,12 +41,17 @@ class FrontendController extends Controller
 						$oldCart = Session::get('cart');
 					 $cart = new Cart($oldCart);
 					 $randomproduct = Product::all()->random(3);
-						$products = Product::where('name','LIKE',"%$keyword%")
-						                     ->orwhere('description','LIKE',"%$keyword%")->paginate($perPage);
-						$category =  Category::parentcategory()->get();
-						$subcategory = Category::subCategory()->get();
+					 $randomproduct1 = Product::all()->random(3);
 
-						$banner = Banner::all();
+						$products = Product::where('name','LIKE',"%$keyword%")
+						                     ->orwhere('description','LIKE',"%$keyword%")
+																 ->orwhereHas('category',function($q) use($keyword){
+				                             $q->where('category_name','LIKE',"%$keyword%");
+				                         })->Activeproduct()->paginate($perPage);
+						$category =  Category::parentcategory()->Activecategory()->get();
+						$subcategory = Category::subCategory()->Activecategory()->get();
+
+						$banner = Banner::Activebanner()->get();
 						$categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
 			                  ->groupBy('category_id')
 			                  ->get();
@@ -63,11 +68,13 @@ class FrontendController extends Controller
 						$oldCart = Session::get('cart');
 						$cart = new Cart($oldCart);
             $randomproduct = Product::all()->random(3);
-            $category =  Category::parentcategory()->get();
-            $products = Product::paginate($perPage);
-				    $subcategory = Category::subCategory()->get();
+						$randomproduct1 = Product::all()->random(3);
+            $category =  Category::parentcategory()->Activecategory()->get();
+            $products = Product::Activeproduct()->paginate($perPage);
+				    $subcategory = Category::subCategory()->Activecategory()->get();
 
-            $banner = Banner::all();
+						$banner = Banner::Activebanner()->get();
+
 				  	$categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
 			                  ->groupBy('category_id')
 			                  ->get();
@@ -82,7 +89,7 @@ class FrontendController extends Controller
 
 
 				}
-    	return view('Frontend.index',compact('randomproduct','cartvalue','products','category','subcategory','banner','categorycounts'));
+    	return view('Frontend.index',compact('randomproduct','randomproduct1','cartvalue','products','category','subcategory','banner','categorycounts'));
     }
 
 		/**
@@ -96,7 +103,7 @@ class FrontendController extends Controller
 		 $oldCart = Session::get('cart');
 		 $cart = new Cart($oldCart);
 
-        $category =  Category::parentcategory()->get();
+        $category =  Category::parentcategory()->Activecategory()->get();
         $demo = Category::with('childs','parent')->get();
         $productsDetails = Product::with('image','attribute','category')->findOrFail($id);
 				$categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
@@ -130,12 +137,13 @@ class FrontendController extends Controller
 			$oldCart = Session::get('cart');
 			$cart = new Cart($oldCart);
         $randomproduct = Product::all()->random(3);
+				$randomproduct1 = Product::all()->random(3);
 			 $products = Product::whereHas('category',function($q) use($id)
 			 {
 			 $q->where('category_id',$id);
-			 })->with('image')->paginate($perPage);
-       $category =  Category::parentcategory()->get();
-			 $subcategory = Category::subCategory()->get();
+			 })->with('image')->Activeproduct()->paginate($perPage);
+       $category =  Category::parentcategory()->Activecategory()->get();
+			 $subcategory = Category::subCategory()->Activecategory()->get();
        $banner = Banner::all();
 			 $categorycounts =	Productcategory::select('category_id', DB::raw('count(*) as total'))
 									 ->groupBy('category_id')
@@ -148,7 +156,7 @@ class FrontendController extends Controller
 				 			}
 				 		}
 
-      return view('Frontend.index',compact('randomproduct','cartvalue','products','category','subcategory','banner','categorycounts'));
+      return view('Frontend.index',compact('randomproduct','randomproduct1','cartvalue','products','category','subcategory','banner','categorycounts'));
 
 
 
@@ -168,10 +176,10 @@ class FrontendController extends Controller
             $productss =Product::whereHas('category',function($q) use($id)
 	            	   {
 	             	    $q->where('category_id',$id);
-	              	 })->with('image')->get();
+	              	 })->with('image')->Activeproduct()->get();
 			     	$products = Product::all();
-			    	$subcategory = Category::subCategory()->get();
-            $category =  Category::parentcategory()->get();
+			    	$subcategory = Category::subCategory()->Activecategory()->get();
+            $category =  Category::parentcategory()->Activecategory()->get();
 						if(count($cart->items)<=0){
 		 				 $cartvalue[] = 0;
 		 				 	}else{

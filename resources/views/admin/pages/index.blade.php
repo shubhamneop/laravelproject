@@ -59,7 +59,12 @@
                                         <td> {{ucfirst($page->title)}}</td>
                                         <td>{{ucfirst($page->slug)}}</td>
                                         <td>{{$page->content}} </td>
-                                        <td>{{ucfirst($page->status)}}</td>
+                                        <td>@if($page->status == 1)
+                                            <span class="btn btn-success">  Active </span>
+                                            @else
+                                            <span class="btn btn-danger">  Inactive </span>
+                                            @endif
+                                         </td>
 
 
                                 <td>

@@ -101,6 +101,15 @@
                         {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
                     </div>
                 </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Status:</strong><br>
+                        {!! Form::radio('status', '1',true) !!} Active
+                        {!! Form::radio('status','0' ) !!} Inactive
+                        <span style="color: red">{{ $errors->first('status') }}</span>
+
+                    </div>
+                </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     {{ Form::button('Submit', ['class' => 'btn  btn-success', 'type' => 'submit']) }}
                 </div>

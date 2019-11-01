@@ -89,15 +89,19 @@ class PageController extends Controller
     {
 
        $pages = Page::slug($slug)->statusActive()->get();
+       if(count($pages)<=0){
+         return view('Frontend.404');
+       }else {
 
          foreach ($pages as $page) {
             $status= $page->status;
          }
-         if($status=='inactive'){
+         if($status==0){
           return view('Frontend.404');
          }else{
           return view('pages',compact('pages'));
          }
+       } 
 
     }
 

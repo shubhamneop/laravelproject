@@ -44,7 +44,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Name</th><th>Banner Image</th><th width="280px">Actions</th>
+                                        <th>#</th><th>Name</th><th>Banner Image</th><th>Status</th><th width="280px">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,6 +52,12 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ ucfirst($item->name) }}</td><td> <img src="{{asset('/storage/' .$item->bannername)}}"  style="width:50px;height:70px;"></td>
+                                        <td>@if($item->status == 1)
+                                            <span class="btn btn-success">  Active </span>
+                                            @else
+                                            <span class="btn btn-danger">  Inactive </span>                            
+                                            @endif
+                                         </td>
                                         <td>
                                             <a href="{{ url('/admin/banners/' . $item->id) }}" title="View banner"><button class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/banners/' . $item->id . '/edit') }}" title="Edit banner"><button class="btn btn-success "><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

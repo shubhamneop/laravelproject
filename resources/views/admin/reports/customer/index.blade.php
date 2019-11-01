@@ -27,9 +27,14 @@
       </div>
       <br>
   </div>
+  @if(app('request')->input('search'))
+  		<a href="{{ url('customer/xls',app('request')->input('search')) }}"><button class="btn btn-sm btn-success">Excel Report</button></a>
+      <a href="{{ url('customer/csv',app('request')->input('search')) }}"><button class="btn btn-sm btn-info">CSV Report</button></a>
+
+@else
   <a href="{{url('customer/xls')}}" class="btn btn-sm btn-success">Excel Report</a>
   <a href="{{url('customer/csv')}}" class="btn btn-sm btn-info">CSV Report</a>
-
+@endif
 
        <table class="table table-bordered">
            <tr>

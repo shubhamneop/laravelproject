@@ -64,7 +64,7 @@ class ConfigurationController extends Controller
 
 
         $requestData = $request->all();
-
+        
         Configuration::create($requestData);
 
         return redirect('admin/configurations')->with('success', 'configuration added!');

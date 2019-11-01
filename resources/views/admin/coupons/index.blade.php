@@ -44,7 +44,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Title</th><th>Code</th><th>Type</th><th>Discount</th><th>Actions</th>
+                                        <th>#</th><th>Title</th><th>Code</th><th>Type</th><th>Discount</th><th>Status</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,6 +55,12 @@
                                         <td>{{ $item->code }}</td>
                                         <td>{{ucfirst($item->type)}}</td>
                                         <td>{{ $item->discount }}</td>
+                                        <td>@if($item->status == 1)
+                                            <span class="btn btn-success">  Active </span>
+                                            @else
+                                            <span class="btn btn-danger">  Inactive </span>
+                                            @endif
+                                         </td>
                                         <td>
                                             @can('coupon-list')
                                             <a href="{{ url('/admin/coupons/' . $item->id) }}" title="View coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

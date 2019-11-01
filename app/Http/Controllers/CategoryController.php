@@ -69,6 +69,11 @@ class CategoryController extends Controller
 
         $input = $request->all();
         $input['p_id'] = empty($input['p_id']) ? 0 : $input['p_id'];
+        if($request->status == 'Inactive'){
+          $input['status'] = 0;
+        }else{
+          $input['status'] = 1;
+        }
         Category::create($input);
         return redirect('admin/categories')->with('success', 'New Category added successfully.');
 
@@ -115,6 +120,11 @@ class CategoryController extends Controller
      {
         $input = $request->all();
         $input['p_id'] = empty($input['p_id']) ? 0 : $input['p_id'];
+        if($request->status == 'Inactive'){
+          $input['status'] = 0;
+        }else{
+          $input['status'] = 1;
+        }
         $category->update($input);
 
         return redirect('admin/categories')->with('success', 'Category updated!');

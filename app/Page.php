@@ -32,14 +32,14 @@ class Page extends Model
    *Scope function for active record
    */
   public function scopeStatusActive($query){
-    return $query->where('status','active');
+    return $query->where('status',1);
   }
 
   /**
   *Scope function for inactive record
   */
   public function scopeStatusInctive($query){
-    return $query->where('status','inactive');
+    return $query->where('status',0);
   }
 
   /**

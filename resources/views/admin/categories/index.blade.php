@@ -44,7 +44,7 @@
                        <thead>
 
                       <tr>
-                      <th>#</th><th>Category</th><th>Parent</th><th>Actions</th>
+                      <th>#</th><th>Category</th><th>Parent</th><th>Status</th><th>Actions</th>
                       </tr>
 
                       </thead>
@@ -64,7 +64,14 @@
                                      {{$category->parent->category_name}}
 
                                  @endif
-                              	</td><td>
+                              	</td>
+                                <td>@if($category->status == 1)
+                                    <span class="btn btn-success">  Active </span>
+                                    @else
+                                    <span class="btn btn-danger">  Inactive </span>
+                                    @endif
+                                 </td>
+                                <td>
 
                                 <a href="{{ url('/admin/categories/' . $category->id) }}" title="View configuration"><button class="btn btn-info "><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
 

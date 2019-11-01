@@ -70,10 +70,7 @@ class BannersController extends Controller
 
         $requestData = $request->all();
         $requestData['bannername'] = $this->verifyAndStoreImage($request, 'bannername', 'banner');
-        // if ($request->hasFile('bannername')) {
-        //     $requestData['bannername'] = $request->file('bannername')
-        //         ->store('banner', 'public');
-        // }
+
         Banner::create($requestData);
 
         return redirect('admin/banners')->with('success', 'banner added!');
@@ -116,7 +113,7 @@ class BannersController extends Controller
     {
 
         $requestData = $request->all();
-         $requestData['bannername'] = $this->verifyAndStoreImage($request,'bannername','banner');
+        $requestData['bannername'] = $this->verifyAndStoreImage($request,'bannername','banner');
 
         $banner->update($requestData);
 
