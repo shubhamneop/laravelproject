@@ -114,6 +114,7 @@ class CartController extends Controller
                  }
 
 
+
              } else{
                   return redirect()->back()->with('message', 'Wrong Coupon code you entered!');
 
